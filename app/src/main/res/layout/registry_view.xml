@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.registry_controller"
+    android:weightSum="1"
+    android:background="@drawable/drewno"
+    android:focusable="false">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/password_edit_text"
+        android:text="Nowe Hasło"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_marginTop="90dp"
+        android:layout_below="@+id/confirm_email_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/confirm_email_edit_text" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_password_edit_text"
+        android:text="Potwierdź Nowe Hasło"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/password_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:text="Imię"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:id="@+id/firstName_edit_text"
+        android:autoText="true"
+        android:layout_below="@+id/gender_spinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="86dp"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Urodzenia"
+        android:textStyle="bold"
+        android:shadowColor="@color/colorPrimary"
+        android:minHeight="45dp"
+        android:id="@+id/set_birthDate_button"
+        android:longClickable="true"
+        android:nestedScrollingEnabled="false"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:layout_below="@+id/gender_spinner"
+        android:layout_marginTop="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nazwisko"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:id="@+id/last_name_edit_text"
+        android:layout_below="@+id/firstName_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_email_edit_text"
+        android:textAlignment="center"
+        android:text="Potwierdź Adres Email"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/email_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_edit_text"
+        android:text="Adres Email"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_marginTop="124dp"
+        android:layout_below="@+id/last_name_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:layout_width="500dp"
+        android:layout_height="80dp"
+        android:id="@+id/gender_spinner"
+        android:textAlignment="center"
+        android:transitionGroup="true"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/personal_info_text_view"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/account_info_text_view" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informacje Personalne"
+        android:textStyle="bold"
+        android:id="@+id/personal_info_text_view"
+        android:textSize="45px"
+        android:textAlignment="center"
+        android:textColor="#233296"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informacje Dotyczące Konta"
+        android:textStyle="bold"
+        android:id="@+id/account_info_text_view"
+        android:textSize="45px"
+        android:textAlignment="center"
+        android:textColor="#233296"
+        android:layout_marginTop="59dp"
+        android:layout_below="@+id/last_name_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Następny Krok"
+        android:shadowColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:height="1px"
+        android:textStyle="bold"
+        android:id="@+id/confirm_button"
+        android:onClick="gather_user_data"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

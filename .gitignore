@@ -1,0 +1,10 @@
+
+!/.gitignore
+*.iml
+.gradle
+/local.properties
+/.idea/*
+/build
+.idea/
+app/libs/
+app/src/main/res/layout/View/
