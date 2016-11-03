@@ -30,13 +30,13 @@
             android:name=".controller.registry_detail_controller"
             android:label="Parametry i Cele" />
         <activity
-            android:name=".controller.info_controller"
-            android:label="@string/title_activity_info_controller"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".controller.main_panel_controller"
             android:label="@string/title_activity_main_panel_controller"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.info_controller"
+            android:label="@string/title_activity_info_controller"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
 
 </manifest>

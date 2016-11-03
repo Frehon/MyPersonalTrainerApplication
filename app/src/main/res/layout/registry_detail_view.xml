@@ -140,13 +140,12 @@
         android:layout_above="@+id/infoButton" />
 
     <Button
-        android:text="Czym jest współczynnik aktywności i jak obliczamy kaloryczność diety?"
+        android:text="Czym jest współczynnik aktywności?"
         android:textStyle="bold"
         android:textColorHighlight="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/infoButton"
-        android:onClick="moveToInfoActivity"
         android:layout_above="@+id/finishRegistrationButton"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />

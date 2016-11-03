@@ -1,38 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registry_detail_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.info_controller">
+    android:background="@drawable/drewno2"
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.registry_detail_controller"
+    android:weightSum="1">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <TextView
+        android:text="1.2 - Brak aktywności fizycznej , praca siedząca."
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FirstOptionTextView"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/TitleTextView"
+        android:layout_alignParentStart="true" />
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="?attr/colorButtonNormal">
+    <TextView
+        android:text="Współczynnik Aktywności wyznaczamy na podstawie prowadzonego trybu życia :"
+        android:textSize="40px"
+        android:textStyle="bold"
+        android:textColor="#233296"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TitleTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <TextView
+        android:text="1.8 - Regularne ćwiczenia + praca siedząca."
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FourthOptionTextView"
+        android:layout_below="@+id/ThirdOptionTextView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:text="1.4 - Sporadyczny ruch + praca siedząca."
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SecondOptionTextView"
+        android:layout_below="@+id/FirstOptionTextView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
 
-    <include layout="@layout/content_info_view" />
+    <TextView
+        android:text="2.0 - Regularne ćwiczenia + praca w ruchu."
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/FourthOptionTextView"
+        android:layout_alignParentStart="true" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:text="1.6 - brak aktywności fizycznej + praca w ruchu."
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ThirdOptionTextView"
+        tools:ignore="HardcodedText,PxUsage"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/SecondOptionTextView"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

@@ -19,8 +19,6 @@ public class main_panel_controller extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    String test = "test";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

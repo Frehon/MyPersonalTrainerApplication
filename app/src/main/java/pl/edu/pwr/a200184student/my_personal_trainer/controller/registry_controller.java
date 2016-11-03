@@ -127,7 +127,7 @@ public class registry_controller extends AppCompatActivity implements AdapterVie
     }
     //  shall flow user data after clicking confirm button.
     public void gather_user_data(View view) {
-
+/*
         String user_first_name = first_name_edit_text.getText().toString();
         String user_last_name = last_name_edit_text.getText().toString();
         String user_email_adress = email_edit_text.getText().toString();
@@ -160,10 +160,11 @@ public class registry_controller extends AppCompatActivity implements AdapterVie
                                     Toast.makeText(getApplicationContext(), "Hasła nie są identyczne , bądź nie spełniają wymagań 8 znaków w tym minimum jednej cyfry! ", Toast.LENGTH_LONG).show();
                                 } else {
                                     newUserData.put("PasswordHash" , String.valueOf(user_password.hashCode()));
-
+*/
                                     Intent intent = new Intent(this, registry_detail_controller.class);
                                     intent.putExtra("map", newUserData);
                                     startActivity(intent);
+        /*
                                 }
                             }
                         }
@@ -171,6 +172,7 @@ public class registry_controller extends AppCompatActivity implements AdapterVie
                 }
             }
         }
+        */
     }
 }
 

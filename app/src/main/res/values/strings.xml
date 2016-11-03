@@ -11,11 +11,7 @@
     </string-array>
     <string name="title_activity_registry_details_controller">registry_details_controller</string>
     <string name="info_text">
-    <p><b>JAK OBLICZANA JEST KALORYCZNOŚĆ DIETY ?</b></p>
-    cos tam
-    <p><b>CO OZNACZA WSPÓŁCZYNNIK AKTYWNOŚCI I JAKI MA WPŁYW NA BILANS KALORYCZNY ?</b></p>
-
-    <p><b>JAKIE PRODUKTY SĄ REKOMENDOWANE PRZY UKŁADANIU POSIŁKÓW ?</b></p>
+        
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_registry_details">Wymiary i Cele</string>
@@ -34,11 +30,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_info_controller">"Trochę Teorii "</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_main_panel_controller">main_panel_controller</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_info_controller">Troszkę Teorii</string>
 </resources>

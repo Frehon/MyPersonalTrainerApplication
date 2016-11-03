@@ -5,14 +5,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,16 +33,18 @@ import pl.edu.pwr.a200184student.my_personal_trainer.R;
 public class registry_detail_controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private HashMap<String,String> newUserData;
-    public NumberPicker weightNumberPicker;
-    public NumberPicker heightNumberPicker;
-    public TextView weightTextView;
-    public TextView heightTextView;
-    public CheckBox balanceGoalCheckBox;
-    public CheckBox massCheckBox;
-    public CheckBox lossCheckBox;
-    public Spinner activityFactorSpinner;
-    public Button finishRegistrationButton;
-    public Button infoButton;
+    private NumberPicker weightNumberPicker;
+    private NumberPicker heightNumberPicker;
+    private TextView weightTextView;
+    private TextView heightTextView;
+    private CheckBox balanceGoalCheckBox;
+    private CheckBox massCheckBox;
+    private CheckBox lossCheckBox;
+    private Spinner activityFactorSpinner;
+    private Button finishRegistrationButton;
+    private Button infoButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,7 @@ public class registry_detail_controller extends AppCompatActivity implements Ada
         preparePickers();
         prepareGoalCheckBoxes();
         prepareActivityFactorSpinner();
+        preparePopUpInfoView();
     }
 
     private void initializeFields() {
@@ -118,7 +127,6 @@ public class registry_detail_controller extends AppCompatActivity implements Ada
         activityFactorSpinner.setOnItemSelectedListener(this);
         // spinner drop down list
         ArrayList<String> factorValues = new ArrayList<String>();
-        factorValues.add("1.0");
         factorValues.add("1.2");
         factorValues.add("1.4");
         factorValues.add("1.6");
@@ -147,10 +155,15 @@ public class registry_detail_controller extends AppCompatActivity implements Ada
     }
 
 
-    public void moveToInfoActivity(View view){
-        Intent intent = new Intent(this, info_controller.class);
-        startActivity(intent);
+    public void preparePopUpInfoView(){
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(registry_detail_controller.this , info_controller.class));
+            }
+        });
     }
+
 
     public void collectDataAndFinishRegistration(View view) {
         newUserData.put("Weight" , String.valueOf(weightNumberPicker.getValue()));
