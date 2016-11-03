@@ -1,5 +1,6 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -24,17 +25,18 @@ import pl.edu.pwr.a200184student.my_personal_trainer.model.registry_model;
 public class registry_controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    public HashMap<String,String> newUserData;
-    public Calendar calendar ;
-    public Spinner gender_spinner;
-    public Button set_birthDate_button;
-    public EditText first_name_edit_text;
-    public EditText last_name_edit_text;
-    public EditText email_edit_text;
-    public EditText confirm_email_edit_text;
-    public EditText password_edit_text;
-    public EditText confirm_password_edit_text;
-    public DatePickerDialog date_picker_dialog;
+    private HashMap<String,String> newUserData;
+    public static Activity registryActivity;
+    private Calendar calendar ;
+    private Spinner gender_spinner;
+    private Button set_birthDate_button;
+    private EditText first_name_edit_text;
+    private EditText last_name_edit_text;
+    private EditText email_edit_text;
+    private EditText confirm_email_edit_text;
+    private EditText password_edit_text;
+    private EditText confirm_password_edit_text;
+    private DatePickerDialog date_picker_dialog;
 
 
     @Override
@@ -42,6 +44,7 @@ public class registry_controller extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registry_view);
         newUserData = new HashMap<String,String>();
+        registryActivity = this;
         prepare_listeners_and_adapters();
         initialize_other_fields();
     }
@@ -173,6 +176,10 @@ public class registry_controller extends AppCompatActivity implements AdapterVie
             }
         }
         */
+    }
+    public void onBackPressed() {
+        startActivity(new Intent(registry_controller.this , on_start_controller.class));
+        finish();
     }
 }
 
