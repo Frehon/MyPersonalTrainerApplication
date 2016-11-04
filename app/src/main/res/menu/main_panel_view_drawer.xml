@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/dietaryCalendarTab"
+            android:icon="@mipmap/ic_date_range_black_48dp"
+            android:title="Kalendarz Dietetyczny" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/addNewTrainingTab"
+            android:icon="@mipmap/ic_add_circle_black_48dp"
+            android:title="Dodaj nowy Trening" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/trainingHistoryTab"
+            android:icon="@mipmap/ic_save_black_48dp"
+            android:title="Historia Treningów" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Zarządzanie Kontem">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/settingsTab"
+                android:icon="@mipmap/ic_settings_black_48dp"
+                android:title="Ustawienia Użytkownika" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/logOutTab"
+                android:icon="@mipmap/ic_power_settings_new_black_48dp"
+                android:title="Wyloguj" />
+        </menu>
+    </item>
+    <item android:title="Dodatkowo">
+        <menu>
+            <item
+                android:id="@+id/rateTheAppTab"
+                android:icon="@mipmap/ic_star_rate_black_18dp"
+                android:title="Oceń Aplikację" />
         </menu>
     </item>
 

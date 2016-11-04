@@ -38,6 +38,8 @@ public class main_panel_controller extends AppCompatActivity
             }
         });
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -90,17 +92,17 @@ public class main_panel_controller extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.dietaryCalendarTab) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.addNewTrainingTab) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.trainingHistoryTab) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.settingsTab) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.rateTheAppTab) {
+
+        } else if (id == R.id.logOutTab){
 
         }
 
@@ -108,4 +110,5 @@ public class main_panel_controller extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

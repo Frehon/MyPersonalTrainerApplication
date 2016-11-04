@@ -19,34 +19,34 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/weightlifting"
         android:layout_marginStart="72dp"
-        android:id="@+id/imageView10"
-        android:layout_alignTop="@+id/imageView9"
-        android:layout_toEndOf="@+id/imageView9" />
+        android:id="@+id/weightLiftingImageView"
+        android:layout_alignTop="@+id/excersiseImageView"
+        android:layout_toEndOf="@+id/excersiseImageView" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/swimming"
         android:layout_marginStart="87dp"
-        android:id="@+id/imageView11"
-        android:layout_alignTop="@+id/imageView10"
-        android:layout_toEndOf="@+id/imageView10" />
+        android:id="@+id/swimmingImageView"
+        android:layout_alignTop="@+id/weightLiftingImageView"
+        android:layout_toEndOf="@+id/weightLiftingImageView" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/cycling"
-        android:id="@+id/imageView12"
-        android:layout_alignTop="@+id/imageView11"
-        android:layout_alignEnd="@+id/imageView8" />
+        android:id="@+id/cyclingImageView"
+        android:layout_alignTop="@+id/swimmingImageView"
+        android:layout_alignEnd="@+id/logoImageView" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/fish"
-        android:layout_alignTop="@+id/imageView15"
-        android:layout_alignStart="@+id/imageView12"
-        android:id="@+id/imageView16" />
+        android:layout_alignTop="@+id/foodImageView"
+        android:layout_alignStart="@+id/cyclingImageView"
+        android:id="@+id/fishImageView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -76,9 +76,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/exercise"
-        android:id="@+id/imageView9"
+        android:id="@+id/excersiseImageView"
         android:layout_above="@+id/log_in_button"
-        android:layout_alignEnd="@+id/imageView13"
+        android:layout_alignEnd="@+id/chickenImageView"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="34dp" />
 
@@ -86,8 +86,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logo"
-        android:id="@+id/imageView8"
-        android:layout_above="@+id/imageView10"
+        android:id="@+id/logoImageView"
+        android:layout_above="@+id/weightLiftingImageView"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="23dp" />
 
@@ -95,26 +95,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/chicken"
-        android:id="@+id/imageView13"
+        android:id="@+id/chickenImageView"
         android:layout_marginTop="16dp"
-        android:layout_alignTop="@+id/imageView14"
+        android:layout_alignTop="@+id/ingrediensImageView"
         android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/food"
-        android:id="@+id/imageView15"
-        android:layout_above="@+id/imageView8"
-        android:layout_alignStart="@+id/imageView11"
+        android:id="@+id/foodImageView"
+        android:layout_above="@+id/logoImageView"
+        android:layout_alignStart="@+id/swimmingImageView"
         android:layout_marginBottom="33dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ingredients"
-        android:id="@+id/imageView14"
-        android:layout_alignTop="@+id/imageView15"
-        android:layout_alignStart="@+id/imageView10" />
+        android:id="@+id/ingrediensImageView"
+        android:layout_alignTop="@+id/foodImageView"
+        android:layout_alignStart="@+id/weightLiftingImageView" />
 
 </RelativeLayout>
