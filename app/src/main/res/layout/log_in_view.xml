@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +13,12 @@
     tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.log_in_controller">
 
     <!-- Login progress -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/unlock"
+        android:id="@+id/imageView7" />
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -24,6 +31,7 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="348dp">
+
 
         <LinearLayout
             android:id="@+id/email_login_form"
