@@ -4,35 +4,35 @@
         <item
             android:id="@+id/dietaryCalendarTab"
             android:icon="@mipmap/ic_date_range_black_48dp"
-            android:title="Kalendarz Dietetyczny" />
+            android:title="KALENDARZ DIETETYCZNY" />
         <item
             android:id="@+id/addNewTrainingTab"
             android:icon="@mipmap/ic_add_circle_black_48dp"
-            android:title="Dodaj nowy Trening" />
+            android:title="DODAJ NOWY TRENING" />
         <item
             android:id="@+id/trainingHistoryTab"
             android:icon="@mipmap/ic_save_black_48dp"
-            android:title="Historia Treningów" />
+            android:title="HISTORIA TRENINGÓW" />
     </group>
 
-    <item android:title="Zarządzanie Kontem">
+    <item android:title="ZARZĄDZANIE KONTEM">
         <menu>
             <item
                 android:id="@+id/settingsTab"
                 android:icon="@mipmap/ic_settings_black_48dp"
-                android:title="Ustawienia Użytkownika" />
+                android:title="USTAWIENIA UŻYTKOWNIKA" />
             <item
                 android:id="@+id/logOutTab"
                 android:icon="@mipmap/ic_power_settings_new_black_48dp"
-                android:title="Wyloguj" />
+                android:title="WYLOGUJ" />
         </menu>
     </item>
-    <item android:title="Dodatkowo">
+    <item android:title="DODATKOWO">
         <menu>
             <item
                 android:id="@+id/rateTheAppTab"
                 android:icon="@mipmap/ic_star_rate_black_18dp"
-                android:title="Oceń Aplikację" />
+                android:title="OCEŃ APLIKACJĘ" />
         </menu>
     </item>
 </menu>
