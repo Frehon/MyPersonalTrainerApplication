@@ -1,6 +1,6 @@
-package pl.edu.pwr.a200184student.my_personal_trainer.model;
+package pl.edu.pwr.a200184student.my_personal_trainer.util;
 
-public class log_in_model {
+public class Log_In_Util {
 
     public static boolean isEmailValid(String email) {
         return email.contains("@") && email.contains(".");

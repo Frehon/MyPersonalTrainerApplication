@@ -2,12 +2,8 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +15,7 @@ import android.view.MenuItem;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class main_panel_controller extends AppCompatActivity
+public class Main_Panel_Controller extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -48,7 +44,7 @@ public class main_panel_controller extends AppCompatActivity
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(main_panel_controller.this,on_start_controller.class));
+                        startActivity(new Intent(Main_Panel_Controller.this,On_Start_Controller.class));
                         finish();
                     }
                 }).create().show();

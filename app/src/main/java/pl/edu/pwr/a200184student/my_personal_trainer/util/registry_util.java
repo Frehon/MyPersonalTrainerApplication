@@ -1,6 +1,6 @@
-package pl.edu.pwr.a200184student.my_personal_trainer.model;
+package pl.edu.pwr.a200184student.my_personal_trainer.util;
 
-public class registry_model {
+public class Registry_Util {
 
     // some help methods
     public static boolean checkEmailAdresses(String emailAdress , String confirmedEmailAdress){

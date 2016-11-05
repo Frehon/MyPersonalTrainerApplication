@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="160dp"
     android:background="@drawable/drewno"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.log_in_controller">
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.Log_In_Controller">
 
     <!-- Login progress -->
     <ImageView

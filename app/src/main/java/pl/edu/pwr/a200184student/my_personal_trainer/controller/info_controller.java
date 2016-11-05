@@ -10,7 +10,7 @@ import android.view.View;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class info_controller extends AppCompatActivity {
+public class Info_Controller extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

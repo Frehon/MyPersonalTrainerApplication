@@ -13,7 +13,7 @@
         android:label="Elektroniczny Dziennik Dietetyczno - Treningowy"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.on_start_controller">
+        <activity android:name=".controller.On_Start_Controller">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,20 +21,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.registry_controller"
+            android:name=".controller.Registry_Controller"
             android:label="Rejestracja" />
         <activity
-            android:name=".controller.log_in_controller"
+            android:name=".controller.Log_In_Controller"
             android:label="@string/title_activity_log_in_controller" />
         <activity
-            android:name=".controller.registry_detail_controller"
+            android:name=".controller.Registry_Detail_Controller"
             android:label="Parametry i Cele" />
         <activity
-            android:name=".controller.main_panel_controller"
+            android:name=".controller.Main_Panel_Controller"
             android:label="@string/title_activity_main_panel_controller"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".controller.info_controller"
+            android:name=".controller.Info_Controller"
             android:label="@string/title_activity_info_controller"
             android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
