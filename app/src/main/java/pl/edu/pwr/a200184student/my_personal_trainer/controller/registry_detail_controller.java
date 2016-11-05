@@ -1,7 +1,6 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,10 +20,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import pl.edu.pwr.a200184student.my_personal_trainer.model.DietService;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.Diet_Util;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class registry_detail_controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class Registry_Detail_Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private HashMap<String,String> newUserData;
     private NumberPicker weightNumberPicker;
@@ -153,7 +152,7 @@ public class registry_detail_controller extends AppCompatActivity implements Ada
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(registry_detail_controller.this , info_controller.class));
+                startActivity(new Intent(Registry_Detail_Controller.this , Info_Controller.class));
             }
         });
     }
@@ -184,13 +183,13 @@ public class registry_detail_controller extends AppCompatActivity implements Ada
             }
         }
         //  count calories and calories schedule
-        HashMap<String,String> dietMap = DietService.prepareDiet(newUserData.get("Diet_Type") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("Birth_Year") , newUserData.get("ActivityFactor"));
+        HashMap<String,String> dietMap = Diet_Util.prepareDiet(newUserData.get("Diet_Type") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("Birth_Year") , newUserData.get("ActivityFactor"));
         newUserData.putAll(dietMap);
         // creating new user ....
         // moving to main Panel ....
-        Intent intent = new Intent(registry_detail_controller.this, main_panel_controller.class);
+        Intent intent = new Intent(Registry_Detail_Controller.this, Main_Panel_Controller.class);
         startActivity(intent);
-        registry_controller.registryActivity.finish();
+        Registry_Controller.registryActivity.finish();
         finish();
     }
 }

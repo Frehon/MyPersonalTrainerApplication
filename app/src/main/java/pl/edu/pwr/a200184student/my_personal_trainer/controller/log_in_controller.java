@@ -23,10 +23,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
-import pl.edu.pwr.a200184student.my_personal_trainer.model.log_in_model;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.Log_In_Util;
 
 
-public class log_in_controller extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class Log_In_Controller extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
@@ -88,7 +88,7 @@ public class log_in_controller extends AppCompatActivity implements LoaderCallba
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (password.matches("") || !log_in_model.isPasswordValid(password)) {
+        if (password.matches("") || !Log_In_Util.isPasswordValid(password)) {
             mPasswordView.setError("Hasło musi zawierać minimum 8 znaków w tym przynajmniej jedną cyfrę");
             focusView = mPasswordView;
             cancel = true;
@@ -99,7 +99,7 @@ public class log_in_controller extends AppCompatActivity implements LoaderCallba
             mEmailView.setError("To pole jest wymagane");
             focusView = mEmailView;
             cancel = true;
-        } else if (!log_in_model.isEmailValid(email)) {
+        } else if (!Log_In_Util.isEmailValid(email)) {
             mEmailView.setError("Niepoprawny format adresu email.");
             focusView = mEmailView;
             cancel = true;
@@ -190,7 +190,7 @@ public class log_in_controller extends AppCompatActivity implements LoaderCallba
         protected Boolean doInBackground(Void... params) {
             boolean accessCompleted;
             try {
-                accessCompleted = log_in_model.try_to_log_in(mEmail, mPassword);
+                accessCompleted = Log_In_Util.try_to_log_in(mEmail, mPassword);
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
