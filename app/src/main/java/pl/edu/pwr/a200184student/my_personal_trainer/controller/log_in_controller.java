@@ -3,6 +3,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -21,9 +22,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.User_Endpoint;
+import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 import pl.edu.pwr.a200184student.my_personal_trainer.util.Log_In_Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Log_In_Controller extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -33,11 +43,13 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private UserService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in_view);
+        service = new UserService();
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
 
@@ -180,6 +192,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
 
         private final String mEmail;
         private final String mPassword;
+        private Boolean accessCompleted;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -188,9 +201,28 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean accessCompleted;
             try {
-                accessCompleted = Log_In_Util.try_to_log_in(mEmail, mPassword);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.23:8080/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                User_Endpoint endpoint = retrofit.create(User_Endpoint.class);
+                Call<User> call = endpoint.getUserByEmail(mEmail);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.body().getPasswordHash().equals(String.valueOf(mPassword.hashCode()))){
+                            accessCompleted = true;
+                        }
+                        else{
+                            accessCompleted = false;
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        accessCompleted = false;
+                    }
+                });
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -205,7 +237,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
             showProgress(false);
 
             if (success) {
-               // przejscie dalej
+                startActivity(new Intent(Log_In_Controller.this , Main_Panel_Controller.class));
             } else {
                 mPasswordView.setError("Podane dane są nieprawidłowe , bądź użytkownik o podanych danych nie istenieje!");
                 mPasswordView.requestFocus();

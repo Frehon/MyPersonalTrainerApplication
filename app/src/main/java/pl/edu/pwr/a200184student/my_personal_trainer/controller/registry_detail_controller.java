@@ -20,12 +20,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.User_Endpoint;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 import pl.edu.pwr.a200184student.my_personal_trainer.util.Diet_Util;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Registry_Detail_Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private HashMap<String,String> newUserData;
+    private UserService service;
     private NumberPicker weightNumberPicker;
     private NumberPicker heightNumberPicker;
     private TextView weightTextView;
@@ -42,6 +51,7 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        service = new UserService();
         setContentView(R.layout.registry_detail_view);
         // grabbing user data from previous activity
         Intent intent = getIntent();
@@ -187,6 +197,7 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
         newUserData.putAll(dietMap);
         // creating new user ....
         // moving to main Panel ....
+
         Intent intent = new Intent(Registry_Detail_Controller.this, Main_Panel_Controller.class);
         startActivity(intent);
         Registry_Controller.registryActivity.finish();

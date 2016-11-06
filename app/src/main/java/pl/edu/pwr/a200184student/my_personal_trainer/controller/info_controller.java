@@ -22,5 +22,4 @@ public class Info_Controller extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout((width) , (int)(height*0.45));
     }
-
 }
