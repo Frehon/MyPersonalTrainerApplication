@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -43,13 +44,14 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private UserService service;
+    private static User loggedUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in_view);
-        service = new UserService();
+        loggedUser = new User();
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
 
@@ -202,30 +204,12 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.23:8080/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                User_Endpoint endpoint = retrofit.create(User_Endpoint.class);
-                Call<User> call = endpoint.getUserByEmail(mEmail);
-                call.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if(response.body().getPasswordHash().equals(String.valueOf(mPassword.hashCode()))){
-                            accessCompleted = true;
-                        }
-                        else{
-                            accessCompleted = false;
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        accessCompleted = false;
-                    }
-                });
+                loggedUser = UserService.log_in(mEmail,mPassword);
+                //Toast.makeText(getApplicationContext() , loggedUser.getUserName() , Toast.LENGTH_LONG).show();
+                accessCompleted = loggedUser == null ? false : true;
                 // Simulate network access.
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 return false;
             }
             return accessCompleted;
@@ -235,9 +219,20 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
-                startActivity(new Intent(Log_In_Controller.this , Main_Panel_Controller.class));
+                Intent intent = new Intent(Log_In_Controller.this , Main_Panel_Controller.class);
+                intent.putExtra("UserId" , loggedUser.getId());
+                intent.putExtra("UserName" , loggedUser.getUserName());
+                intent.putExtra("UserGender" , loggedUser.getGender());
+                intent.putExtra("UserWeight" , loggedUser.getWeight());
+                intent.putExtra("UserHeight" , loggedUser.getHeight());
+                intent.putExtra("UserDietType" , loggedUser.getDietType());
+                intent.putExtra("UserActivityFactor" , loggedUser.getActivityFactor());
+                intent.putExtra("UserCaloriesAmount" , loggedUser.getCaloriesAmount());
+                intent.putExtra("UserProteinAmount" , loggedUser.getProteinAmount());
+                intent.putExtra("UserCarbsAmount" , loggedUser.getCarbsAmount());
+                intent.putExtra("UserFatAmount" , loggedUser.getFatAmount());
+                startActivity(intent);
             } else {
                 mPasswordView.setError("Podane dane są nieprawidłowe , bądź użytkownik o podanych danych nie istenieje!");
                 mPasswordView.requestFocus();

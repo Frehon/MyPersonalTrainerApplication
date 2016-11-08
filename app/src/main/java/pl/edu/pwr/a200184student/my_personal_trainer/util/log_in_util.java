@@ -30,4 +30,6 @@ public class Log_In_Util {
         result.setFatAmount(response.body().getFatAmount());
         return  result;
     }
+
+
 }
