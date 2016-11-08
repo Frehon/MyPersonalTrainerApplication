@@ -46,7 +46,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
     private View mLoginFormView;
     private static User loggedUser;
 
-
+//test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
