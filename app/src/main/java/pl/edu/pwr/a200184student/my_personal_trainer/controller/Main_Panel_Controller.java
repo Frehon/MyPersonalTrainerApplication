@@ -23,7 +23,6 @@ public class Main_Panel_Controller extends AppCompatActivity
     private User currentLoggedUser;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +120,7 @@ public class Main_Panel_Controller extends AppCompatActivity
         currentLoggedUser.setProteinAmount(intent.getIntExtra("UserProteinAmount", 0));
         currentLoggedUser.setCarbsAmount(intent.getIntExtra("UserCarbsAmount", 0));
         currentLoggedUser.setFatAmount(intent.getIntExtra("UserFatAmount", 0));
-        Toast.makeText(getApplicationContext() , currentLoggedUser.getUserName() , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext() , "username : " + currentLoggedUser.getUserName() , Toast.LENGTH_LONG).show();
 
     }
 

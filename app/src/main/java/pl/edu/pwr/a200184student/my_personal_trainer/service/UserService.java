@@ -1,14 +1,13 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+
+import java.io.IOException;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.User_Endpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,22 +24,12 @@ public class UserService {
                 .build();
         User_Endpoint endpoint = retrofit.create(User_Endpoint.class);
         Call<User> call = endpoint.getUserByEmail(mEmail);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body().getPasswordHash().equals(String.valueOf(mPassword.hashCode()))) {
-                    loggingUser  = response.body();
+        try {
+           return loggingUser = call.execute().body();
 
-                } else {
-                    loggingUser = null;
-                }
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                loggingUser = null;
-            }
-        });
-        return loggingUser;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-
 }
