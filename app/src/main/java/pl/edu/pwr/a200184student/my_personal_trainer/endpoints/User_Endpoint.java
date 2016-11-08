@@ -1,6 +1,8 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.endpoints;
 
 
+import org.json.JSONObject;
+
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import retrofit2.Call;
 import retrofit2.http.GET;

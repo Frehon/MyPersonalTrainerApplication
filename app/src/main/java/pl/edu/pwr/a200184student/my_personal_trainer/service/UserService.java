@@ -29,7 +29,8 @@ public class UserService {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.body().getPasswordHash().equals(String.valueOf(mPassword.hashCode()))) {
-                   loggingUser  = response.body();
+                    loggingUser  = response.body();
+
                 } else {
                     loggingUser = null;
                 }

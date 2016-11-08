@@ -205,7 +205,6 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
         protected Boolean doInBackground(Void... params) {
             try {
                 loggedUser = UserService.log_in(mEmail,mPassword);
-                //Toast.makeText(getApplicationContext() , loggedUser.getUserName() , Toast.LENGTH_LONG).show();
                 accessCompleted = loggedUser == null ? false : true;
                 // Simulate network access.
                 Thread.sleep(2000);
