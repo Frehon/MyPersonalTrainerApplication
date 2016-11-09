@@ -1,6 +1,6 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.util;
 
-public class Registry_Util {
+public class RegistryUtil {
 
     // some help methods
     public static boolean checkEmailAdresses(String emailAdress , String confirmedEmailAdress){

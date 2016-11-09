@@ -20,7 +20,7 @@ import android.graphics.Color;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class Registry_Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class RegistryController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     private HashMap<String,String> newUserData;
@@ -107,7 +107,7 @@ public class Registry_Controller extends AppCompatActivity implements AdapterVie
         set_birthDate_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                date_picker_dialog = new DatePickerDialog(Registry_Controller.this , date_picker_listener , 1980 , calendar.get(Calendar.MONTH) , calendar.get(Calendar.DAY_OF_MONTH));
+                date_picker_dialog = new DatePickerDialog(RegistryController.this , date_picker_listener , 1980 , calendar.get(Calendar.MONTH) , calendar.get(Calendar.DAY_OF_MONTH));
                 date_picker_dialog.getDatePicker().setCalendarViewShown(false);
                 date_picker_dialog.getDatePicker().setSpinnersShown(true);
                 date_picker_dialog.show();
@@ -150,14 +150,14 @@ public class Registry_Controller extends AppCompatActivity implements AdapterVie
                     if (user_email_adress.isEmpty() || confirmed_user_email_adress.isEmpty() || user_email_adress.equals("Adres Email") || confirmed_user_email_adress.equals("Potwierdź Adres Email")) {
                         Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z adresem email.", Toast.LENGTH_LONG).show();
                     } else {
-                        if (!Registry_Util.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
+                        if (!RegistryUtil.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
                             Toast.makeText(getApplicationContext(), "Adresy Email nie są identyczne lub mają zły format !", Toast.LENGTH_LONG).show();
                         } else {
                             newUserData.put("Email_Adress", user_email_adress);
                             if (user_password.isEmpty() || user_confirmed_password.isEmpty() || user_password.equals("Nowe Hasło") || user_confirmed_password.equals("Potwierdź Nowe Hasło")) {
                                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z hasłem.", Toast.LENGTH_LONG).show();
                             } else {
-                                if (!Registry_Util.checkPasswords(user_password, user_confirmed_password)) {
+                                if (!RegistryUtil.checkPasswords(user_password, user_confirmed_password)) {
                                     Toast.makeText(getApplicationContext(), "Hasła nie są identyczne , bądź nie spełniają wymagań 8 znaków w tym minimum jednej cyfry! ", Toast.LENGTH_LONG).show();
                                 } else {
                                     newUserData.put("PasswordHash" , String.valueOf(user_password.hashCode()));
@@ -176,7 +176,7 @@ public class Registry_Controller extends AppCompatActivity implements AdapterVie
         */
     }
     public void onBackPressed() {
-        startActivity(new Intent(Registry_Controller.this , On_Start_Controller.class));
+        startActivity(new Intent(RegistryController.this , OnStartController.class));
         finish();
     }
 }

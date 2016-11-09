@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@drawable/drewno"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.Main_Panel_Controller">
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.MainPanelController">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

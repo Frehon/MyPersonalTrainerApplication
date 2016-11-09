@@ -12,12 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 
-public class Main_Panel_Controller extends AppCompatActivity
+public class MainPanelController extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private User currentLoggedUser;
@@ -85,7 +84,7 @@ public class Main_Panel_Controller extends AppCompatActivity
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(Main_Panel_Controller.this,On_Start_Controller.class));
+                        startActivity(new Intent(MainPanelController.this,OnStartController.class));
                         finish();
                     }
                 }).create().show();
@@ -120,8 +119,6 @@ public class Main_Panel_Controller extends AppCompatActivity
         currentLoggedUser.setProteinAmount(intent.getIntExtra("UserProteinAmount", 0));
         currentLoggedUser.setCarbsAmount(intent.getIntExtra("UserCarbsAmount", 0));
         currentLoggedUser.setFatAmount(intent.getIntExtra("UserFatAmount", 0));
-        Toast.makeText(getApplicationContext() , "username : " + currentLoggedUser.getUserName() , Toast.LENGTH_LONG).show();
-
     }
 
 

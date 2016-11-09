@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.Registry_Controller"
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.RegistryController"
     android:weightSum="1"
     android:background="@drawable/drewno"
     android:focusable="false">

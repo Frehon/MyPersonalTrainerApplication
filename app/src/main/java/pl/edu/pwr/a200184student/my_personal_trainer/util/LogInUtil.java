@@ -3,7 +3,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.util;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import retrofit2.Response;
 
-public class Log_In_Util {
+public class LogInUtil {
 
     public static boolean isEmailValid(String email) {
         return email.contains("@") && email.contains(".");

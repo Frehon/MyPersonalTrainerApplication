@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 
-public class Diet_Util {
+public class DietUtil {
 
     public static HashMap<String,String> prepareDiet(String diet_type, String weight, String height, String gender , String birthYear , String activityFactor) {
         HashMap<String,String> dietMap = new HashMap<String,String>();

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -23,21 +22,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
-import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.User_Endpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.Log_In_Util;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.LogInUtil;
 
 
-public class Log_In_Controller extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LogInController extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
@@ -46,7 +38,6 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
     private View mLoginFormView;
     private static User loggedUser;
 
-//test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +93,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (password.matches("") || !Log_In_Util.isPasswordValid(password)) {
+        if (password.matches("") || !LogInUtil.isPasswordValid(password)) {
             mPasswordView.setError("Hasło musi zawierać minimum 8 znaków w tym przynajmniej jedną cyfrę");
             focusView = mPasswordView;
             cancel = true;
@@ -113,7 +104,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
             mEmailView.setError("To pole jest wymagane");
             focusView = mEmailView;
             cancel = true;
-        } else if (!Log_In_Util.isEmailValid(email)) {
+        } else if (!LogInUtil.isEmailValid(email)) {
             mEmailView.setError("Niepoprawny format adresu email.");
             focusView = mEmailView;
             cancel = true;
@@ -219,7 +210,7 @@ public class Log_In_Controller extends AppCompatActivity implements LoaderCallba
             mAuthTask = null;
             showProgress(false);
             if (success) {
-                Intent intent = new Intent(Log_In_Controller.this , Main_Panel_Controller.class);
+                Intent intent = new Intent(LogInController.this , MainPanelController.class);
                 intent.putExtra("UserId" , loggedUser.getId());
                 intent.putExtra("UserName" , loggedUser.getUserName());
                 intent.putExtra("UserGender" , loggedUser.getGender());

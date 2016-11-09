@@ -21,15 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
-import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.User_Endpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.Diet_Util;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.DietUtil;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Registry_Detail_Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -45,6 +39,7 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
     private Spinner activityFactorSpinner;
     private Button finishRegistrationButton;
     private Button infoButton;
+    private static User newUser;
 
 
 
@@ -162,7 +157,7 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registry_Detail_Controller.this , Info_Controller.class));
+                startActivity(new Intent(Registry_Detail_Controller.this , InfoController.class));
             }
         });
     }
@@ -177,15 +172,15 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
             return;
         }
         if(balanceGoalCheckBox.isChecked()){
-            newUserData.put("Diet_Type" , "Balanced");
+            newUserData.put("DietType" , "Balanced");
         }
         else{
             if(massCheckBox.isChecked()){
-                newUserData.put("Diet_Type" , "Mass");
+                newUserData.put("DietType" , "Mass");
             }
             else{
                 if(lossCheckBox.isChecked()){
-                    newUserData.put("Diet_Type" , "Loss");
+                    newUserData.put("DietType" , "Loss");
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Nie Wybrano Celu " , Toast.LENGTH_LONG).show();
@@ -193,14 +188,15 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
             }
         }
         //  count calories and calories schedule
-        HashMap<String,String> dietMap = Diet_Util.prepareDiet(newUserData.get("Diet_Type") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("Birth_Year") , newUserData.get("ActivityFactor"));
+        HashMap<String,String> dietMap = DietUtil.prepareDiet(newUserData.get("DietType") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("BirthYear") , newUserData.get("ActivityFactor"));
         newUserData.putAll(dietMap);
         // creating new user ....
         // moving to main Panel ....
+        newUser = UserService.createNewUser(newUserData);
 
-        Intent intent = new Intent(Registry_Detail_Controller.this, Main_Panel_Controller.class);
+        Intent intent = new Intent(Registry_Detail_Controller.this, MainPanelController.class);
         startActivity(intent);
-        Registry_Controller.registryActivity.finish();
+        RegistryController.registryActivity.finish();
         finish();
     }
 }

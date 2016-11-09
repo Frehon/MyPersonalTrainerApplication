@@ -9,7 +9,7 @@ import android.view.View;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class On_Start_Controller extends AppCompatActivity {
+public class OnStartController extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +19,13 @@ public class On_Start_Controller extends AppCompatActivity {
 
     // move to log_in activity.
     public void go_to_logIn_activity(View view){
-        Intent intent = new Intent(this, Log_In_Controller.class);
+        Intent intent = new Intent(this, LogInController.class);
         startActivity(intent);
     }
 
     // move to registry activity.
     public void go_to_registry_activity(View view){
-        Intent intent = new Intent(this, Registry_Controller.class);
+        Intent intent = new Intent(this, RegistryController.class);
         startActivity(intent);
         finish();
     }
