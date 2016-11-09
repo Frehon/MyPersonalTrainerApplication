@@ -25,6 +25,7 @@ public class RegistryUtil {
         return false;
     }
 
+    // test commit
     public static User prepareNewUser(HashMap<String, String> newUserData) {
         User result = new User();
         result.setUserName(newUserData.get("FirstName") + " " +  newUserData.get("LastName"));
