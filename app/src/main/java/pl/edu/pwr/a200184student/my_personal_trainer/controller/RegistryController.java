@@ -17,8 +17,10 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.HashMap;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.RegistryUtil;
 
 public class RegistryController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -119,16 +121,16 @@ public class RegistryController extends AppCompatActivity implements AdapterView
                     i1 = i1 + 1;
                     set_birthDate_button.setText(i2+" / "+i1+" / "+i);
                     set_birthDate_button.setTextSize(20);
-                    newUserData.put("Birth_Year" , String.valueOf(i));
-                    newUserData.put("Birth_Month" , String.valueOf(i1));
-                    newUserData.put("Birth_Day" , String.valueOf(i2));
+                    newUserData.put("BirthYear" , String.valueOf(i));
+                    newUserData.put("BirthMonth" , String.valueOf(i1));
+                    newUserData.put("BirthDay" , String.valueOf(i2));
                 }
             };
         });
     }
     //  shall flow user data after clicking confirm button.
     public void gather_user_data(View view) {
-/*
+
         String user_first_name = first_name_edit_text.getText().toString();
         String user_last_name = last_name_edit_text.getText().toString();
         String user_email_adress = email_edit_text.getText().toString();
@@ -139,21 +141,21 @@ public class RegistryController extends AppCompatActivity implements AdapterView
         if (newUserData.containsKey("Gender") == false || newUserData.get("Gender").equals("Wybierz Płeć")) {
             Toast.makeText(getApplicationContext(), "Wybierz swoja płeć", Toast.LENGTH_LONG).show();
         } else {
-            if (!(newUserData.containsKey("Birth_Year") && newUserData.containsKey("Birth_Month") && newUserData.containsKey("Birth_Day"))) {
+            if (!(newUserData.containsKey("BirthYear") && newUserData.containsKey("BirthMonth") && newUserData.containsKey("BirthDay"))) {
                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z datą urodzin.", Toast.LENGTH_LONG).show();
             } else {
                 if (user_first_name.isEmpty() || user_last_name.isEmpty() || user_first_name.equals("Imię") || user_last_name.equals("Nazwisko")) {
                     Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z imieniem lub nazwiskiem.", Toast.LENGTH_LONG).show();
                 } else {
-                    newUserData.put("First_Name", user_first_name);
-                    newUserData.put("Last_Name", user_last_name);
+                    newUserData.put("FirstName", user_first_name);
+                    newUserData.put("LastName", user_last_name);
                     if (user_email_adress.isEmpty() || confirmed_user_email_adress.isEmpty() || user_email_adress.equals("Adres Email") || confirmed_user_email_adress.equals("Potwierdź Adres Email")) {
                         Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z adresem email.", Toast.LENGTH_LONG).show();
                     } else {
                         if (!RegistryUtil.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
                             Toast.makeText(getApplicationContext(), "Adresy Email nie są identyczne lub mają zły format !", Toast.LENGTH_LONG).show();
                         } else {
-                            newUserData.put("Email_Adress", user_email_adress);
+                            newUserData.put("Email", user_email_adress);
                             if (user_password.isEmpty() || user_confirmed_password.isEmpty() || user_password.equals("Nowe Hasło") || user_confirmed_password.equals("Potwierdź Nowe Hasło")) {
                                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z hasłem.", Toast.LENGTH_LONG).show();
                             } else {
@@ -161,11 +163,9 @@ public class RegistryController extends AppCompatActivity implements AdapterView
                                     Toast.makeText(getApplicationContext(), "Hasła nie są identyczne , bądź nie spełniają wymagań 8 znaków w tym minimum jednej cyfry! ", Toast.LENGTH_LONG).show();
                                 } else {
                                     newUserData.put("PasswordHash" , String.valueOf(user_password.hashCode()));
-*/
-        Intent intent = new Intent(this, Registry_Detail_Controller.class);
-        intent.putExtra("map", newUserData);
-        startActivity(intent);
-        /*
+                                    Intent intent = new Intent(this, RegistryDetailController.class);
+                                    intent.putExtra("map", newUserData);
+                                    startActivity(intent);
                                 }
                             }
                         }
@@ -173,7 +173,6 @@ public class RegistryController extends AppCompatActivity implements AdapterView
                 }
             }
         }
-        */
     }
     public void onBackPressed() {
         startActivity(new Intent(RegistryController.this , OnStartController.class));

@@ -28,7 +28,7 @@
             android:name=".controller.LogInController"
             android:label="@string/title_activity_log_in_controller" />
         <activity
-            android:name=".controller.Registry_Detail_Controller"
+            android:name=".controller.RegistryDetailController"
             android:label="Parametry i Cele" />
         <activity
             android:name=".controller.MainPanelController"

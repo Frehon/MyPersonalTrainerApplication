@@ -4,7 +4,6 @@ package pl.edu.pwr.a200184student.my_personal_trainer.model;
 
 public class User {
 
-    private Long Id;
     private String userName;
     private String birthDate;
     private String gender;
@@ -18,12 +17,13 @@ public class User {
     private Integer proteinAmount;
     private Integer carbsAmount;
     private Integer fatAmount;
+    private Long id;
 
     public User() {
 
     }
 
-    public Long getId() {return Id;}
+    public Long getId() {return id;}
 
     public String getUserName() {
         return userName;
@@ -76,7 +76,7 @@ public class User {
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public void setUserName(String userName) {

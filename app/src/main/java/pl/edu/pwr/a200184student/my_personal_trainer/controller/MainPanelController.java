@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
@@ -119,6 +120,7 @@ public class MainPanelController extends AppCompatActivity
         currentLoggedUser.setProteinAmount(intent.getIntExtra("UserProteinAmount", 0));
         currentLoggedUser.setCarbsAmount(intent.getIntExtra("UserCarbsAmount", 0));
         currentLoggedUser.setFatAmount(intent.getIntExtra("UserFatAmount", 0));
+        //Toast.makeText(getApplicationContext(), "loggeduser : " + currentLoggedUser.getId()  , Toast.LENGTH_LONG).show();
     }
 
 

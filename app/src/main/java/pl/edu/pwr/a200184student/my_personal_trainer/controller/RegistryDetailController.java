@@ -19,13 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 import pl.edu.pwr.a200184student.my_personal_trainer.util.DietUtil;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class Registry_Detail_Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class RegistryDetailController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private HashMap<String,String> newUserData;
     private UserService service;
@@ -157,7 +156,7 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registry_Detail_Controller.this , InfoController.class));
+                startActivity(new Intent(RegistryDetailController.this , InfoController.class));
             }
         });
     }
@@ -193,8 +192,19 @@ public class Registry_Detail_Controller extends AppCompatActivity implements Ada
         // creating new user ....
         // moving to main Panel ....
         newUser = UserService.createNewUser(newUserData);
-
-        Intent intent = new Intent(Registry_Detail_Controller.this, MainPanelController.class);
+        Toast.makeText(getApplicationContext(), "new user name : " + newUser.getUserName() , Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(RegistryDetailController.this, MainPanelController.class);
+        intent.putExtra("UserId" , newUser.getId());
+        intent.putExtra("UserName" , newUser.getUserName());
+        intent.putExtra("UserGender" , newUser.getGender());
+        intent.putExtra("UserWeight" , newUser.getWeight());
+        intent.putExtra("UserHeight" , newUser.getHeight());
+        intent.putExtra("UserDietType" , newUser.getDietType());
+        intent.putExtra("UserActivityFactor" , newUser.getActivityFactor());
+        intent.putExtra("UserCaloriesAmount" , newUser.getCaloriesAmount());
+        intent.putExtra("UserProteinAmount" , newUser.getProteinAmount());
+        intent.putExtra("UserCarbsAmount" , newUser.getCarbsAmount());
+        intent.putExtra("UserFatAmount" , newUser.getFatAmount());
         startActivity(intent);
         RegistryController.registryActivity.finish();
         finish();

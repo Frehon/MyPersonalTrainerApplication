@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/drewno2"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.Registry_Detail_Controller"
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.RegistryDetailController"
     android:weightSum="1">
 
     <TextView
