@@ -4,6 +4,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,35 +20,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 import pl.edu.pwr.a200184student.my_personal_trainer.util.DietUtil;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.RegistryUtil;
 
 public class RegistryDetailController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private HashMap<String,String> newUserData;
-    private UserService service;
     private NumberPicker weightNumberPicker;
     private NumberPicker heightNumberPicker;
-    private TextView weightTextView;
-    private TextView heightTextView;
     private CheckBox balanceGoalCheckBox;
     private CheckBox massCheckBox;
     private CheckBox lossCheckBox;
     private Spinner activityFactorSpinner;
-    private Button finishRegistrationButton;
     private Button infoButton;
-    private static User newUser;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        service = new UserService();
         setContentView(R.layout.registry_detail_view);
-        // grabbing user data from previous activity
         Intent intent = getIntent();
         newUserData = (HashMap<String,String>) intent.getSerializableExtra("map");
         initializeFields();
@@ -60,14 +55,11 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
     private void initializeFields() {
         weightNumberPicker = (NumberPicker)findViewById(R.id.weightNumberPicker);
         heightNumberPicker = (NumberPicker)findViewById(R.id.heightNumberPicker);
-        weightTextView = (TextView)findViewById(R.id.weightTextView);
-        heightTextView = (TextView)findViewById(R.id.heightTextView);
         balanceGoalCheckBox = (CheckBox)findViewById(R.id.balanceGoalCheckBox);
         massCheckBox = (CheckBox)findViewById(R.id.massCheckBox);
         lossCheckBox = (CheckBox)findViewById(R.id.lossCheckBox);
         activityFactorSpinner = (Spinner)findViewById(R.id.activityFactorSpinner);
         infoButton = (Button)findViewById(R.id.infoButton);
-        finishRegistrationButton = (Button)findViewById(R.id.finishRegistrationButton);
     }
 
     private void preparePickers() {
@@ -130,12 +122,10 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
         factorValues.add("1.8");
         factorValues.add("2.0");
 
-        // creating adapter for spinner
         ArrayAdapter<String> spinner_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line , factorValues);
         activityFactorSpinner.setAdapter(spinner_adapter);
     }
 
-    // gender spinner method.
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         // On selecting a spinner item
@@ -186,27 +176,53 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
                 }
             }
         }
-        //  count calories and calories schedule
         HashMap<String,String> dietMap = DietUtil.prepareDiet(newUserData.get("DietType") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("BirthYear") , newUserData.get("ActivityFactor"));
         newUserData.putAll(dietMap);
-        // creating new user ....
-        // moving to main Panel ....
-        newUser = UserService.createNewUser(newUserData);
-        Toast.makeText(getApplicationContext(), "new user name : " + newUser.getUserName() , Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(RegistryDetailController.this, MainPanelController.class);
-        intent.putExtra("UserId" , newUser.getId());
-        intent.putExtra("UserName" , newUser.getUserName());
-        intent.putExtra("UserGender" , newUser.getGender());
-        intent.putExtra("UserWeight" , newUser.getWeight());
-        intent.putExtra("UserHeight" , newUser.getHeight());
-        intent.putExtra("UserDietType" , newUser.getDietType());
-        intent.putExtra("UserActivityFactor" , newUser.getActivityFactor());
-        intent.putExtra("UserCaloriesAmount" , newUser.getCaloriesAmount());
-        intent.putExtra("UserProteinAmount" , newUser.getProteinAmount());
-        intent.putExtra("UserCarbsAmount" , newUser.getCarbsAmount());
-        intent.putExtra("UserFatAmount" , newUser.getFatAmount());
-        startActivity(intent);
-        RegistryController.registryActivity.finish();
-        finish();
+        RegistryTask task = new RegistryTask();
+        task.execute((Void) null);
+    }
+
+    public class RegistryTask extends AsyncTask<Void, Void, User>{
+
+        @Override
+        protected User doInBackground(Void... params) {
+            User existingUser = UserService.getUserByEmail(newUserData.get("Email"));
+            if(existingUser != null){
+                return null;
+            }
+            else{
+              User newUser =  RegistryUtil.prepareNewUser(newUserData);
+                try {
+                    return UserService.createNewUser(newUser);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(final User newUser){
+            if(newUser != null){
+                Intent intent = new Intent(RegistryDetailController.this, MainPanelController.class);
+                intent.putExtra("UserId" , newUser.getId());
+                intent.putExtra("UserName" , newUser.getUserName());
+                intent.putExtra("UserGender" , newUser.getGender());
+                intent.putExtra("UserWeight" , newUser.getWeight());
+                intent.putExtra("UserHeight" , newUser.getHeight());
+                intent.putExtra("UserDietType" , newUser.getDietType());
+                intent.putExtra("UserActivityFactor" , newUser.getActivityFactor());
+                intent.putExtra("UserCaloriesAmount" , newUser.getCaloriesAmount());
+                intent.putExtra("UserProteinAmount" , newUser.getProteinAmount());
+                intent.putExtra("UserCarbsAmount" , newUser.getCarbsAmount());
+                intent.putExtra("UserFatAmount" , newUser.getFatAmount());
+                startActivity(intent);
+                RegistryController.registryActivity.finish();
+                finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Użytkownik o takim adresie Email istenieje!" , Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

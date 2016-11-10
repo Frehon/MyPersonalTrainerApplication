@@ -17,13 +17,11 @@ public class OnStartController extends AppCompatActivity {
         setContentView(R.layout.on_start_view);
     }
 
-    // move to log_in activity.
     public void go_to_logIn_activity(View view){
         Intent intent = new Intent(this, LogInController.class);
         startActivity(intent);
     }
 
-    // move to registry activity.
     public void go_to_registry_activity(View view){
         Intent intent = new Intent(this, RegistryController.class);
         startActivity(intent);

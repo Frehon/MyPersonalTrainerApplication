@@ -3,6 +3,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.util;
 import java.util.HashMap;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import retrofit2.Response;
 
 public class RegistryUtil {
 
@@ -25,7 +26,6 @@ public class RegistryUtil {
         return false;
     }
 
-    // test commit
     public static User prepareNewUser(HashMap<String, String> newUserData) {
         User result = new User();
         result.setUserName(newUserData.get("FirstName") + " " +  newUserData.get("LastName"));

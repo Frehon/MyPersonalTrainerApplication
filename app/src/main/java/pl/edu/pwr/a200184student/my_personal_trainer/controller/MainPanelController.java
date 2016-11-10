@@ -16,11 +16,12 @@ import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 
 public class MainPanelController extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private User currentLoggedUser;
+    private static User currentLoggedUser;
 
 
     @Override
@@ -32,19 +33,13 @@ public class MainPanelController extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_panel_controller, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -109,18 +104,6 @@ public class MainPanelController extends AppCompatActivity
 
     private void collectAndShowLoggedUserData() {
         Intent intent = getIntent();
-        currentLoggedUser.setId(intent.getLongExtra("UserId",0));
-        currentLoggedUser.setUserName(intent.getStringExtra("UserName"));
-        currentLoggedUser.setGender(intent.getStringExtra("UserGender"));
-        currentLoggedUser.setWeight(intent.getIntExtra("UserWeight", 0));
-        currentLoggedUser.setHeight(intent.getIntExtra("UserHeight", 0));
-        currentLoggedUser.setDietType(intent.getStringExtra("UserDietType"));
-        currentLoggedUser.setActivityFactor(intent.getDoubleExtra("UserActivityFactor",0));
-        currentLoggedUser.setCaloriesAmount(intent.getIntExtra("UserCaloriesAmount", 0));
-        currentLoggedUser.setProteinAmount(intent.getIntExtra("UserProteinAmount", 0));
-        currentLoggedUser.setCarbsAmount(intent.getIntExtra("UserCarbsAmount", 0));
-        currentLoggedUser.setFatAmount(intent.getIntExtra("UserFatAmount", 0));
-        //Toast.makeText(getApplicationContext(), "loggeduser : " + currentLoggedUser.getId()  , Toast.LENGTH_LONG).show();
     }
 
 

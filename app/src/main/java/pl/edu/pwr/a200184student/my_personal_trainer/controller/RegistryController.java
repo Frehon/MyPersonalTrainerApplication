@@ -49,7 +49,6 @@ public class RegistryController extends AppCompatActivity implements AdapterView
         initialize_other_fields();
     }
 
-    // widgets that needs to be connected because of Listeners/Adapters.
     public void prepare_listeners_and_adapters() {
         prepare_gender_spinner();
         prepare_birth_date_picker();
@@ -68,18 +67,14 @@ public class RegistryController extends AppCompatActivity implements AdapterView
     private void prepare_gender_spinner() {
         gender_spinner = (Spinner)findViewById(R.id.gender_spinner);
         gender_spinner.setOnItemSelectedListener(this);
-        // creating adapter for spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.gender_array,R.layout.spinner_center_item);
-        // set whatever dropdown resource you want
         adapter.setDropDownViewResource(R.layout.spinner_center_item);
         gender_spinner.setAdapter(adapter);
     }
 
-    // gender spinner method.
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        // On selecting a spinner item
         String selected_gender = adapterView.getItemAtPosition(i).toString();
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
         ((TextView) adapterView.getChildAt(0)).setTextSize(20);
@@ -97,12 +92,10 @@ public class RegistryController extends AppCompatActivity implements AdapterView
         }
     }
 
-    // gender spinner method.
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
-    // birth_date_button onClick
     public void prepare_birth_date_picker(){
         calendar = Calendar.getInstance();
         set_birthDate_button = (Button)findViewById(R.id.set_birthDate_button);
@@ -128,15 +121,15 @@ public class RegistryController extends AppCompatActivity implements AdapterView
             };
         });
     }
-    //  shall flow user data after clicking confirm button.
+
     public void gather_user_data(View view) {
 
-        String user_first_name = first_name_edit_text.getText().toString();
-        String user_last_name = last_name_edit_text.getText().toString();
-        String user_email_adress = email_edit_text.getText().toString();
-        String confirmed_user_email_adress = confirm_email_edit_text.getText().toString();
-        String user_password = password_edit_text.getText().toString();
-        String user_confirmed_password = confirm_password_edit_text.getText().toString();
+        String user_first_name = first_name_edit_text.getText().toString().replaceAll("\\s+$", "");;
+        String user_last_name = last_name_edit_text.getText().toString().replaceAll("\\s+$", "");
+        String user_email_adress = email_edit_text.getText().toString().replaceAll("\\s+$", "");
+        String confirmed_user_email_adress = confirm_email_edit_text.getText().toString().replaceAll("\\s+$", "");
+        String user_password = password_edit_text.getText().toString().replaceAll("\\s+$", "");
+        String user_confirmed_password = confirm_password_edit_text.getText().toString().replaceAll("\\s+$", "");
 
         if (newUserData.containsKey("Gender") == false || newUserData.get("Gender").equals("Wybierz Płeć")) {
             Toast.makeText(getApplicationContext(), "Wybierz swoja płeć", Toast.LENGTH_LONG).show();

@@ -2,26 +2,40 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
-    private String userName;
-    private String birthDate;
-    private String gender;
-    private String email;
-    private String passwordHash;
-    private Integer weight;
-    private Integer height;
-    private Double activityFactor;
-    private String dietType;
-    private Integer caloriesAmount;
-    private Integer proteinAmount;
-    private Integer carbsAmount;
-    private Integer fatAmount;
-    private Long id;
+    @SerializedName("userName")
+    String userName;
+    @SerializedName("birthDate")
+    String birthDate;
+    @SerializedName("gender")
+    String gender;
+    @SerializedName("email")
+    String email;
+    @SerializedName("passwordHash")
+    String passwordHash;
+    @SerializedName("weight")
+    Integer weight;
+    @SerializedName("height")
+    Integer height;
+    @SerializedName("activityFactor")
+    Double activityFactor;
+    @SerializedName("dietType")
+    String dietType;
+    @SerializedName("caloriesAmount")
+    Integer caloriesAmount;
+    @SerializedName("proteinAmount")
+    Integer proteinAmount;
+    @SerializedName("carbsAmount")
+    Integer carbsAmount;
+    @SerializedName("fatAmount")
+    Integer fatAmount;
+    @SerializedName("id")
+    Long id;
 
-    public User() {
-
-    }
+    public User() {}
 
     public Long getId() {return id;}
 
