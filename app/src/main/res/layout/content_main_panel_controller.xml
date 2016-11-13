@@ -13,4 +13,21 @@
     tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.MainPanelController"
     tools:showIn="@layout/app_bar_main_panel_controller">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_alignParentTop="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="140dp" />
 </RelativeLayout>

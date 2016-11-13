@@ -62,7 +62,7 @@ public class MainPanelController extends AppCompatActivity
         } else if (id == R.id.rateTheAppTab) {
 
         } else if (id == R.id.logOutTab){
-
+            onBackPressed();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
