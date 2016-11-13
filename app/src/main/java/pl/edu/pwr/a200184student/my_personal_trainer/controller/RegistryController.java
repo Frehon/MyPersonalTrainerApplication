@@ -20,7 +20,7 @@ import android.graphics.Color;
 import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.RegistryUtil;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
 
 public class RegistryController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -124,12 +124,12 @@ public class RegistryController extends AppCompatActivity implements AdapterView
 
     public void gather_user_data(View view) {
 
-        String user_first_name = first_name_edit_text.getText().toString().replaceAll("\\s+$", "");;
-        String user_last_name = last_name_edit_text.getText().toString().replaceAll("\\s+$", "");
-        String user_email_adress = email_edit_text.getText().toString().replaceAll("\\s+$", "");
-        String confirmed_user_email_adress = confirm_email_edit_text.getText().toString().replaceAll("\\s+$", "");
-        String user_password = password_edit_text.getText().toString().replaceAll("\\s+$", "");
-        String user_confirmed_password = confirm_password_edit_text.getText().toString().replaceAll("\\s+$", "");
+        String user_first_name = first_name_edit_text.getText().toString().trim();;
+        String user_last_name = last_name_edit_text.getText().toString().trim();
+        String user_email_adress = email_edit_text.getText().toString().trim();
+        String confirmed_user_email_adress = confirm_email_edit_text.getText().toString().trim();
+        String user_password = password_edit_text.getText().toString().trim();
+        String user_confirmed_password = confirm_password_edit_text.getText().toString().trim();
 
         if (newUserData.containsKey("Gender") == false || newUserData.get("Gender").equals("Wybierz Płeć")) {
             Toast.makeText(getApplicationContext(), "Wybierz swoja płeć", Toast.LENGTH_LONG).show();
@@ -145,17 +145,17 @@ public class RegistryController extends AppCompatActivity implements AdapterView
                     if (user_email_adress.isEmpty() || confirmed_user_email_adress.isEmpty() || user_email_adress.equals("Adres Email") || confirmed_user_email_adress.equals("Potwierdź Adres Email")) {
                         Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z adresem email.", Toast.LENGTH_LONG).show();
                     } else {
-                        if (!RegistryUtil.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
+                        if (!UserUtil.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
                             Toast.makeText(getApplicationContext(), "Adresy Email nie są identyczne lub mają zły format !", Toast.LENGTH_LONG).show();
                         } else {
                             newUserData.put("Email", user_email_adress);
                             if (user_password.isEmpty() || user_confirmed_password.isEmpty() || user_password.equals("Nowe Hasło") || user_confirmed_password.equals("Potwierdź Nowe Hasło")) {
                                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z hasłem.", Toast.LENGTH_LONG).show();
                             } else {
-                                if (!RegistryUtil.checkPasswords(user_password, user_confirmed_password)) {
+                                if (!UserUtil.checkPasswords(user_password, user_confirmed_password)) {
                                     Toast.makeText(getApplicationContext(), "Hasła nie są identyczne , bądź nie spełniają wymagań 8 znaków w tym minimum jednej cyfry! ", Toast.LENGTH_LONG).show();
                                 } else {
-                                    newUserData.put("PasswordHash" , String.valueOf(user_password.hashCode()));
+                                    newUserData.put("PasswordHash" , user_password);
                                     Intent intent = new Intent(this, RegistryDetailController.class);
                                     intent.putExtra("map", newUserData);
                                     startActivity(intent);

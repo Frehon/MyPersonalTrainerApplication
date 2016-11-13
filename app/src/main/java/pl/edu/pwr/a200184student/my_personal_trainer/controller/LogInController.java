@@ -26,7 +26,7 @@ import android.widget.TextView;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.LogInUtil;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
 
 
 public class LogInController extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -71,11 +71,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
     }
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -93,7 +88,7 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (password.matches("") || !LogInUtil.isPasswordValid(password)) {
+        if (password.matches("") || !UserUtil.isPasswordValid(password)) {
             mPasswordView.setError("Hasło musi zawierać minimum 8 znaków w tym przynajmniej jedną cyfrę");
             focusView = mPasswordView;
             cancel = true;
@@ -104,7 +99,7 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
             mEmailView.setError("To pole jest wymagane");
             focusView = mEmailView;
             cancel = true;
-        } else if (!LogInUtil.isEmailValid(email)) {
+        } else if (!UserUtil.isEmailValid(email)) {
             mEmailView.setError("Niepoprawny format adresu email.");
             focusView = mEmailView;
             cancel = true;
@@ -124,10 +119,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
     }
 
 
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -177,10 +168,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
     }
 
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -197,7 +184,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
             try {
                 loggedUser = UserService.log_in(mEmail,mPassword);
                 accessCompleted = loggedUser == null ? false : true;
-                // Simulate network access.
                 Thread.sleep(2000);
             } catch (Exception e) {
                 return false;

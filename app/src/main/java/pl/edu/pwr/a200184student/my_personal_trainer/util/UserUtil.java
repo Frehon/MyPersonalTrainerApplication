@@ -1,10 +1,17 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.util;
 
+import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
+import org.bouncycastle.crypto.params.KeyParameter;
+
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.HashMap;
+import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import retrofit2.Response;
 
 
-public class DietUtil {
+public class UserUtil {
 
     public static HashMap<String,String> prepareDiet(String diet_type, String weight, String height, String gender , String birthYear , String activityFactor) {
         HashMap<String,String> dietMap = new HashMap<String,String>();
@@ -81,4 +88,69 @@ public class DietUtil {
         }
         return dietMap;
     }
-}
+
+        // some help methods
+        public static boolean checkEmailAdresses(String emailAdress , String confirmedEmailAdress){
+            if(emailAdress.equals(confirmedEmailAdress)){
+                if(emailAdress.contains("@") && emailAdress.contains(".")){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static boolean checkPasswords(String user_password, String user_confirmed_password) {
+            if(user_password.equals(user_confirmed_password)){
+                if(user_password.length() >= 8 && user_password.matches(".*\\d.*")){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static User prepareNewUser(HashMap<String, String> newUserData) {
+            User result = new User();
+            result.setUserName(newUserData.get("FirstName") + " " +  newUserData.get("LastName"));
+            result.setBirthDate(newUserData.get("BirthDay") + "/" + newUserData.get("BirthMonth") + "/" + newUserData.get("BirthYear"));
+            result.setGender(newUserData.get("Gender"));
+            result.setEmail(newUserData.get("Email"));
+            result.setPasswordHash(newUserData.get("PasswordHash"));
+            result.setWeight(Integer.parseInt(newUserData.get("Weight")));
+            result.setHeight(Integer.parseInt(newUserData.get("Height")));
+            result.setActivityFactor(Double.parseDouble(newUserData.get("ActivityFactor")));
+            result.setDietType(newUserData.get("DietType"));
+            result.setCaloriesAmount(Integer.parseInt(newUserData.get("CaloriesAmount")));
+            result.setProteinAmount(Integer.parseInt(newUserData.get("ProteinAmount")));
+            result.setCarbsAmount(Integer.parseInt(newUserData.get("CarbsAmount")));
+            result.setFatAmount(Integer.parseInt(newUserData.get("FatAmount")));
+            return result;
+        }
+
+
+        public static boolean isEmailValid(String email) {
+            return email.contains("@") && email.contains(".");
+        }
+
+        public static boolean isPasswordValid(String password) {
+            return password.length() >= 8 && password.matches(".*\\d.*");
+        }
+
+        public static User convertResponseToUser(Response<User> response){
+            User result = new User();
+            result.setUserName(response.body().getUserName());
+            result.setGender(response.body().getGender());
+            result.setBirthDate(response.body().getBirthDate());
+            result.setEmail(response.body().getEmail());
+            result.setPasswordHash(response.body().getPasswordHash());
+            result.setWeight(response.body().getWeight());
+            result.setHeight(response.body().getHeight());
+            result.setActivityFactor(response.body().getActivityFactor());
+            result.setDietType(response.body().getDietType());
+            result.setCaloriesAmount(response.body().getCaloriesAmount());
+            result.setProteinAmount(response.body().getProteinAmount());
+            result.setCarbsAmount(response.body().getCarbsAmount());
+            result.setFatAmount(response.body().getFatAmount());
+            return  result;
+        }
+    }
+

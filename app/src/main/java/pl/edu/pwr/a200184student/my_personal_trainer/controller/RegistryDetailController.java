@@ -23,9 +23,8 @@ import java.util.HashMap;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.DietUtil;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
-import pl.edu.pwr.a200184student.my_personal_trainer.util.RegistryUtil;
 
 public class RegistryDetailController extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -176,7 +175,7 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
                 }
             }
         }
-        HashMap<String,String> dietMap = DietUtil.prepareDiet(newUserData.get("DietType") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("BirthYear") , newUserData.get("ActivityFactor"));
+        HashMap<String,String> dietMap = UserUtil.prepareDiet(newUserData.get("DietType") , newUserData.get("Weight") , newUserData.get("Height") , newUserData.get("Gender") , newUserData.get("BirthYear") , newUserData.get("ActivityFactor"));
         newUserData.putAll(dietMap);
         RegistryTask task = new RegistryTask();
         task.execute((Void) null);
@@ -191,7 +190,7 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
                 return null;
             }
             else{
-              User newUser =  RegistryUtil.prepareNewUser(newUserData);
+              User newUser =  UserUtil.prepareNewUser(newUserData);
                 try {
                     return UserService.createNewUser(newUser);
                 } catch (Exception e) {

@@ -1,6 +1,5 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
-
 import java.io.IOException;
 import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.UserEndpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
@@ -25,7 +24,7 @@ public class UserService{
         Call<User> call = endpoint.getUserByEmail(mEmail);
         try {
            loggingUser = call.execute().body();
-           if(loggingUser.getPasswordHash().equals(String.valueOf(mPassword.hashCode()))){
+           if(Integer.parseInt(loggingUser.getPasswordHash()) == mPassword.hashCode()){
                return loggingUser;
            }
            return null;
