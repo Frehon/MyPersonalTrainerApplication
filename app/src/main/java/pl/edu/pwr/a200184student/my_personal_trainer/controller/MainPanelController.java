@@ -12,11 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
-import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
+
 
 public class MainPanelController extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,7 +49,6 @@ public class MainPanelController extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.dietaryCalendarTab) {
