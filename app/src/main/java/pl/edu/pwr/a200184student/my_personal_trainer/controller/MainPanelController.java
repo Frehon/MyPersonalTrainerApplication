@@ -10,8 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
@@ -21,6 +25,9 @@ public class MainPanelController extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static User currentLoggedUser;
+    private TextView currentLoggedUserTextView;
+    private TextView dietaryPlanTextView;
+    private TextView dailyCaloriesAmountTextView;
 
 
     @Override
@@ -95,13 +102,21 @@ public class MainPanelController extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         currentLoggedUser = new User();
+        currentLoggedUserTextView = (TextView)findViewById(R.id.currentLoggedUserTextView);
+        dietaryPlanTextView = (TextView)findViewById(R.id.dietaryPlanTextView);
+        dailyCaloriesAmountTextView = (TextView)findViewById(R.id.dailyCaloriesAmountTextView);
     }
 
     private void collectAndShowLoggedUserData() {
         Intent intent = getIntent();
+        currentLoggedUser.setId(intent.getLongExtra("UserId" , 0));
+        Log.d("id" , String.valueOf(currentLoggedUser.getId()));
+        currentLoggedUserTextView.setText("Zalogowany Użytkowanik : " + intent.getStringExtra("UserName"));
+
     }
 
 
