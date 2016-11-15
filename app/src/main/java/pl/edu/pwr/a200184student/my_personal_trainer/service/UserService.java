@@ -64,4 +64,19 @@ public class UserService{
         }
         return null;
     }
+
+    public static User updateUser(Long id, User userToUpdate) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
+        Call<User> call = endpoint.updateUser(id , userToUpdate);
+        try{
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

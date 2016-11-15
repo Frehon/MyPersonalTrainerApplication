@@ -62,11 +62,11 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
     }
 
     private void preparePickers() {
-        weightNumberPicker.setMaxValue(150);
-        weightNumberPicker.setMinValue(40);
+        weightNumberPicker.setMaxValue(180);
+        weightNumberPicker.setMinValue(30);
         weightNumberPicker.setValue(70);
-        heightNumberPicker.setMaxValue(225);
-        heightNumberPicker.setMinValue(135);
+        heightNumberPicker.setMaxValue(240);
+        heightNumberPicker.setMinValue(120);
         heightNumberPicker.setValue(175);
         weightNumberPicker.setWrapSelectorWheel(true);
         heightNumberPicker.setWrapSelectorWheel(true);

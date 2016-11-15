@@ -146,5 +146,25 @@ public class UserUtil {
             result.setFatAmount(response.body().getFatAmount());
             return  result;
         }
+
+    public static boolean checkDigits(String parametrToCheck, String identifier) {
+        if (identifier.equals("weight") || identifier.equals("height")) {
+            try {
+                Integer.parseInt(parametrToCheck);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else{
+            try{
+                Double.parseDouble(parametrToCheck);
+                return true;
+            }
+            catch(NumberFormatException e){
+                return false;
+            }
+        }
     }
+}
 

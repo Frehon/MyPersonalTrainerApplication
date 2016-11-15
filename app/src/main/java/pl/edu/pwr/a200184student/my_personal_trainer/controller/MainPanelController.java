@@ -2,6 +2,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
@@ -16,10 +17,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
+import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
 
 
 public class MainPanelController extends AppCompatActivity
@@ -200,10 +204,64 @@ public class MainPanelController extends AppCompatActivity
             unlock();
         }
         else{
-            editDimensionsButton.setText("Edytuj Wymiary");
-            lock();
+            String newWeight = userWeightEditText.getText().toString();
+            if(UserUtil.checkDigits(newWeight , "weight")){
+                if(Integer.parseInt(newWeight) > 180){
+                    Toast.makeText(getApplicationContext() , "Waga poza przedziałem. Maksymalna waga to 180 kg!" , Toast.LENGTH_LONG).show();
+                    displayUserData();
+                    lock();
+                    editDimensionsButton.setText("Edytuj Wymiary");
+                    return;
+                }
+                currentLoggedUser.setWeight(Integer.parseInt(newWeight));
+            }
+            String newHeight = userHeightEditText.getText().toString();
+            if(UserUtil.checkDigits(newHeight , "height")){
+                if(Integer.parseInt(newHeight) > 240){
+                    Toast.makeText(getApplicationContext() , "Wzrost poza przedziałem. Maksymalny wzrost to 240 cm!" , Toast.LENGTH_LONG).show();
+                    displayUserData();
+                    lock();
+                    editDimensionsButton.setText("Edytuj Wymiary");
+                    return;
+                }
+                currentLoggedUser.setHeight(Integer.parseInt(newHeight));
+            }
+            String newActivityFactor = userActivityFactor.getText().toString();
+            if(UserUtil.checkDigits(newActivityFactor , "factor")){
+                if(Double.parseDouble(newActivityFactor) > 2.0){
+                    Toast.makeText(getApplicationContext() , "Współczynnik Aktywności przyjmuje wartości z przedziału 1.0 - 2.0. Aby dowiedzieć się więcej kliknij w opcję w prawym górnym rogu" , Toast.LENGTH_LONG).show();
+                    displayUserData();
+                    lock();
+                    editDimensionsButton.setText("Edytuj Wymiary");
+                    return;
+                }
+                currentLoggedUser.setActivityFactor(Double.parseDouble(newActivityFactor));
+            }
+            UpdateTask task = new UpdateTask();
+            task.execute((Void) null);
         }
     }
 
+
+    public class UpdateTask extends AsyncTask<Void, Void, User> {
+
+        @Override
+        protected User doInBackground(Void... params) {
+            return currentLoggedUser = UserService.updateUser(currentLoggedUser.getId() , currentLoggedUser);
+        }
+
+        protected void onPostExecute(User userAfterUpdate) {
+            if(userAfterUpdate == null){
+                Toast.makeText(getApplicationContext() , "Proszę Wprowadzić Liczbę" , Toast.LENGTH_LONG).show();
+                return;
+            }
+            currentLoggedUser = userAfterUpdate;
+
+            displayUserData();
+            editDimensionsButton.setText("Edytuj Wymiary");
+            lock();
+        }
+
+    }
 
 }
