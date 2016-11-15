@@ -10,11 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
 
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
@@ -28,13 +29,22 @@ public class MainPanelController extends AppCompatActivity
     private TextView currentLoggedUserTextView;
     private TextView dietaryPlanTextView;
     private TextView dailyCaloriesAmountTextView;
+    private TextView dailyProteinAmountTextView;
+    private TextView dailyCarbsAmountTextView;
+    private TextView dailyFatAmountTextView;
+    private EditText userWeightEditText;
+    private EditText userHeightEditText;
+    private EditText userActivityFactor;
+    private Button editDimensionsButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeFields();
+        prepareListeners();
         collectAndShowLoggedUserData();
+
     }
 
     @Override
@@ -107,16 +117,92 @@ public class MainPanelController extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         currentLoggedUser = new User();
         currentLoggedUserTextView = (TextView)findViewById(R.id.currentLoggedUserTextView);
-        dietaryPlanTextView = (TextView)findViewById(R.id.dietaryPlanTextView);
+        dietaryPlanTextView = (TextView)findViewById(R.id.dietryPlanTextView);
         dailyCaloriesAmountTextView = (TextView)findViewById(R.id.dailyCaloriesAmountTextView);
+        dailyProteinAmountTextView = (TextView)findViewById(R.id.dailyProteinAmountTextView);
+        dailyCarbsAmountTextView = (TextView)findViewById(R.id.dailyCarbsAmountTextView);
+        dailyFatAmountTextView = (TextView)findViewById(R.id.dailyFatAmountTextView);
+        userWeightEditText = (EditText)findViewById(R.id.userWeightTextView);
+        userHeightEditText = (EditText)findViewById(R.id.userHeightTextView);
+        userActivityFactor = (EditText)findViewById(R.id.userActivityFactorTextView);
+        editDimensionsButton = (Button)findViewById(R.id.editDimensionsButton);
+        editDimensionsButton.setText("Edytuj Wymiary");
+
     }
 
     private void collectAndShowLoggedUserData() {
         Intent intent = getIntent();
-        currentLoggedUser.setId(intent.getLongExtra("UserId" , 0));
-        Log.d("id" , String.valueOf(currentLoggedUser.getId()));
-        currentLoggedUserTextView.setText("Zalogowany Użytkowanik : " + intent.getStringExtra("UserName"));
+        currentLoggedUser.setId(intent.getLongExtra("UserId", 0));
+        currentLoggedUser.setUserName(intent.getStringExtra("UserName"));
+        currentLoggedUser.setGender(intent.getStringExtra("UserGender"));
+        currentLoggedUser.setEmail(intent.getStringExtra("UserEmail"));
+        currentLoggedUser.setWeight(intent.getIntExtra("UserWeight", 0));
+        currentLoggedUser.setHeight(intent.getIntExtra("UserHeight", 0));
+        currentLoggedUser.setDietType(intent.getStringExtra("UserDietType"));
+        currentLoggedUser.setActivityFactor(intent.getDoubleExtra("UserActivityFactor", 0));
+        currentLoggedUser.setCaloriesAmount(intent.getIntExtra("UserCaloriesAmount", 0));
+        currentLoggedUser.setProteinAmount(intent.getIntExtra("UserProteinAmount", 0));
+        currentLoggedUser.setCarbsAmount(intent.getIntExtra("UserCarbsAmount", 0));
+        currentLoggedUser.setFatAmount(intent.getIntExtra("UserFatAmount", 0));
+        displayUserData();
+        lock();
+    }
 
+    private void prepareListeners() {
+        userWeightEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userWeightEditText.setText("");
+            }
+        });
+        userHeightEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userHeightEditText.setText("");
+            }
+        });
+        userActivityFactor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userActivityFactor.setText("");
+            }
+        });
+    }
+
+    private void displayUserData(){
+        currentLoggedUserTextView.setText("Użytkownik: " + currentLoggedUser.getUserName());
+        dietaryPlanTextView.setText("Plan Diety: " + currentLoggedUser.getDietType());
+        dailyCaloriesAmountTextView.setText("Podaż Kalorii: " + currentLoggedUser.getCaloriesAmount() + " Kcal");
+        dailyProteinAmountTextView.setText("Białko: " + currentLoggedUser.getProteinAmount() + " Gram");
+        dailyCarbsAmountTextView.setText("Węglowodany: " + currentLoggedUser.getCarbsAmount() + " Gram");
+        dailyFatAmountTextView.setText("Tłuszcze: " + currentLoggedUser.getFatAmount() + " Gram");
+        userWeightEditText.setText("Waga: " + currentLoggedUser.getWeight() + " Kg");
+        userHeightEditText.setText("Wzrost: " + currentLoggedUser.getHeight() + " Cm");
+        userActivityFactor.setText("Współczynnik Aktywności: " + currentLoggedUser.getActivityFactor());
+    }
+
+    private void lock() {
+        userWeightEditText.setEnabled(false);
+        userHeightEditText.setEnabled(false);
+        userActivityFactor.setEnabled(false);
+    }
+
+    private void unlock(){
+        userWeightEditText.setEnabled(true);
+        userHeightEditText.setEnabled(true);
+        userActivityFactor.setEnabled(true);
+    }
+
+
+    public void onEditButtonClick(View v){
+        if(editDimensionsButton.getText().equals("Edytuj Wymiary")){
+            editDimensionsButton.setText("Zatwierdź Zmiany");
+            unlock();
+        }
+        else{
+            editDimensionsButton.setText("Edytuj Wymiary");
+            lock();
+        }
     }
 
 

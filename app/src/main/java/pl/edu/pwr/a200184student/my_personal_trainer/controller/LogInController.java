@@ -186,6 +186,7 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
                 intent.putExtra("UserId" , loggedUser.getId());
                 intent.putExtra("UserName" , loggedUser.getUserName());
                 intent.putExtra("UserGender" , loggedUser.getGender());
+                intent.putExtra("UserEmail", loggedUser.getEmail());
                 intent.putExtra("UserWeight" , loggedUser.getWeight());
                 intent.putExtra("UserHeight" , loggedUser.getHeight());
                 intent.putExtra("UserDietType" , loggedUser.getDietType());

@@ -113,7 +113,6 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
 
     private void prepareActivityFactorSpinner() {
         activityFactorSpinner.setOnItemSelectedListener(this);
-        // spinner drop down list
         ArrayList<String> factorValues = new ArrayList<String>();
         factorValues.add("1.2");
         factorValues.add("1.4");
@@ -127,7 +126,6 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        // On selecting a spinner item
         String selected_factor = adapterView.getItemAtPosition(i).toString();
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
         ((TextView) adapterView.getChildAt(0)).setTextSize(25);
@@ -207,6 +205,7 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
                 intent.putExtra("UserId" , newUser.getId());
                 intent.putExtra("UserName" , newUser.getUserName());
                 intent.putExtra("UserGender" , newUser.getGender());
+                intent.putExtra("UserEmail" , newUser.getEmail());
                 intent.putExtra("UserWeight" , newUser.getWeight());
                 intent.putExtra("UserHeight" , newUser.getHeight());
                 intent.putExtra("UserDietType" , newUser.getDietType());

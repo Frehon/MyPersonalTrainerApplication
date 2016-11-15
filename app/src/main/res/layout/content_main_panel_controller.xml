@@ -15,34 +15,194 @@
     android:orientation="horizontal">
 
     <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/info"
+            android:id="@+id/infoImageView"/>
+
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="30dp"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
             android:id="@+id/currentLoggedUserTextView"
             android:layout_weight="0.88" />
     </TableRow>
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="30dp"
-            android:layout_height="65dp"
-            android:id="@+id/dietaryPlanTextView"/>
     <TableRow>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/food_main_panel"
+            android:id="@+id/foodImageView" />
+
         <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="30dp"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
+            android:layout_height="65dp"
+            android:id="@+id/dietryPlanTextView"
+            android:layout_weight="0.88" />
+
+    </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/calories"
+            android:id="@+id/caloriesImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28dp"
+            android:textColor="#323232"
             android:layout_height="65dp"
             android:id="@+id/dailyCaloriesAmountTextView"
             android:layout_weight="0.88"/>
 
     </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/protein"
+            android:id="@+id/proteinImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
+            android:layout_height="65dp"
+            android:id="@+id/dailyProteinAmountTextView"
+            android:layout_weight="0.88"/>
+    </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/carbs"
+            android:id="@+id/carbsImageView" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:minHeight="100dp"
+        android:fontFamily="sans-serif-black"
+            android:textSize="28dp"
+            android:textColor="#323232"
+        android:layout_height="65dp"
+        android:id="@+id/dailyCarbsAmountTextView"
+        android:layout_weight="0.88"/>
+</TableRow>
+    <TableRow>
 
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/lipids"
+            android:id="@+id/fatImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:layout_height="65dp"
+            android:id="@+id/dailyFatAmountTextView"
+            android:layout_weight="0.88"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:textSize="28dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#233296"
+            android:layout_height="65dp"
+            android:textAlignment="center"
+            android:text="Wymiary Użytkownika"
+            android:id="@+id/userDimentionsTextView"
+            android:layout_weight="0.88"/>
+    </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/weight"
+            android:id="@+id/weightImageView" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
+            android:layout_height="65dp"
+            android:id="@+id/userWeightTextView"
+            android:layout_weight="0.88"
+            android:onClick="clearText" />
+    </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/height"
+            android:id="@+id/heightImageView" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
+            android:layout_height="65dp"
+            android:id="@+id/userHeightTextView"
+            android:layout_weight="0.88"
+            android:onClick="clearText" />
+    </TableRow>
+    <TableRow>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/sport"
+            android:id="@+id/sportImageView" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:textSize="20dp"
+            android:textColor="#323232"
+            android:fontFamily="sans-serif-black"
+            android:layout_height="65dp"
+            android:id="@+id/userActivityFactorTextView"
+            android:layout_weight="0.88"
+            android:onClick="clearText" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:layout_width="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15dp"
+            android:onClick="onEditButtonClick"
+            android:layout_height="wrap_content"
+            android:id="@+id/editDimensionsButton"
+            android:layout_weight="0.50"/>
+    </TableRow>
 
 </TableLayout>

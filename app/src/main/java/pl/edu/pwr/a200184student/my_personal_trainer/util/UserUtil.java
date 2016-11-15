@@ -84,7 +84,6 @@ public class UserUtil {
         return dietMap;
     }
 
-        // some help methods
         public static boolean checkEmailAdresses(String emailAdress , String confirmedEmailAdress){
             if(emailAdress.equals(confirmedEmailAdress)){
                 if(emailAdress.contains("@") && emailAdress.contains(".")){
