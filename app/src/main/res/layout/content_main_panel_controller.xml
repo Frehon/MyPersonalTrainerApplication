@@ -12,7 +12,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.MainPanelController"
     tools:showIn="@layout/app_bar_main_panel_controller"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <TableRow>
 
@@ -25,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
@@ -42,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:minHeight="100dp"
             android:fontFamily="sans-serif-black"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:layout_height="65dp"
             android:id="@+id/dailyCaloriesAmountTextView"
@@ -80,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
@@ -99,7 +100,7 @@
         android:layout_width="wrap_content"
         android:minHeight="100dp"
         android:fontFamily="sans-serif-black"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
         android:layout_height="65dp"
         android:id="@+id/dailyCarbsAmountTextView"
@@ -118,7 +119,7 @@
             android:layout_width="wrap_content"
             android:minHeight="100dp"
             android:fontFamily="sans-serif-black"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:layout_height="65dp"
             android:id="@+id/dailyFatAmountTextView"
@@ -128,7 +129,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:fontFamily="sans-serif-black"
             android:textColor="#233296"
             android:layout_height="65dp"
@@ -148,13 +149,12 @@
         <EditText
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
             android:id="@+id/userWeightTextView"
-            android:layout_weight="0.88"
-            android:onClick="clearText" />
+            android:layout_weight="0.88" />
     </TableRow>
     <TableRow>
 
@@ -167,13 +167,12 @@
         <EditText
             android:layout_width="wrap_content"
             android:minHeight="100dp"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textColor="#323232"
             android:fontFamily="sans-serif-black"
             android:layout_height="65dp"
             android:id="@+id/userHeightTextView"
-            android:layout_weight="0.88"
-            android:onClick="clearText" />
+            android:layout_weight="0.88" />
     </TableRow>
     <TableRow>
 
@@ -195,6 +194,28 @@
             android:onClick="clearText" />
     </TableRow>
     <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:minHeight="100dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28dp"
+            android:textColor="#323232"
+            android:layout_height="65dp"
+            android:id="@+id/editActivityFactorTextView"
+            android:layout_weight="0.88"/>
+
+        <Spinner
+            android:id="@+id/editDietTypeSpinner"
+            android:minHeight="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center">
+        </Spinner>
+    </TableRow>
+
+    <TableRow>
+
         <Button
             android:layout_width="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -204,5 +225,4 @@
             android:id="@+id/editDimensionsButton"
             android:layout_weight="0.50"/>
     </TableRow>
-
 </TableLayout>
