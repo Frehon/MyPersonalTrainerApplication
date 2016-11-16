@@ -1,5 +1,6 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
+
 import java.io.IOException;
 import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.UserEndpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
@@ -82,5 +83,21 @@ public class UserService{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void deleteUser(Long id) throws Exception{
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
+        Call<User> call = endpoint.deleteUser(id);
+        int code = call.execute().code();
+        if(code == 204){
+            return;
+        }
+        else{
+            throw new Exception("sth went wrong ...");
+        }
     }
 }

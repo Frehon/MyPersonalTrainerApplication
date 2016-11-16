@@ -94,6 +94,9 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         }
         else if (id == R.id.settingsTab) {
             Intent intent = new Intent(MainPanelController.this, MainPanelSettingsController.class);
+            intent.putExtra("UserId" , currentLoggedUser.getId());
+            intent.putExtra("UserName" , currentLoggedUser.getUserName());
+            intent.putExtra("UserEmail" , currentLoggedUser.getEmail());
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
@@ -228,7 +231,8 @@ public class MainPanelController extends AppCompatActivity implements Navigation
     }
 
     private void displayUserData() {
-        currentLoggedUserTextView.setText("Użytkownik: " + currentLoggedUser.getUserName());
+        String[] splittedUserName = currentLoggedUser.getUserName().split(" ");
+        currentLoggedUserTextView.setText("Użytkownik: " + splittedUserName[0]);
         dietaryPlanTextView.setText("Plan Diety: " + currentLoggedUser.getDietType());
         dailyCaloriesAmountTextView.setText("Podaż Kalorii: " + currentLoggedUser.getCaloriesAmount() + " Kcal");
         dailyProteinAmountTextView.setText("Białko: " + currentLoggedUser.getProteinAmount() + " Gram");

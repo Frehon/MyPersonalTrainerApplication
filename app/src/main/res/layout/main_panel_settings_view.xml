@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="65dp"
             android:layout_weight="0.88"
+            android:hint="Nowa Nazwa Użytkownika"
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
@@ -50,6 +51,7 @@
             android:id="@+id/emailEditText"
             android:layout_width="wrap_content"
             android:layout_height="65dp"
+            android:hint="Nowy Adres Email"
             android:layout_weight="0.88"
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
@@ -73,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="65dp"
             android:layout_weight="0.88"
+            android:hint="Nowe Hasło"
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
@@ -87,6 +90,7 @@
         <Button
             android:id="@+id/updateAccountDataButton"
             android:layout_width="wrap_content"
+            android:text="Zatwierdź Zmiany"
             android:layout_height="65dp"
             android:layout_weight="0.88"
             android:fontFamily="sans-serif-black"
@@ -109,12 +113,14 @@
         <Button
             android:id="@+id/deleteUserButton"
             android:layout_width="wrap_content"
+            android:text="Usuń Konto"
             android:layout_height="65dp"
             android:layout_weight="0.88"
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:onClick="deleteAccount"/>
     </TableRow>
 
 </TableLayout>
