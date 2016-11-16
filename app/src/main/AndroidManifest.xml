@@ -42,7 +42,9 @@
             android:name=".controller.MainPanelSettingsController"
             android:label="Ustawienia Konta"
             android:theme="@style/AppTheme.CustomTheme"></activity>
-        <activity android:name=".controller.MainCalendarController"></activity>
+        <activity android:name=".controller.MainCalendarController"
+            android:label="Kalendarz Dietetyczny">
+        </activity>
     </application>
 
 </manifest>

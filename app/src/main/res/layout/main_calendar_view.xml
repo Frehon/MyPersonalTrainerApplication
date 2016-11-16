@@ -4,6 +4,7 @@
     android:id="@+id/main_calendar_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drewno5"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,5 +14,6 @@
     <CalendarView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dateTextAppearance="@android:style/TextAppearance.Large"
         android:id="@+id/calendarView3" />
 </FrameLayout>

@@ -20,6 +20,7 @@ public class OnStartController extends AppCompatActivity {
     public void go_to_logIn_activity(View view){
         Intent intent = new Intent(this, LogInController.class);
         startActivity(intent);
+        finish();
     }
 
     public void go_to_registry_activity(View view){

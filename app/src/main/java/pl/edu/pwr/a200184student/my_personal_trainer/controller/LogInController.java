@@ -197,6 +197,7 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
                 intent.putExtra("UserCarbsAmount" , loggedUser.getCarbsAmount());
                 intent.putExtra("UserFatAmount" , loggedUser.getFatAmount());
                 startActivity(intent);
+                finish();
             } else {
                 mPasswordView.setError("Podane dane są nieprawidłowe , bądź użytkownik o podanych danych nie istenieje!");
                 mPasswordView.requestFocus();
