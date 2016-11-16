@@ -92,7 +92,9 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         } else if (id == R.id.trainingHistoryTab) {
 
         } else if (id == R.id.settingsTab) {
-
+            //Intent intent = new Intent(MainPanelController.this,MainPanelSettingsController.class);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //startActivity(intent);
         } else if (id == R.id.rateTheAppTab) {
 
         } else if (id == R.id.logOutTab){

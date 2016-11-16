@@ -37,7 +37,7 @@
         <activity
             android:name=".controller.InfoController"
             android:label="@string/title_activity_info_controller"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
 </manifest>
