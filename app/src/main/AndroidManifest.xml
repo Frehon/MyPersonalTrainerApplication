@@ -38,6 +38,11 @@
             android:name=".controller.InfoController"
             android:label="@string/title_activity_info_controller"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".controller.MainPanelSettingsController"
+            android:label="Ustawienia Konta"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".controller.MainCalendarController"></activity>
     </application>
 
 </manifest>
