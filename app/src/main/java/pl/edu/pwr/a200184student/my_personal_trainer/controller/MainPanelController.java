@@ -23,8 +23,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +31,6 @@ import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.UserService;
 import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
-
-
 
 
 public class MainPanelController extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,7 +82,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.dietaryCalendarTab) {
-            Intent intent = new Intent(MainPanelController.this,MainCalendarController.class);
+            Intent intent = new Intent(MainPanelController.this, MainCalendarController.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
@@ -97,14 +93,14 @@ public class MainPanelController extends AppCompatActivity implements Navigation
 
         }
         else if (id == R.id.settingsTab) {
-            Intent intent = new Intent(MainPanelController.this,MainPanelSettingsController.class);
+            Intent intent = new Intent(MainPanelController.this, MainPanelSettingsController.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
         else if (id == R.id.rateTheAppTab) {
 
         }
-        else if (id == R.id.logOutTab){
+        else if (id == R.id.logOutTab) {
             onBackPressed();
         }
 
@@ -121,7 +117,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(MainPanelController.this,OnStartController.class));
+                        startActivity(new Intent(MainPanelController.this, OnStartController.class));
                         finish();
                     }
                 }).create().show();
@@ -142,20 +138,19 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         currentLoggedUser = new User();
-        currentLoggedUserTextView = (TextView)findViewById(R.id.currentLoggedUserTextView);
-        dietaryPlanTextView = (TextView)findViewById(R.id.dietryPlanTextView);
-        dailyCaloriesAmountTextView = (TextView)findViewById(R.id.dailyCaloriesAmountTextView);
-        dailyProteinAmountTextView = (TextView)findViewById(R.id.dailyProteinAmountTextView);
-        dailyCarbsAmountTextView = (TextView)findViewById(R.id.dailyCarbsAmountTextView);
-        dailyFatAmountTextView = (TextView)findViewById(R.id.dailyFatAmountTextView);
-        editDietTypeTextView= (TextView)findViewById(R.id.editDietTypeTextView);
-        userWeightEditText = (EditText)findViewById(R.id.userWeightTextView);
-        userHeightEditText = (EditText)findViewById(R.id.userHeightTextView);
-        userActivityFactor = (EditText)findViewById(R.id.userActivityFactorTextView);
-        editDietTypeSpinner = (Spinner)findViewById(R.id.editDietTypeSpinner);
-        editDimensionsButton = (Button)findViewById(R.id.editDimensionsButton);
+        currentLoggedUserTextView = (TextView) findViewById(R.id.currentLoggedUserTextView);
+        dietaryPlanTextView = (TextView) findViewById(R.id.dietryPlanTextView);
+        dailyCaloriesAmountTextView = (TextView) findViewById(R.id.dailyCaloriesAmountTextView);
+        dailyProteinAmountTextView = (TextView) findViewById(R.id.dailyProteinAmountTextView);
+        dailyCarbsAmountTextView = (TextView) findViewById(R.id.dailyCarbsAmountTextView);
+        dailyFatAmountTextView = (TextView) findViewById(R.id.dailyFatAmountTextView);
+        editDietTypeTextView = (TextView) findViewById(R.id.editDietTypeTextView);
+        userWeightEditText = (EditText) findViewById(R.id.userWeightTextView);
+        userHeightEditText = (EditText) findViewById(R.id.userHeightTextView);
+        userActivityFactor = (EditText) findViewById(R.id.userActivityFactorTextView);
+        editDietTypeSpinner = (Spinner) findViewById(R.id.editDietTypeSpinner);
+        editDimensionsButton = (Button) findViewById(R.id.editDimensionsButton);
         editDimensionsButton.setText("Edytuj Wymiary");
-
     }
 
     private void collectAndShowLoggedUserData() {
@@ -215,32 +210,24 @@ public class MainPanelController extends AppCompatActivity implements Navigation
                 ((TextView) parent.getChildAt(0)).setTextSize(25);
                 ((TextView) parent.getChildAt(0)).setGravity(Gravity.CENTER);
                 String item = parent.getItemAtPosition(position).toString();
-                if(!item.equals("Rodzaje Diety")){
-                    if(currentLoggedUser.getDietType().equals(item)){
-                        Toast.makeText(getApplicationContext(),"Wybrano ten sam typ diety!" ,Toast.LENGTH_LONG).show();
-                    }
-                    else{
+                if (!item.equals("Rodzaje Diety")) {
+                    if (currentLoggedUser.getDietType().equals(item)) {
+                        Toast.makeText(getApplicationContext(), "Wybrano ten sam typ diety!", Toast.LENGTH_LONG).show();
+                    } else {
                         currentLoggedUser.setDietType(item);
                         UpdateTask task = new UpdateTask();
                         task.execute((Void) null);
                     }
                 }
-                else{
+                else {
                     return;
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+            public void onNothingSelected(AdapterView<?> parent) {}});
     }
 
-
-
-    private void displayUserData(){
+    private void displayUserData() {
         currentLoggedUserTextView.setText("Użytkownik: " + currentLoggedUser.getUserName());
         dietaryPlanTextView.setText("Plan Diety: " + currentLoggedUser.getDietType());
         dailyCaloriesAmountTextView.setText("Podaż Kalorii: " + currentLoggedUser.getCaloriesAmount() + " Kcal");
@@ -259,23 +246,22 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         userActivityFactor.setEnabled(false);
     }
 
-    private void unlock(){
+    private void unlock() {
         userWeightEditText.setEnabled(true);
         userHeightEditText.setEnabled(true);
         userActivityFactor.setEnabled(true);
     }
 
-
-    public void onEditButtonClick(View v){
-        if(editDimensionsButton.getText().equals("Edytuj Wymiary")){
+    public void onEditButtonClick(View v) {
+        if (editDimensionsButton.getText().equals("Edytuj Wymiary")) {
             editDimensionsButton.setText("Zatwierdź Zmiany");
             unlock();
         }
-        else{
+        else {
             String newWeight = userWeightEditText.getText().toString();
-            if(UserUtil.checkDigits(newWeight , "weight")){
-                if(Integer.parseInt(newWeight) > 180){
-                    Toast.makeText(getApplicationContext() , "Waga poza przedziałem. Maksymalna waga to 180 kg!" , Toast.LENGTH_LONG).show();
+            if (UserUtil.checkDigits(newWeight, "weight")) {
+                if (Integer.parseInt(newWeight) > 180) {
+                    Toast.makeText(getApplicationContext(), "Waga poza przedziałem. Maksymalna waga to 180 kg!", Toast.LENGTH_LONG).show();
                     displayUserData();
                     lock();
                     editDimensionsButton.setText("Edytuj Wymiary");
@@ -284,9 +270,9 @@ public class MainPanelController extends AppCompatActivity implements Navigation
                 currentLoggedUser.setWeight(Integer.parseInt(newWeight));
             }
             String newHeight = userHeightEditText.getText().toString();
-            if(UserUtil.checkDigits(newHeight , "height")){
-                if(Integer.parseInt(newHeight) > 240){
-                    Toast.makeText(getApplicationContext() , "Wzrost poza przedziałem. Maksymalny wzrost to 240 cm!" , Toast.LENGTH_LONG).show();
+            if (UserUtil.checkDigits(newHeight, "height")) {
+                if (Integer.parseInt(newHeight) > 240) {
+                    Toast.makeText(getApplicationContext(), "Wzrost poza przedziałem. Maksymalny wzrost to 240 cm!", Toast.LENGTH_LONG).show();
                     displayUserData();
                     lock();
                     editDimensionsButton.setText("Edytuj Wymiary");
@@ -295,9 +281,9 @@ public class MainPanelController extends AppCompatActivity implements Navigation
                 currentLoggedUser.setHeight(Integer.parseInt(newHeight));
             }
             String newActivityFactor = userActivityFactor.getText().toString();
-            if(UserUtil.checkDigits(newActivityFactor , "factor")){
-                if(Double.parseDouble(newActivityFactor) > 2.0){
-                    Toast.makeText(getApplicationContext() , "Współczynnik Aktywności przyjmuje wartości z przedziału 1.0 - 2.0. Aby dowiedzieć się więcej kliknij w opcję w prawym górnym rogu" , Toast.LENGTH_LONG).show();
+            if (UserUtil.checkDigits(newActivityFactor, "factor")) {
+                if (Double.parseDouble(newActivityFactor) > 2.0) {
+                    Toast.makeText(getApplicationContext(), "Współczynnik Aktywności przyjmuje wartości z przedziału 1.0 - 2.0. Aby dowiedzieć się więcej kliknij w opcję w prawym górnym rogu", Toast.LENGTH_LONG).show();
                     displayUserData();
                     lock();
                     editDimensionsButton.setText("Edytuj Wymiary");
@@ -310,20 +296,18 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         }
     }
 
-
     public class UpdateTask extends AsyncTask<Void, Void, User> {
 
         @Override
         protected User doInBackground(Void... params) {
-            HashMap<String,String> newDietMap = UserUtil.prepareNewDiet(currentLoggedUser.getDietType(),currentLoggedUser.getWeight(),currentLoggedUser.getHeight(),currentLoggedUser.getGender(),currentLoggedUser.getBirthYear(),currentLoggedUser.getActivityFactor());
-            currentLoggedUser = UserUtil.updateDietValues(currentLoggedUser,newDietMap);
-            return currentLoggedUser = UserService.updateUser(currentLoggedUser.getId() , currentLoggedUser);
-
+            HashMap<String, String> newDietMap = UserUtil.prepareNewDiet(currentLoggedUser.getDietType(), currentLoggedUser.getWeight(), currentLoggedUser.getHeight(), currentLoggedUser.getGender(), currentLoggedUser.getBirthYear(), currentLoggedUser.getActivityFactor());
+            currentLoggedUser = UserUtil.updateDietValues(currentLoggedUser, newDietMap);
+            return currentLoggedUser = UserService.updateUser(currentLoggedUser.getId(), currentLoggedUser);
         }
 
         protected void onPostExecute(User userAfterUpdate) {
-            if(userAfterUpdate == null){
-                Toast.makeText(getApplicationContext() , "Proszę Wprowadzić Liczbę" , Toast.LENGTH_LONG).show();
+            if (userAfterUpdate == null) {
+                Toast.makeText(getApplicationContext(), "Proszę Wprowadzić Liczbę", Toast.LENGTH_LONG).show();
                 return;
             }
             currentLoggedUser = userAfterUpdate;

@@ -91,10 +91,8 @@ public class RegistryController extends AppCompatActivity implements AdapterView
             }
         }
     }
-
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     public void prepare_birth_date_picker(){
         calendar = Calendar.getInstance();
@@ -131,28 +129,35 @@ public class RegistryController extends AppCompatActivity implements AdapterView
 
         if (newUserData.containsKey("Gender") == false || newUserData.get("Gender").equals("Wybierz Płeć")) {
             Toast.makeText(getApplicationContext(), "Wybierz swoja płeć", Toast.LENGTH_LONG).show();
-        } else {
+        }
+        else {
             if (!(newUserData.containsKey("BirthYear"))) {
                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z datą urodzin.", Toast.LENGTH_LONG).show();
-            } else {
+            }
+            else {
                 if (user_first_name.isEmpty() || user_last_name.isEmpty() || user_first_name.equals("Imię") || user_last_name.equals("Nazwisko")) {
                     Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z imieniem lub nazwiskiem.", Toast.LENGTH_LONG).show();
-                } else {
+                }
+                else {
                     newUserData.put("FirstName", user_first_name);
                     newUserData.put("LastName", user_last_name);
                     if (user_email_adress.isEmpty() || confirmed_user_email_adress.isEmpty() || user_email_adress.equals("Adres Email") || confirmed_user_email_adress.equals("Potwierdź Adres Email")) {
                         Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z adresem email.", Toast.LENGTH_LONG).show();
-                    } else {
+                    }
+                    else {
                         if (!UserUtil.checkEmailAdresses(user_email_adress, confirmed_user_email_adress)) {
                             Toast.makeText(getApplicationContext(), "Adresy Email nie są identyczne lub mają zły format !", Toast.LENGTH_LONG).show();
-                        } else {
+                        }
+                        else {
                             newUserData.put("Email", user_email_adress);
                             if (user_password.isEmpty() || user_confirmed_password.isEmpty() || user_password.equals("Nowe Hasło") || user_confirmed_password.equals("Potwierdź Nowe Hasło")) {
                                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z hasłem.", Toast.LENGTH_LONG).show();
-                            } else {
+                            }
+                            else {
                                 if (!UserUtil.checkPasswords(user_password, user_confirmed_password)) {
                                     Toast.makeText(getApplicationContext(), "Hasła nie są identyczne , bądź nie spełniają wymagań 8 znaków w tym minimum jednej cyfry! ", Toast.LENGTH_LONG).show();
-                                } else {
+                                }
+                                else {
                                     newUserData.put("PasswordHash" , user_password);
                                     Intent intent = new Intent(this, RegistryDetailController.class);
                                     intent.putExtra("map", newUserData);

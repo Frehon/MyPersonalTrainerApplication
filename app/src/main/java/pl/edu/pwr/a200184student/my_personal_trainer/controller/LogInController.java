@@ -6,11 +6,9 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -64,7 +62,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
                 attemptLogin();
             }
         });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -89,17 +86,16 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
             focusView = mPasswordView;
             cancel = true;
         }
-
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError("To pole jest wymagane");
             focusView = mEmailView;
             cancel = true;
-        } else if (!UserUtil.isEmailValid(email)) {
+        }
+        else if (!UserUtil.isEmailValid(email)) {
             mEmailView.setError("Niepoprawny format adresu email.");
             focusView = mEmailView;
             cancel = true;
         }
-
         if (cancel) {
             focusView.requestFocus();
         } else {
@@ -108,7 +104,6 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
             mAuthTask.execute((Void) null);
         }
     }
-
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
@@ -144,15 +139,10 @@ public class LogInController extends AppCompatActivity implements LoaderCallback
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-
-    }
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {}
 
     @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {}
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 

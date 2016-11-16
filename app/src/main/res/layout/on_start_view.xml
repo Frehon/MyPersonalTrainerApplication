@@ -4,116 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drewno"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/drewno"
-    android:orientation="horizontal"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.OnStartController"
     android:weightSum="1"
-    >
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.OnStartController">
 
     <Button
+        android:id="@+id/registry_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_button_registry"
-        android:textSize="25dp"
-        android:id="@+id/registry_button"
-        android:minHeight="100px"
-        android:onClick="go_to_registry_activity"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp" />
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/custom_button_registry"
+        android:minHeight="100px"
+        android:onClick="go_to_registry_activity"
+        android:textSize="25dp" />
 
     <Button
+        android:id="@+id/log_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:id="@+id/log_in_button"
-        android:minHeight="100px"
-        android:onClick="go_to_logIn_activity"
-        android:background="@drawable/custom_buttons_log_in"
         android:layout_above="@+id/registry_button"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_buttons_log_in"
+        android:minHeight="100px"
+        android:onClick="go_to_logIn_activity"
+        android:textSize="25dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/fish"
         android:id="@+id/fishImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cyclingImageView"
         android:layout_alignTop="@+id/foodImageView"
-        android:layout_alignStart="@+id/cyclingImageView" />
+        app:srcCompat="@drawable/fish" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/swimming"
         android:id="@+id/swimmingImageView"
-        android:layout_alignTop="@+id/weightLiftingImageView"
-        android:layout_alignStart="@+id/foodImageView" />
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cycling"
+        android:layout_alignStart="@+id/foodImageView"
+        android:layout_alignTop="@+id/weightLiftingImageView"
+        app:srcCompat="@drawable/swimming" />
+
+    <ImageView
         android:id="@+id/cyclingImageView"
-        android:layout_marginEnd="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/swimmingImageView"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginEnd="15dp"
+        app:srcCompat="@drawable/cycling" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/food"
         android:id="@+id/foodImageView"
-        android:layout_marginEnd="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ingrediensImageView"
-        android:layout_toStartOf="@+id/fishImageView" />
+        android:layout_marginEnd="64dp"
+        android:layout_toStartOf="@+id/fishImageView"
+        app:srcCompat="@drawable/food" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/exercise"
         android:id="@+id/excersiseImageView"
-        android:layout_alignTop="@+id/weightLiftingImageView"
-        android:layout_alignStart="@+id/chickenImageView" />
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo"
+        android:layout_alignStart="@+id/chickenImageView"
+        android:layout_alignTop="@+id/weightLiftingImageView"
+        app:srcCompat="@drawable/exercise" />
+
+    <ImageView
         android:id="@+id/logoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/swimmingImageView"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="36dp" />
+        android:layout_marginBottom="36dp"
+        app:srcCompat="@drawable/logo" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/chicken"
         android:id="@+id/chickenImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/ingrediensImageView"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@drawable/chicken" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/weightlifting"
         android:id="@+id/weightLiftingImageView"
-        android:layout_marginBottom="67dp"
-        android:layout_above="@+id/log_in_button"
-        android:layout_alignStart="@+id/ingrediensImageView" />
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ingredients"
+        android:layout_above="@+id/log_in_button"
+        android:layout_alignStart="@+id/ingrediensImageView"
+        android:layout_marginBottom="67dp"
+        app:srcCompat="@drawable/weightlifting" />
+
+    <ImageView
         android:id="@+id/ingrediensImageView"
-        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/logoImageView"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="70dp"
         android:layout_toEndOf="@+id/chickenImageView"
-        android:layout_marginStart="70dp" />
+        app:srcCompat="@drawable/ingredients" />
 
 </RelativeLayout>

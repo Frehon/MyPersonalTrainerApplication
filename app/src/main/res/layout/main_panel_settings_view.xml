@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_panel_settings_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,20 +19,20 @@
         android:layout_marginTop="80sp">
 
         <ImageView
+            android:id="@+id/userNameImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/user"
-            android:id="@+id/userNameImageView"/>
+            app:srcCompat="@drawable/user" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="25dp"
-            android:textColor="#323232"
-            android:fontFamily="sans-serif-black"
-            android:layout_height="65dp"
             android:id="@+id/userNameEditText"
-            android:layout_weight="0.88" />
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_weight="0.88"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="100dp"
+            android:textColor="#323232"
+            android:textSize="25dp" />
     </TableRow>
 
     <TableRow
@@ -41,20 +41,20 @@
         android:layout_marginTop="30sp">
 
         <ImageView
+            android:id="@+id/emailImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/message"
-            android:id="@+id/emailImageView"/>
+            app:srcCompat="@drawable/message" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="25dp"
-            android:textColor="#323232"
-            android:fontFamily="sans-serif-black"
-            android:layout_height="65dp"
             android:id="@+id/emailEditText"
-            android:layout_weight="0.88" />
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_weight="0.88"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="100dp"
+            android:textColor="#323232"
+            android:textSize="25dp" />
     </TableRow>
 
     <TableRow
@@ -63,56 +63,58 @@
         android:layout_marginTop="30sp">
 
         <ImageView
+            android:id="@+id/passwordImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/key"
-            android:id="@+id/passwordImageView"/>
+            app:srcCompat="@drawable/key" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="25dp"
-            android:textColor="#323232"
-            android:fontFamily="sans-serif-black"
-            android:layout_height="65dp"
             android:id="@+id/passwordEditText"
-            android:layout_weight="0.88" />
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_weight="0.88"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="100dp"
+            android:textColor="#323232"
+            android:textSize="25dp" />
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30sp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="25dp"
-            android:textColor="#323232"
-            android:fontFamily="sans-serif-black"
-            android:layout_height="65dp"
             android:id="@+id/updateAccountDataButton"
-            android:layout_weight="0.88" />
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_weight="0.88"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="100dp"
+            android:textColor="#323232"
+            android:textSize="25dp" />
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30sp">
 
         <ImageView
+            android:id="@+id/deleteUserImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/trash"
-            android:id="@+id/deleteUserImageView"/>
+            app:srcCompat="@drawable/trash" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:minHeight="100dp"
-            android:textSize="25dp"
-            android:textColor="#323232"
-            android:fontFamily="sans-serif-black"
-            android:layout_height="65dp"
             android:id="@+id/deleteUserButton"
-            android:layout_weight="0.88" />
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_weight="0.88"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="100dp"
+            android:textColor="#323232"
+            android:textSize="25dp" />
     </TableRow>
 
 </TableLayout>

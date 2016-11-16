@@ -166,7 +166,8 @@ public class UserUtil {
             try {
                 Integer.parseInt(parametrToCheck);
                 return true;
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return false;
             }
         }

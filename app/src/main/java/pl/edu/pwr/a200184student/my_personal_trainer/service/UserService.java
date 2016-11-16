@@ -28,7 +28,8 @@ public class UserService{
                return loggingUser;
            }
            return null;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -43,7 +44,8 @@ public class UserService{
         Call<User> call = endpoint.getUserByEmail(email);
         try {
             return call.execute().body();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -59,7 +61,8 @@ public class UserService{
         Call<User> call = endpoint.createNewUser(newUser);
         try {
             return call.execute().body();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -74,7 +77,8 @@ public class UserService{
         Call<User> call = endpoint.updateUser(id , userToUpdate);
         try{
             return call.execute().body();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;

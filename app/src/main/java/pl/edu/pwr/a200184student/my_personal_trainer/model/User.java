@@ -1,7 +1,5 @@
 
 package pl.edu.pwr.a200184student.my_personal_trainer.model;
-
-
 import com.google.gson.annotations.SerializedName;
 
 public class User {

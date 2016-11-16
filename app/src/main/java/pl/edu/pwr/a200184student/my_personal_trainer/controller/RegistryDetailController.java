@@ -133,10 +133,8 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
         ((TextView) adapterView.getChildAt(0)).setGravity(Gravity.CENTER);
         newUserData.put("ActivityFactor" , selected_factor);
     }
-
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
 
     public void preparePopUpInfoView(){
