@@ -2,6 +2,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,9 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
@@ -30,7 +37,7 @@ import pl.edu.pwr.a200184student.my_personal_trainer.util.UserUtil;
 
 
 
-public class MainPanelController extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainPanelController extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static User currentLoggedUser;
     private TextView currentLoggedUserTextView;
@@ -39,7 +46,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
     private TextView dailyProteinAmountTextView;
     private TextView dailyCarbsAmountTextView;
     private TextView dailyFatAmountTextView;
-    private TextView editActivityFactorTextView;
+    private TextView editDietTypeTextView;
     private EditText userWeightEditText;
     private EditText userHeightEditText;
     private EditText userActivityFactor;
@@ -52,7 +59,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         initializeFields();
         prepareListeners();
-        prepareSpinner();
+        prepareEditDietTypeSpinner();
         collectAndShowLoggedUserData();
 
     }
@@ -132,7 +139,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         dailyProteinAmountTextView = (TextView)findViewById(R.id.dailyProteinAmountTextView);
         dailyCarbsAmountTextView = (TextView)findViewById(R.id.dailyCarbsAmountTextView);
         dailyFatAmountTextView = (TextView)findViewById(R.id.dailyFatAmountTextView);
-        editActivityFactorTextView = (TextView)findViewById(R.id.editActivityFactorTextView);
+        editDietTypeTextView= (TextView)findViewById(R.id.editDietTypeTextView);
         userWeightEditText = (EditText)findViewById(R.id.userWeightTextView);
         userHeightEditText = (EditText)findViewById(R.id.userHeightTextView);
         userActivityFactor = (EditText)findViewById(R.id.userActivityFactorTextView);
@@ -146,6 +153,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         Intent intent = getIntent();
         currentLoggedUser.setId(intent.getLongExtra("UserId", 0));
         currentLoggedUser.setUserName(intent.getStringExtra("UserName"));
+        currentLoggedUser.setBirthYear(intent.getStringExtra("UserBirthYear"));
         currentLoggedUser.setGender(intent.getStringExtra("UserGender"));
         currentLoggedUser.setEmail(intent.getStringExtra("UserEmail"));
         currentLoggedUser.setWeight(intent.getIntExtra("UserWeight", 0));
@@ -181,9 +189,46 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         });
     }
 
-    private void prepareSpinner() {
+    private void prepareEditDietTypeSpinner() {
+        List<String> dietTypeList = new ArrayList<>();
+        dietTypeList.add("Rodzaje Diety");
+        dietTypeList.add("Zbilansowana");
+        dietTypeList.add("Masowa");
+        dietTypeList.add("Redukcyjna");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dietTypeList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editDietTypeSpinner.setAdapter(dataAdapter);
+        editDietTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setGravity(Gravity.CENTER);
+                String item = parent.getItemAtPosition(position).toString();
+                if(!item.equals("Rodzaje Diety")){
+                    if(currentLoggedUser.getDietType().equals(item)){
+                        Toast.makeText(getApplicationContext(),"Wybrano ten sam typ diety!" ,Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        currentLoggedUser.setDietType(item);
+                        UpdateTask task = new UpdateTask();
+                        task.execute((Void) null);
+                    }
+                }
+                else{
+                    return;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
+
 
 
     private void displayUserData(){
@@ -196,7 +241,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         userWeightEditText.setText("Waga: " + currentLoggedUser.getWeight() + " Kg");
         userHeightEditText.setText("Wzrost: " + currentLoggedUser.getHeight() + " Cm");
         userActivityFactor.setText("Współczynnik Aktywności: " + currentLoggedUser.getActivityFactor());
-        editActivityFactorTextView.setText("Zmień typ diety -->");
+        editDietTypeTextView.setText("Zmień typ diety -->");
     }
 
     private void lock() {
@@ -256,11 +301,15 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         }
     }
 
+
     public class UpdateTask extends AsyncTask<Void, Void, User> {
 
         @Override
         protected User doInBackground(Void... params) {
+            HashMap<String,String> newDietMap = UserUtil.prepareNewDiet(currentLoggedUser.getDietType(),currentLoggedUser.getWeight(),currentLoggedUser.getHeight(),currentLoggedUser.getGender(),currentLoggedUser.getBirthYear(),currentLoggedUser.getActivityFactor());
+            currentLoggedUser = UserUtil.updateDietValues(currentLoggedUser,newDietMap);
             return currentLoggedUser = UserService.updateUser(currentLoggedUser.getId() , currentLoggedUser);
+
         }
 
         protected void onPostExecute(User userAfterUpdate) {
@@ -269,7 +318,6 @@ public class MainPanelController extends AppCompatActivity implements Navigation
                 return;
             }
             currentLoggedUser = userAfterUpdate;
-
             displayUserData();
             editDimensionsButton.setText("Edytuj Wymiary");
             lock();

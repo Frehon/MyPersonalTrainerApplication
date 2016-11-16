@@ -8,8 +8,8 @@ public class User {
 
     @SerializedName("userName")
     String userName;
-    @SerializedName("birthDate")
-    String birthDate;
+    @SerializedName("birthYear")
+    String birthYear;
     @SerializedName("gender")
     String gender;
     @SerializedName("email")
@@ -43,8 +43,8 @@ public class User {
         return userName;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getBirthYear() {
+        return birthYear;
     }
 
     public String getGender() {
@@ -97,8 +97,8 @@ public class User {
         this.userName = userName;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
     }
 
     public void setGender(String gender) {

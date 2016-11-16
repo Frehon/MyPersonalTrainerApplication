@@ -115,8 +115,6 @@ public class RegistryController extends AppCompatActivity implements AdapterView
                     set_birthDate_button.setText(i2+" / "+i1+" / "+i);
                     set_birthDate_button.setTextSize(20);
                     newUserData.put("BirthYear" , String.valueOf(i));
-                    newUserData.put("BirthMonth" , String.valueOf(i1));
-                    newUserData.put("BirthDay" , String.valueOf(i2));
                 }
             };
         });
@@ -134,7 +132,7 @@ public class RegistryController extends AppCompatActivity implements AdapterView
         if (newUserData.containsKey("Gender") == false || newUserData.get("Gender").equals("Wybierz Płeć")) {
             Toast.makeText(getApplicationContext(), "Wybierz swoja płeć", Toast.LENGTH_LONG).show();
         } else {
-            if (!(newUserData.containsKey("BirthYear") && newUserData.containsKey("BirthMonth") && newUserData.containsKey("BirthDay"))) {
+            if (!(newUserData.containsKey("BirthYear"))) {
                 Toast.makeText(getApplicationContext(), "Brak wypełnionego pola z datą urodzin.", Toast.LENGTH_LONG).show();
             } else {
                 if (user_first_name.isEmpty() || user_last_name.isEmpty() || user_first_name.equals("Imię") || user_last_name.equals("Nazwisko")) {

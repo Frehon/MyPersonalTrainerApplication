@@ -1,12 +1,19 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.util;
 
+
 import java.util.Calendar;
 import java.util.HashMap;
+
 import pl.edu.pwr.a200184student.my_personal_trainer.model.User;
 import retrofit2.Response;
 
 
 public class UserUtil {
+
+
+    public static HashMap<String,String> prepareNewDiet(String diet_type , int weight , int height , String gender , String birthYear , double activityFactor){
+        return prepareDiet(diet_type,String.valueOf(weight),String.valueOf(height),gender,birthYear,String.valueOf(activityFactor));
+    }
 
     public static HashMap<String,String> prepareDiet(String diet_type, String weight, String height, String gender , String birthYear , String activityFactor) {
         HashMap<String,String> dietMap = new HashMap<String,String>();
@@ -18,19 +25,19 @@ public class UserUtil {
             BMR = 9.99 * Integer.parseInt(weight) + 6.25 * Integer.parseInt(height) -  4.92 * age - 161;
             EPOC = 0.05 * BMR;
             switch (diet_type){
-                case "Balanced" :
+                case "Zbilansowana" :
                     NEAT = 500;
                     proteinPercent = 0.4;
                     carbsPercent = 0.4;
                     fatPercent = 0.2;
                     break;
-                case "Mass" :
+                case "Masowa" :
                     NEAT = 700;
                     proteinPercent = 0.3;
                     carbsPercent = 0.5;
                     fatPercent = 0.2;
                     break;
-                case "Loss" :
+                case "Redukcyjna" :
                     NEAT = 300;
                     proteinPercent = 0.5;
                     carbsPercent = 0.2;
@@ -50,19 +57,19 @@ public class UserUtil {
                 BMR = 9.99 * Integer.parseInt(weight) + 6.25 * Integer.parseInt(height) -  4.92 * age + 5;
                 EPOC = 0.05 * BMR;
                 switch (diet_type){
-                    case "Balanced" :
+                    case "Zbilansowana" :
                         NEAT = 500;
                         proteinPercent = 0.35;
                         carbsPercent = 0.4;
                         fatPercent = 0.25;
                         break;
-                    case "Mass" :
+                    case "Masowa" :
                         NEAT = 700;
                         proteinPercent = 0.3;
                         carbsPercent = 0.5;
                         fatPercent = 0.2;
                         break;
-                    case "Loss" :
+                    case "Redukcyjna" :
                         NEAT = 300;
                         proteinPercent = 0.5;
                         carbsPercent = 0.2;
@@ -82,6 +89,13 @@ public class UserUtil {
             }
         }
         return dietMap;
+    }
+    public static User updateDietValues(User user, HashMap<String, String> newDietMap) {
+        user.setCaloriesAmount(Integer.parseInt(newDietMap.get("CaloriesAmount")));
+        user.setProteinAmount(Integer.parseInt(newDietMap.get("ProteinAmount")));
+        user.setCarbsAmount(Integer.parseInt(newDietMap.get("CarbsAmount")));
+        user.setFatAmount(Integer.parseInt(newDietMap.get("FatAmount")));
+        return user;
     }
 
         public static boolean checkEmailAdresses(String emailAdress , String confirmedEmailAdress){
@@ -105,7 +119,7 @@ public class UserUtil {
         public static User prepareNewUser(HashMap<String, String> newUserData) {
             User result = new User();
             result.setUserName(newUserData.get("FirstName") + " " +  newUserData.get("LastName"));
-            result.setBirthDate(newUserData.get("BirthDay") + "/" + newUserData.get("BirthMonth") + "/" + newUserData.get("BirthYear"));
+            result.setBirthYear(newUserData.get("BirthYear"));
             result.setGender(newUserData.get("Gender"));
             result.setEmail(newUserData.get("Email"));
             result.setPasswordHash(newUserData.get("PasswordHash"));
@@ -133,7 +147,7 @@ public class UserUtil {
             User result = new User();
             result.setUserName(response.body().getUserName());
             result.setGender(response.body().getGender());
-            result.setBirthDate(response.body().getBirthDate());
+            result.setBirthYear(response.body().getBirthYear());
             result.setEmail(response.body().getEmail());
             result.setPasswordHash(response.body().getPasswordHash());
             result.setWeight(response.body().getWeight());

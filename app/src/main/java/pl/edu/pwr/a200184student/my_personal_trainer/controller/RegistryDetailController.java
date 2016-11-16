@@ -158,15 +158,15 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
             return;
         }
         if(balanceGoalCheckBox.isChecked()){
-            newUserData.put("DietType" , "Balanced");
+            newUserData.put("DietType" , "Zbilansowana");
         }
         else{
             if(massCheckBox.isChecked()){
-                newUserData.put("DietType" , "Mass");
+                newUserData.put("DietType" , "Masowa");
             }
             else{
                 if(lossCheckBox.isChecked()){
-                    newUserData.put("DietType" , "Loss");
+                    newUserData.put("DietType" , "Redukcyjna");
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Nie Wybrano Celu " , Toast.LENGTH_LONG).show();
@@ -204,6 +204,7 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
                 Intent intent = new Intent(RegistryDetailController.this, MainPanelController.class);
                 intent.putExtra("UserId" , newUser.getId());
                 intent.putExtra("UserName" , newUser.getUserName());
+                intent.putExtra("UserBirthYear" , newUser.getBirthYear());
                 intent.putExtra("UserGender" , newUser.getGender());
                 intent.putExtra("UserEmail" , newUser.getEmail());
                 intent.putExtra("UserWeight" , newUser.getWeight());
