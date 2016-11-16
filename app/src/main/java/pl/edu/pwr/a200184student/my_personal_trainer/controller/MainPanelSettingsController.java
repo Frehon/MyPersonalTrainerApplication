@@ -56,14 +56,8 @@ public class MainPanelSettingsController extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        try {
                             DeleteTask task = new DeleteTask();
                             task.execute((Void) null);
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Problemy z połączeniem z serwerem :(" ,Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
                     }
                 }).create().show();
     }
@@ -77,10 +71,13 @@ public class MainPanelSettingsController extends AppCompatActivity {
                 return currentLoggedUser;
             } catch (Exception e) {
                 e.printStackTrace();
+                return null;
             }
-            return null;
         }
         protected void onPostExecute(User userAfterDelete) {
+            if(userAfterDelete == null){
+                Toast.makeText(getApplicationContext(), "Problemy z połączeniem z serwerem :(" ,Toast.LENGTH_LONG).show();
+            }
             startActivity(new Intent(MainPanelSettingsController.this, OnStartController.class));
             finish();
         }
