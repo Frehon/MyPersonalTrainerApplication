@@ -76,6 +76,7 @@
             android:layout_height="65dp"
             android:layout_weight="0.88"
             android:hint="Nowe Hasło"
+            android:inputType="textPassword"
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
@@ -96,8 +97,7 @@
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
-            android:textSize="25dp"
-            android:onClick="updateAccountData" />
+            android:textSize="25dp" />
     </TableRow>
 
     <TableRow

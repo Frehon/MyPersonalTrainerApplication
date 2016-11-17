@@ -14,7 +14,8 @@
         android:label="Elektroniczny Dziennik Dietetyczno - Treningowy"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.OnStartController">
+        <activity android:name=".controller.OnStartController"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,27 +24,33 @@
         </activity>
         <activity
             android:name=".controller.RegistryController"
-            android:label="Rejestracja" />
+            android:label="Rejestracja"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.LogInController"
             android:label="@string/title_activity_log_in_controller" />
         <activity
             android:name=".controller.RegistryDetailController"
-            android:label="Parametry i Cele" />
+            android:label="Parametry i Cele"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.MainPanelController"
             android:label="@string/title_activity_main_panel_controller"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.InfoController"
             android:label="@string/title_activity_info_controller"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.MainPanelSettingsController"
             android:label="Ustawienia Konta"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".controller.MainCalendarController"
-            android:label="Kalendarz Dietetyczny">
+            android:label="Kalendarz Dietetyczny"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

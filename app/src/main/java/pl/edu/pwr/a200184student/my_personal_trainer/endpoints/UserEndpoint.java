@@ -26,5 +26,4 @@ public interface UserEndpoint {
 
     @DELETE("api/user/{id}")
     Call<User> deleteUser(@Path("id") Long id);
-
 }

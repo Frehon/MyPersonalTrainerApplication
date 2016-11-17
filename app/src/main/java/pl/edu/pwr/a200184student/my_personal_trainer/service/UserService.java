@@ -52,6 +52,21 @@ public class UserService{
         return null;
     }
 
+    public static User getUserById(Long id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
+        Call<User> call = endpoint.getUserById(id);
+        try {
+            return call.execute().body();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static User createNewUser(User newUser){
         Retrofit retrofit = new Retrofit.Builder()
