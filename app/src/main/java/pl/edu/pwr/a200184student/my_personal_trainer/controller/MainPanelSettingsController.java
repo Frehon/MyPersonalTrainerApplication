@@ -66,7 +66,7 @@ public class MainPanelSettingsController extends AppCompatActivity {
         if(!newPassword.isEmpty()){
             // checking old password missing.
             if(UserUtil.isPasswordValid(newPassword)){
-                currentLoggedUser.setPasswordHash(String.valueOf(newPassword.hashCode()));
+                currentLoggedUser.setPasswordHash(newPassword);
                 needToUpdate = true;
             }
             else{
