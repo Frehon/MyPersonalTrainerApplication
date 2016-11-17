@@ -77,7 +77,9 @@ public class MainPanelSettingsController extends AppCompatActivity {
             UpdateAccountDataTask task = new UpdateAccountDataTask();
             task.execute((Void) null);
         }
-
+        else{
+            Toast.makeText(getApplicationContext(), "Proszę wprowadzić nowe dane" , Toast.LENGTH_LONG).show();
+        }
     }
 
     public void deleteAccount(View v){
