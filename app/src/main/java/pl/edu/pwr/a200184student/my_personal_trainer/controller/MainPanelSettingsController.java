@@ -29,7 +29,6 @@ public class MainPanelSettingsController extends AppCompatActivity {
     private String oldPasswordHash;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

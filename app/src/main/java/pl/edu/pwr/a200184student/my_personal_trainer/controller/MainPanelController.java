@@ -82,7 +82,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.dietaryCalendarTab) {
-            Intent intent = new Intent(MainPanelController.this, MainCalendarController.class);
+            Intent intent = new Intent(MainPanelController.this, MainPanelCalendarController.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
