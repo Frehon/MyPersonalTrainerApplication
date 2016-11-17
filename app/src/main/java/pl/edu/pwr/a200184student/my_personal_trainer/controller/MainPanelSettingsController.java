@@ -79,7 +79,6 @@ public class MainPanelSettingsController extends AppCompatActivity {
         currentLoggedUser.setId(intent.getLongExtra("UserId",0));
         currentLoggedUser.setUserName(intent.getStringExtra("UserName"));
         currentLoggedUser.setEmail(intent.getStringExtra("UserEmail"));
-
     }
 
     private void initializeFields() {
@@ -138,6 +137,10 @@ public class MainPanelSettingsController extends AppCompatActivity {
                 }).create().show();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     public class DeleteTask extends AsyncTask<Void, Void, User> {
         @Override
@@ -175,26 +178,24 @@ public class MainPanelSettingsController extends AppCompatActivity {
         }
     }
 
-    public class CheckPasswordTask extends AsyncTask<Void,Void,User>{
+    public class CheckPasswordTask extends AsyncTask<Void,Void,User> {
 
         @Override
         protected User doInBackground(Void... params) {
             return UserService.getUserById(currentLoggedUser.getId());
         }
-        protected void onPostExecute(User user){
-            if(user == null){
-                Toast.makeText(getApplicationContext(), "Problemy z połączeniem z serwerem :(" ,Toast.LENGTH_LONG).show();
-            }
-            else{
-                if(user.getPasswordHash().equals(String.valueOf(oldPasswordHash.hashCode()))){
+
+        protected void onPostExecute(User user) {
+            if (user == null) {
+                Toast.makeText(getApplicationContext(), "Problemy z połączeniem z serwerem :(", Toast.LENGTH_LONG).show();
+            } else {
+                if (user.getPasswordHash().equals(String.valueOf(oldPasswordHash.hashCode()))) {
                     UpdateAccountDataTask task = new UpdateAccountDataTask();
                     task.execute((Void) null);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Niepoprawne Hasło" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Niepoprawne Hasło", Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
-
 }
