@@ -96,7 +96,8 @@
             android:fontFamily="sans-serif-black"
             android:minHeight="100dp"
             android:textColor="#323232"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:onClick="updateAccountData" />
     </TableRow>
 
     <TableRow
