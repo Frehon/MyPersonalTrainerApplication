@@ -37,10 +37,4 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_info_controller">Troszkę Teorii</string>
-    <string-array name="header_meals_titles">
-        <item>Śniadanie</item>
-    </string-array>
-    <string-array name="child_mealItems_titles">
-        <item>Śniadanie</item>
-    </string-array>
 </resources>
