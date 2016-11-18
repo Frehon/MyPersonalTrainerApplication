@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drewno2">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mealNameTextView"
+        android:text="Hello world"
+        android:textSize="25dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>
