@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,11 +59,11 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                 return true;
             }
             private void onGroupLongClick(int groupPosition) {
-                Toast.makeText(getApplicationContext(), "klikłem na parenta !" , Toast.LENGTH_LONG).show();
+
             }
 
             private void onChildLongClick(int groupPosition, int childPosition) {
-                Toast.makeText(getApplicationContext(), "klikłem na childa" , Toast.LENGTH_LONG).show();
+
             }
         });
     }

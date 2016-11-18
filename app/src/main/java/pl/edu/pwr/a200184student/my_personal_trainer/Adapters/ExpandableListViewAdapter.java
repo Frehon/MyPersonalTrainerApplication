@@ -44,12 +44,12 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
+            LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.child_expandable_view, null);
+            convertView = inflater.inflate(R.layout.child_expandable_view, null);
         }
         TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.lblListItem);
+                .findViewById(R.id.mealItemTextView);
 
         txtListChild.setText(childText);
         return convertView;
@@ -81,15 +81,15 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
+            LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.parent_expandable_view, null);
+            convertView = inflater.inflate(R.layout.parent_expandable_view, null);
         }
 
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+        TextView mealTextView = (TextView) convertView
+                .findViewById(R.id.mealTextView);
+        mealTextView.setTypeface(null, Typeface.BOLD);
+        mealTextView.setText(headerTitle);
 
         return convertView;
     }
