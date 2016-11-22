@@ -40,9 +40,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-
         final String childText = (String) getChild(groupPosition, childPosition);
-
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +48,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.mealItemTextView);
-
         txtListChild.setText(childText);
         return convertView;
     }
@@ -85,12 +82,10 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.parent_expandable_view, null);
         }
-
         TextView mealTextView = (TextView) convertView
                 .findViewById(R.id.mealTextView);
         mealTextView.setTypeface(null, Typeface.BOLD);
         mealTextView.setText(headerTitle);
-
         return convertView;
     }
 

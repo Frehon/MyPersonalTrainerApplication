@@ -1,6 +1,7 @@
 
 package pl.edu.pwr.a200184student.my_personal_trainer.model;
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class User {
 
@@ -32,6 +33,9 @@ public class User {
     Integer fatAmount;
     @SerializedName("id")
     Long id;
+
+    @SerializedName("meals")
+    private List<Meal> meals;
 
     public User() {}
 
@@ -86,6 +90,8 @@ public class User {
     public Integer getFatAmount() {
         return fatAmount;
     }
+
+    public List<Meal> getMeals() {return meals;}
 
     public void setId(Long id) {
         this.id = id;
@@ -142,4 +148,6 @@ public class User {
     public void setFatAmount(Integer fatAmount) {
         this.fatAmount = fatAmount;
     }
+
+    public void setMeals(List<Meal> meals) {this.meals = meals;}
 }

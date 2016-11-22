@@ -1,40 +1,85 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.Adapters.ExpandableListViewAdapter;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.model.Meal;
+import pl.edu.pwr.a200184student.my_personal_trainer.model.Product;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.MealService;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.ProductService;
 
 public class MainPanelCalendarDetailController extends AppCompatActivity {
 
+
+    private Context context = this;
+    private Intent intent;
     ExpandableListViewAdapter mealsListAdapter;
     ExpandableListView mealsExpandableList;
     List<String> mealsList;
     HashMap<String, List<String>> mealItemsHashMap;
+
+    private Long userId;
+    private int userCaloriesAmount;
+    private int userProteinAmount;
+    private int userCarbsAmount;
+    private int userFatAmount;
+    private List<Meal> userMealsByDate;
+    private String selectedDate;
+    private String productName;
+    private int productWeight;
+    private Product selectedProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_panel_calendar_detail_view);
         initializeFields();
+        collectUserDietaryInfo();
+        getUserMealsByDate();
         prepareListAdapter();
         setOnItemLongClickListener();
         prepareListData();
+    }
+
+    private void collectUserDietaryInfo() {
+        userId = intent.getLongExtra("userId",0);
+        userCaloriesAmount = intent.getIntExtra("userCaloriesAmount",0);
+        userProteinAmount = intent.getIntExtra("userProteinAmount",0);
+        userCarbsAmount = intent.getIntExtra("userCarbsAmount",0);
+        userFatAmount = intent.getIntExtra("userFatAmount",0);
     }
 
     private void initializeFields() {
         mealsExpandableList = (ExpandableListView) findViewById(R.id.mealsExpandableListView);
         mealsList = new ArrayList<>();
         mealItemsHashMap = new HashMap<>();
+        intent = getIntent();
+    }
+
+    private void getUserMealsByDate() {
+        userMealsByDate = new ArrayList<>();
+        selectedDate = intent.getStringExtra("SelectedDate");
+        GetUserMealsByDate task = new GetUserMealsByDate();
+        task.execute((Void) null);
     }
 
     private void prepareListAdapter() {
@@ -59,17 +104,50 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                 return true;
             }
             private void onGroupLongClick(int groupPosition) {
-
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.add_product_to_meal_list_view, null);
+                final EditText productNameEdtiText  = (EditText) promptsView
+                        .findViewById(R.id.productNameEdtiText);
+                final EditText productAmountEdtiText = (EditText) promptsView
+                        .findViewById(R.id.productAmountEdtiText);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+                alertDialogBuilder.setView(promptsView);
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Dodaj",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        try{
+                                            productWeight = Integer.parseInt(productAmountEdtiText.getText().toString());
+                                            productName = productNameEdtiText.getText().toString();
+                                            FindProductTask task = new FindProductTask();
+                                            task.execute((Void) null);
+                                        }
+                                        catch(Exception e){
+                                            Toast.makeText(context,"Proszę wprowadzić wagę w gramach." , Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                })
+                        .setNegativeButton("Anuluj",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
 
             private void onChildLongClick(int groupPosition, int childPosition) {
+                if(childPosition != 0){
 
+                }
             }
         });
     }
 
     private void prepareListData() {
-
         mealsList.add("Śniadanie");
         mealsList.add("Lunch");
         mealsList.add("Obiad");
@@ -77,48 +155,26 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         mealsList.add("Kolacja");
 
         List<String> breakfestItems = new ArrayList<String>();
-        breakfestItems.add("item one");
-        breakfestItems.add("item two");
-        breakfestItems.add("item three");
-        breakfestItems.add("item four");
-        breakfestItems.add("item five");
-        breakfestItems.add("item six");
-        breakfestItems.add("item seven");
+        breakfestItems.add(0,"Produkty : ");
 
         List<String> lunchItems = new ArrayList<String>();
-        lunchItems.add("item one");
-        lunchItems.add("item two");
-        lunchItems.add("item three");
-        lunchItems.add("item four");
-        lunchItems.add("item five");
-        lunchItems.add("item six");
+        lunchItems.add(0,"Produkty : ");
 
         List<String> dinnerItems = new ArrayList<String>();
-        dinnerItems.add("item one");
-        dinnerItems.add("item two");
-        dinnerItems.add("item three");
-        dinnerItems.add("item four");
-        dinnerItems.add("item five");
+        dinnerItems.add(0,"Produkty : ");
 
         List<String> teaItems = new ArrayList<String>();
-        teaItems.add("item one");
-        teaItems.add("item two");
-        teaItems.add("item three");
-        teaItems.add("item four");
-        teaItems.add("item five");
+        teaItems.add(0,"Produkty : ");
 
         List<String> supperItems = new ArrayList<String>();
-        supperItems.add("item one");
-        supperItems.add("item two");
-        supperItems.add("item three");
-        supperItems.add("item four");
-        supperItems.add("item five");
+        supperItems.add(0,"Produkty : ");
 
         mealItemsHashMap.put(mealsList.get(0), breakfestItems); // Header, Child data
         mealItemsHashMap.put(mealsList.get(1), lunchItems);
         mealItemsHashMap.put(mealsList.get(2), dinnerItems);
         mealItemsHashMap.put(mealsList.get(3),teaItems);
         mealItemsHashMap.put(mealsList.get(4),supperItems);
+
     }
 
     @Override
@@ -128,4 +184,34 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         finish();
     }
 
+
+    public class GetUserMealsByDate extends AsyncTask<Object, Object, List<Meal>> {
+
+        @Override
+        protected List<Meal> doInBackground(Object... params) {
+            return userMealsByDate = MealService.getUserMealsByDate(userId , selectedDate);
+        }
+        protected void onPostExecute(List<Meal> meals){
+            if(meals == null){
+                Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
+            }
+            else{
+
+            }
+        }
+
+    }
+
+    public class FindProductTask extends AsyncTask<Void,Void,Product>{
+
+        @Override
+        protected Product doInBackground(Void... params) {
+            return selectedProduct = ProductService.findProduct(productName);
+        }
+        protected void onPostExecute(Product returnedProduct){
+            if(selectedProduct == null){
+                // dodaj do bazy nowy.
+            }
+        }
+    }
 }
