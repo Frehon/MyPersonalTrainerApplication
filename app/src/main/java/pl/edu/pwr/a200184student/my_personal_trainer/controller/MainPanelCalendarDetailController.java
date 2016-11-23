@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.Adapters.ExpandableListViewAdapter;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
@@ -55,8 +56,21 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         setContentView(R.layout.main_panel_calendar_detail_view);
         initializeFields();
         collectUserDietaryInfo();
-        getUserMealsByDate();
+        try {
+            getUserMealsByDate();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         prepareListAdapter();
+    }
+
+    private void initializeFields() {
+        mealsExpandableList = (ExpandableListView) findViewById(R.id.mealsExpandableListView);
+        mealsList = new ArrayList<>();
+        mealItemsHashMap = new HashMap<>();
+        intent = getIntent();
     }
 
     private void collectUserDietaryInfo() {
@@ -67,18 +81,11 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         userFatAmount = intent.getIntExtra("userFatAmount",0);
     }
 
-    private void initializeFields() {
-        mealsExpandableList = (ExpandableListView) findViewById(R.id.mealsExpandableListView);
-        mealsList = new ArrayList<>();
-        mealItemsHashMap = new HashMap<>();
-        intent = getIntent();
-    }
-
-    private void getUserMealsByDate() {
+    private void getUserMealsByDate() throws ExecutionException, InterruptedException {
         userMealsByDate = new ArrayList<>();
         selectedDate = intent.getStringExtra("SelectedDate");
         GetUserMealsByDate task = new GetUserMealsByDate();
-        task.execute((Void) null);
+        task.execute((Void) null).get();
     }
 
     private void prepareListAdapter() {
@@ -169,23 +176,25 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         List<String> supperItems = new ArrayList<String>();
         supperItems.add(0,"Produkty : ");
 
-        for(Meal m : userMealsByDate){
-            switch (m.getMealName()){
-                case "Śniadanie" :
-                    breakfestItems.addAll(MealUtil.addProductsToMeal(m));
-                    break;
-                case "Lunch" :
-                    lunchItems.addAll(MealUtil.addProductsToMeal(m));
-                    break;
-                case "Obiad" :
-                    dinnerItems.addAll(MealUtil.addProductsToMeal(m));
-                    break;
-                case "Podwieczorek" :
-                    teaItems.addAll(MealUtil.addProductsToMeal(m));
-                    break;
-                case "Kolacja" :
-                    supperItems.addAll(MealUtil.addProductsToMeal(m));
-                    break;
+        if(userMealsByDate.size() > 0){
+            for(Meal m : userMealsByDate){
+                switch (m.getMealName()){
+                    case "Śniadanie" :
+                        breakfestItems.addAll(MealUtil.addProductsToMeal(m));
+                        break;
+                    case "Lunch" :
+                        lunchItems.addAll(MealUtil.addProductsToMeal(m));
+                        break;
+                    case "Obiad" :
+                        dinnerItems.addAll(MealUtil.addProductsToMeal(m));
+                        break;
+                    case "Podwieczorek" :
+                        teaItems.addAll(MealUtil.addProductsToMeal(m));
+                        break;
+                    case "Kolacja" :
+                        supperItems.addAll(MealUtil.addProductsToMeal(m));
+                        break;
+                }
             }
         }
         mealItemsHashMap.put(mealsList.get(0), breakfestItems);
@@ -197,11 +206,8 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MainPanelCalendarDetailController.this , MainPanelCalendarController.class);
-        startActivity(intent);
         finish();
     }
-
 
     public class GetUserMealsByDate extends AsyncTask<Object, Object, List<Meal>> {
 

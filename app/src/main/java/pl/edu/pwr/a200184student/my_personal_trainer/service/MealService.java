@@ -23,7 +23,7 @@ public class MealService {
             return meals;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }
