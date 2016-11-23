@@ -13,9 +13,7 @@ public class Meal {
     private List<Product> products;
     private Map<String, Integer> productsWeight;
 
-    public Long getId() {
-        return Id;
-    }
+    public Long getId() {return Id;}
 
     public String getMealName() {
         return mealName;
@@ -49,7 +47,5 @@ public class Meal {
         this.products = products;
     }
 
-    public void setProductsWeight(Map<String, Integer> productsWeight) {
-        this.productsWeight = productsWeight;
-    }
+    public void setProductsWeight(Map<String, Integer> productsWeight) {this.productsWeight = productsWeight;}
 }
