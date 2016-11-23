@@ -10,23 +10,38 @@
     tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.MainPanelCalendarDetailController" >
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/addtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wprowadź nazwę produktu oraz wagę."
+        android:text="Dodaj Nowy Produkt"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
-        android:id="@+id/productNameEdtiText"
+        android:id="@+id/addProductNameEdtiText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nazwa produktu"/>
-
     <EditText
-        android:id="@+id/productAmountEdtiText"
+        android:id="@+id/addProductCaloriesEdtiText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Waga (gram) spożytego produktu">
-        <requestFocus />
+        android:hint="Ilość Kalorii / 100 Gram">
     </EditText>
-</LinearLayout>
+    <EditText
+        android:id="@+id/addProductProteinEdtiText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ilość Białka / 100 Gram">
+    </EditText>
+    <EditText
+        android:id="@+id/addProductCarbsEdtiText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ilość Węglowodanów / 100 Gram">
+    </EditText>
+    <EditText
+        android:id="@+id/addProductFatEdtiText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ilość Tłuszczy / 100 Gram">
+    </EditText>
+    </LinearLayout>

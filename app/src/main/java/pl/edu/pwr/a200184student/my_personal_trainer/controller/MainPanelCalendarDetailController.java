@@ -204,6 +204,45 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         mealItemsHashMap.put(mealsList.get(4),supperItems);
     }
 
+    private void saveNewProduct() {
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.add_new_product_view, null);
+        final EditText addProductNameEditText   = (EditText) promptsView
+                .findViewById(R.id.addProductNameEdtiText);
+        final EditText addProductCaloriesEditText = (EditText) promptsView
+                .findViewById(R.id.addProductCaloriesEdtiText);
+        final EditText addProductProteinEdtiText = (EditText) promptsView
+                .findViewById(R.id.addProductProteinEdtiText);
+        final EditText addProductCarbsEdtiText = (EditText) promptsView
+                .findViewById(R.id.addProductCarbsEdtiText);
+        final EditText addProductFatEdtiText = (EditText) promptsView
+                .findViewById(R.id.addProductFatEdtiText);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Zapisz",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                try{
+
+                                }
+                                catch(Exception e){
+
+                                }
+                            }
+                        })
+                .setNegativeButton("Anuluj",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         finish();
@@ -235,7 +274,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         }
         protected void onPostExecute(Product returnedProduct){
             if(selectedProduct == null){
-                // dodaj do bazy nowy.
+                saveNewProduct();
             }
         }
     }
