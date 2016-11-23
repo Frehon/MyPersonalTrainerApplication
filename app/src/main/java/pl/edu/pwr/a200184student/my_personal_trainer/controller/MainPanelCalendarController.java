@@ -4,6 +4,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CalendarView;
@@ -22,6 +23,9 @@ public class MainPanelCalendarController extends AppCompatActivity {
     private int userProteinAmount;
     private int userCarbsAmount;
     private int userFatAmount;
+    private long initialDate;
+    private Calendar today;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,48 +43,36 @@ public class MainPanelCalendarController extends AppCompatActivity {
         userProteinAmount = intentFromMainPanel.getIntExtra("userProteinAmount",0);
         userCarbsAmount = intentFromMainPanel.getIntExtra("userCarbsAmount",0);
         userFatAmount = intentFromMainPanel.getIntExtra("userFatAmount",0);
+        initialDate = calendar.getDate();
+        today = Calendar.getInstance();
+        selectedDate = String.valueOf(today.get(Calendar.DAY_OF_MONTH) +"-"+ (today.get(Calendar.MONTH) + 1)  +"-"+ today.get(Calendar.YEAR));
+        startDetailActivity();
     }
 
     private void prepareOnClickListener() {
-        calendar.setOnTouchListener(new View.OnTouchListener() {
-            private static final int MAX_CLICK_DURATION = 200;
-            private long startClickTime;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        startClickTime = Calendar.getInstance().getTimeInMillis();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                        if(clickDuration < MAX_CLICK_DURATION) {
-                            Toast.makeText(getApplicationContext() , "teteeete" , Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-                return true;
-            }
-        });
-        /*
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
-                Intent intent = new Intent(MainPanelCalendarController.this , MainPanelCalendarDetailController.class);
-                intent.putExtra("SelectedDate" , selectedDate);
-                intent.putExtra("userId" , userId);
-                intent.putExtra("userCaloriesAmount" , userCaloriesAmount);
-                intent.putExtra("userProteinAmount" , userCarbsAmount);
-                intent.putExtra("userCarbsAmount" , userCarbsAmount);
-                intent.putExtra("userFatAmount" , userFatAmount);
-                startActivity(intent);
+                if (view.getDate() == initialDate) {
+                    return;
+                }
+                selectedDate = String.valueOf(dayOfMonth)+"-"+String.valueOf(month + 1)+"-"+String.valueOf(year);
+                initialDate = view.getDate();
+                startDetailActivity();
             }
         });
-        */
     }
 
+    private void startDetailActivity() {
+        Intent intent = new Intent(MainPanelCalendarController.this , MainPanelCalendarDetailController.class);
+        intent.putExtra("SelectedDate" , selectedDate);
+        intent.putExtra("userId" , userId);
+        intent.putExtra("userCaloriesAmount" , userCaloriesAmount);
+        intent.putExtra("userProteinAmount" , userCarbsAmount);
+        intent.putExtra("userCarbsAmount" , userCarbsAmount);
+        intent.putExtra("userFatAmount" , userFatAmount);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {
