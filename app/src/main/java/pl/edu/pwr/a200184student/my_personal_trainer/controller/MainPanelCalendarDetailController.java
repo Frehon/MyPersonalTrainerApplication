@@ -283,7 +283,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         }
         prepareListAdapter();
         prepareListData();
-        UpdateMeal task = new UpdateMeal(userMealsByDate.get(mealPosition));
+        UpdateMeal task = new UpdateMeal(userMealsByDate.get(mealPosition).getId() , selectedProduct.getId() , productWeight);
         task.execute((Void) null);
     }
 
@@ -312,15 +312,18 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
     private class UpdateMeal extends AsyncTask<Void , Void , Meal>{
 
-        private Meal mealToUpdate;
+        private Long mealId;
+        private Long productId;
+        private int productWeight;
 
-        public UpdateMeal(Meal mealToUpdate){
-            this.mealToUpdate = mealToUpdate;
+        public UpdateMeal(Long mealId , Long productId , int productWeight){
+            this.mealId = mealId;
+            this.productId = productId;
+            this.productWeight = productWeight;
         }
-
         @Override
         protected Meal doInBackground(Void... params) {
-            return MealService.updateMeal(mealToUpdate);
+           return MealService.updateMeal(mealId , productId , productWeight);
         }
         protected void onPostExecute(Meal mealAfterUpdate){
             if(mealAfterUpdate == null){

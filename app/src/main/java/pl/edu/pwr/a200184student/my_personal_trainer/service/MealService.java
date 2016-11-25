@@ -43,13 +43,13 @@ public class MealService {
         }
     }
 
-    public static Meal updateMeal(Meal mealToUpdate) {
+    public static Meal updateMeal(Long mealId , Long productId , int productWeight) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.23:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
-        Call<Meal> call =  endpoint.updateMeal(mealToUpdate);
+        Call<Meal> call =  endpoint.updateMeal(mealId , productId , productWeight);
         try{
             Meal mealAfterUpdate = call.execute().body();
             return mealAfterUpdate;

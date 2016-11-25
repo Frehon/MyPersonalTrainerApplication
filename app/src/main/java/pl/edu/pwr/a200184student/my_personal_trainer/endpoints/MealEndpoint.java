@@ -18,6 +18,6 @@ public interface MealEndpoint {
     @POST("api/meals/{userId}")
     Call<List<Meal>> saveMeals(@Body List<Meal> newMeals , @Path("userId") Long userId);
 
-    @PUT("/api/meal")
-    Call<Meal> updateMeal(@Body Meal mealToUpdate);
+    @PUT("api/meal/{meal_id}/{product_id}/{product_weight}")
+    Call<Meal> updateMeal(@Path("meal_id") Long mealId , @Path("product_id") Long productId , @Path("product_weight") int productWeight );
 }
