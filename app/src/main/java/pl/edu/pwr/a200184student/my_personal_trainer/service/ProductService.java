@@ -26,4 +26,20 @@ public class ProductService {
             return null;
         }
     }
+
+    public static Product saveNewProduct(Product newProduct) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProductEndpoint endpoint = retrofit.create(ProductEndpoint.class);
+        Call<Product> call = endpoint.saveNewProduct(newProduct);
+        try {
+            Product product = call.execute().body();
+            return product;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

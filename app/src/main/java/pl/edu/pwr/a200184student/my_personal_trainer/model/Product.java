@@ -18,6 +18,14 @@ public class Product {
     @SerializedName("fatAmount")
     private int fatAmount;
 
+    public Product(String productName , int caloriesAmount , int proteinAmount , int carbsAmount , int fatAmount){
+        this.productName = productName;
+        this.caloriesAmount = caloriesAmount;
+        this.proteinAmount = proteinAmount;
+        this.carbsAmount = carbsAmount;
+        this.fatAmount = fatAmount;
+    }
+
     public Long getId() {return Id;}
 
     public void setId(Long id) {Id = id;}

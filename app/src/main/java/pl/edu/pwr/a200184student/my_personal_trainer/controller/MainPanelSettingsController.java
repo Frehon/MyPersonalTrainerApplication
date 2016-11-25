@@ -141,7 +141,7 @@ public class MainPanelSettingsController extends AppCompatActivity {
         finish();
     }
 
-    public class DeleteTask extends AsyncTask<Void, Void, User> {
+    private class DeleteTask extends AsyncTask<Void, Void, User> {
         @Override
         protected User  doInBackground(Void... params) {
             try {
@@ -161,7 +161,7 @@ public class MainPanelSettingsController extends AppCompatActivity {
         }
     }
 
-    public class UpdateAccountDataTask extends AsyncTask<Void,Void,User>{
+    private class UpdateAccountDataTask extends AsyncTask<Void,Void,User>{
 
         @Override
         protected User doInBackground(Void... params) {
@@ -177,7 +177,7 @@ public class MainPanelSettingsController extends AppCompatActivity {
         }
     }
 
-    public class CheckPasswordTask extends AsyncTask<Void,Void,User> {
+    private class CheckPasswordTask extends AsyncTask<Void,Void,User> {
 
         @Override
         protected User doInBackground(Void... params) {

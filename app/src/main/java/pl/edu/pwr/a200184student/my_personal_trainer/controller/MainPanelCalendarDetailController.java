@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,8 +46,6 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
     private int userFatAmount;
     public static List<Meal> userMealsByDate;
     private String selectedDate;
-    private String productName;
-    private int productWeight;
     private Product selectedProduct;
 
 
@@ -109,7 +108,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                 }
                 return true;
             }
-            private void onGroupLongClick(int groupPosition) {
+            private void onGroupLongClick(final int groupPosition) {
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.add_product_to_meal_list_view, null);
                 final EditText productNameEdtiText  = (EditText) promptsView
@@ -125,11 +124,10 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         try{
-                                            productWeight = Integer.parseInt(productAmountEdtiText.getText().toString());
-                                            productName = productNameEdtiText.getText().toString();
-                                            FindProductTask task = new FindProductTask();
+                                            int productWeight = Integer.parseInt(productAmountEdtiText.getText().toString());
+                                            String productName = productNameEdtiText.getText().toString();
+                                            FindProductTask task = new FindProductTask(productName , groupPosition , productWeight);
                                             task.execute((Void) null);
-                                            // zaktualizuj posiłek.
                                         }
                                         catch(Exception e){
                                             Toast.makeText(context,"Proszę wprowadzić wagę w gramach." , Toast.LENGTH_LONG).show();
@@ -155,47 +153,72 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
     }
 
     private void prepareListData() {
-        mealsList.add("Śniadanie");
-        mealsList.add("Lunch");
-        mealsList.add("Obiad");
-        mealsList.add("Podwieczorek");
-        mealsList.add("Kolacja");
-
+        if(mealsList.size() == 0){
+            mealsList.add("Śniadanie");
+            mealsList.add("Lunch");
+            mealsList.add("Obiad");
+            mealsList.add("Podwieczorek");
+            mealsList.add("Kolacja");
+        }
         List<String> breakfestItems = new ArrayList<String>();
-        breakfestItems.add(0,"Produkty : ");
+        breakfestItems.add(0,"Brak Produktów.");
 
         List<String> lunchItems = new ArrayList<String>();
-        lunchItems.add(0,"Produkty : ");
+        lunchItems.add(0,"Brak Produktów.");
 
         List<String> dinnerItems = new ArrayList<String>();
-        dinnerItems.add(0,"Produkty : ");
+        dinnerItems.add(0,"Brak Produktów.");
 
         List<String> teaItems = new ArrayList<String>();
-        teaItems.add(0,"Produkty : ");
+        teaItems.add(0,"Brak Produktów.");
 
         List<String> supperItems = new ArrayList<String>();
-        supperItems.add(0,"Produkty : ");
+        supperItems.add(0,"Brak Produktów.");
 
         if(userMealsByDate.size() > 0){
             for(Meal m : userMealsByDate){
                 switch (m.getMealName()){
                     case "Śniadanie" :
-                        breakfestItems.addAll(MealUtil.addProductsToMeal(m));
+                        if(m.getProducts().size() != 0) {
+                            breakfestItems.addAll(MealUtil.addProductsToMeal(m));
+                            breakfestItems.set(0, "Produkty : ");
+                        }
                         break;
                     case "Lunch" :
-                        lunchItems.addAll(MealUtil.addProductsToMeal(m));
+                        if(m.getProducts().size() != 0) {
+                            lunchItems.addAll(MealUtil.addProductsToMeal(m));
+                            lunchItems.set(0, "Produkty : ");
+                        }
                         break;
                     case "Obiad" :
-                        dinnerItems.addAll(MealUtil.addProductsToMeal(m));
+                        if(m.getProducts().size() != 0) {
+                            dinnerItems.addAll(MealUtil.addProductsToMeal(m));
+                            dinnerItems.set(0, "Produkty : ");
+                        }
                         break;
                     case "Podwieczorek" :
-                        teaItems.addAll(MealUtil.addProductsToMeal(m));
+                        if(m.getProducts().size() != 0) {
+                            teaItems.addAll(MealUtil.addProductsToMeal(m));
+                            teaItems.set(0, "Produkty : ");
+                        }
                         break;
                     case "Kolacja" :
-                        supperItems.addAll(MealUtil.addProductsToMeal(m));
+                        if(m.getProducts().size() != 0) {
+                            supperItems.addAll(MealUtil.addProductsToMeal(m));
+                            supperItems.set(0, "Produkty : ");
+                        }
                         break;
                 }
             }
+        }
+        else{
+            userMealsByDate.add(new Meal("Śniadanie" , selectedDate ));
+            userMealsByDate.add(new Meal("Lunch" , selectedDate ));
+            userMealsByDate.add(new Meal("Obiad" , selectedDate ));
+            userMealsByDate.add(new Meal("Podwieczorek" , selectedDate ));
+            userMealsByDate.add(new Meal("Kolacja" , selectedDate ));
+            SaveNewMealsTask task = new SaveNewMealsTask();
+            task.execute((Void) null);
         }
         mealItemsHashMap.put(mealsList.get(0), breakfestItems);
         mealItemsHashMap.put(mealsList.get(1), lunchItems);
@@ -226,10 +249,17 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 try{
-
+                                    String newProductName = addProductNameEditText.getText().toString();
+                                    int newProductCaloriesAmount = Integer.parseInt(addProductCaloriesEditText.getText().toString());
+                                    int newProductProteinAmount = Integer.parseInt(addProductProteinEdtiText.getText().toString());
+                                    int newProductCarbsAmount = Integer.parseInt(addProductCarbsEdtiText.getText().toString());
+                                    int newProductFatAmount = Integer.parseInt(addProductFatEdtiText.getText().toString());
+                                    Product newProduct = new Product(newProductName , newProductCaloriesAmount ,  newProductProteinAmount , newProductCarbsAmount , newProductFatAmount);
+                                    SaveProductTask task = new SaveProductTask(newProduct);
+                                    task.execute((Void) null);
                                 }
                                 catch(Exception e){
-
+                                    Toast.makeText(context,"Źle wprowadzona dana , sprawdź ponownie" , Toast.LENGTH_LONG).show();
                                 }
                             }
                         })
@@ -243,12 +273,26 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void updateMealsList(int mealPosition, Product selectedProduct, int productWeight) {
+        if(!userMealsByDate.get(mealPosition).getProductsWeight().containsKey(selectedProduct.getProductName())){
+            userMealsByDate.get(mealPosition).getProducts().add(selectedProduct);
+            userMealsByDate.get(mealPosition).getProductsWeight().put(selectedProduct.getProductName() , productWeight);
+        }
+        else {
+            userMealsByDate.get(mealPosition).getProductsWeight().put(selectedProduct.getProductName() ,userMealsByDate.get(mealPosition).getProductsWeight().get(selectedProduct.getProductName()) + productWeight);
+        }
+        prepareListAdapter();
+        prepareListData();
+        UpdateMeal task = new UpdateMeal(userMealsByDate.get(mealPosition));
+        task.execute((Void) null);
+    }
+
     @Override
     public void onBackPressed() {
         finish();
     }
 
-    public class GetUserMealsByDate extends AsyncTask<Object, Object, List<Meal>> {
+    private class GetUserMealsByDate extends AsyncTask<Object, Object, List<Meal>> {
 
         @Override
         protected List<Meal> doInBackground(Object... params) {
@@ -266,7 +310,36 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         }
     }
 
-    public class FindProductTask extends AsyncTask<Void,Void,Product>{
+    private class UpdateMeal extends AsyncTask<Void , Void , Meal>{
+
+        private Meal mealToUpdate;
+
+        public UpdateMeal(Meal mealToUpdate){
+            this.mealToUpdate = mealToUpdate;
+        }
+
+        @Override
+        protected Meal doInBackground(Void... params) {
+            return MealService.updateMeal(mealToUpdate);
+        }
+        protected void onPostExecute(Meal mealAfterUpdate){
+            if(mealAfterUpdate == null){
+                Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class FindProductTask extends AsyncTask<Void,Void,Product>{
+
+        private String productName;
+        private int mealPosition;
+        private int productWeight;
+
+        public FindProductTask(String productName , int mealPosition , int productWeight){
+            this.productName = productName;
+            this.mealPosition = mealPosition;
+            this.productWeight = productWeight;
+        }
 
         @Override
         protected Product doInBackground(Void... params) {
@@ -275,6 +348,46 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         protected void onPostExecute(Product returnedProduct){
             if(selectedProduct == null){
                 saveNewProduct();
+            }
+            else{
+                updateMealsList(mealPosition , selectedProduct , productWeight);
+            }
+        }
+    }
+
+    private class SaveProductTask extends AsyncTask<Void , Void , Product>{
+
+        private Product newProduct;
+
+        public SaveProductTask(Product newProduct){
+            super();
+            this.newProduct = newProduct;
+        }
+
+        @Override
+        protected Product doInBackground(Void... params) {
+            return ProductService.saveNewProduct(newProduct);
+        }
+        protected void onPostExecute(Product product){
+            if(product == null){
+                Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(context,"Zapisano nowy Produkt , od teraz można go używać :)" , Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class SaveNewMealsTask extends AsyncTask<Void , Void , List<Meal>>{
+
+        @Override
+        protected List<Meal> doInBackground(Void... params) {
+            userMealsByDate =  MealService.saveMeals(userMealsByDate , userId);
+            return userMealsByDate;
+        }
+        protected void onPostExecute(List<Meal> newMeals){
+            if(newMeals == null){
+                Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
             }
         }
     }

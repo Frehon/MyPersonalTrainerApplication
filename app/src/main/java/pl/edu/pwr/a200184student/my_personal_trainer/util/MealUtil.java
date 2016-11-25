@@ -13,7 +13,7 @@ public class MealUtil {
         List<String> mealItems = new ArrayList<>();
         int iterator = 1;
         for(Product p : m.getProducts()){
-            mealItems.add(String.valueOf(iterator) + ": " + p.getProductName() + " Kalorie: " + p.getCaloriesAmount()*m.getProductsWeight().get(p.getProductName())/100 + " Kcal , Makro - B: " + p.getProteinAmount()*m.getProductsWeight().get(p.getProductName())/100 + " W: " +
+            mealItems.add(String.valueOf(iterator) + ": " + p.getProductName() + " -  Kalorie: " + p.getCaloriesAmount()*m.getProductsWeight().get(p.getProductName())/100 + " Kcal , Makro - B: " + p.getProteinAmount()*m.getProductsWeight().get(p.getProductName())/100 + " W: " +
                     p.getCarbsAmount()*m.getProductsWeight().get(p.getProductName())/100 + " T: " + p.getFatAmount()*m.getProductsWeight().get(p.getProductName())/100);
             iterator++;
         }

@@ -309,7 +309,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         }
     }
 
-    public class UpdateTask extends AsyncTask<Void, Void, User> {
+    private class UpdateTask extends AsyncTask<Void, Void, User> {
 
         @Override
         protected User doInBackground(Void... params) {

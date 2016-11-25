@@ -26,4 +26,37 @@ public class MealService {
             return null;
         }
     }
+
+    public static List<Meal> saveMeals(List<Meal> newMeals , Long userId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
+        Call <List<Meal>> call = endpoint.saveMeals(newMeals , userId);
+        try{
+            return call.execute().body();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Meal updateMeal(Meal mealToUpdate) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
+        Call<Meal> call =  endpoint.updateMeal(mealToUpdate);
+        try{
+            Meal mealAfterUpdate = call.execute().body();
+            return mealAfterUpdate;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -177,7 +177,7 @@ public class RegistryDetailController extends AppCompatActivity implements Adapt
         task.execute((Void) null);
     }
 
-    public class RegistryTask extends AsyncTask<Void, Void, User>{
+    private class RegistryTask extends AsyncTask<Void, Void, User>{
 
         @Override
         protected User doInBackground(Void... params) {
