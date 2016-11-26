@@ -52,10 +52,13 @@
         <activity
             android:name=".controller.MainPanelCalendarController"
             android:label="Kalendarz Dietetyczny"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".controller.MainPanelCalendarDetailController"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controller.MainPanelCalendarDetailController"
             android:label="Posiłki"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".controller.RatingController"
+            android:label="Oceń Aplikację"></activity>
     </application>
 
 </manifest>

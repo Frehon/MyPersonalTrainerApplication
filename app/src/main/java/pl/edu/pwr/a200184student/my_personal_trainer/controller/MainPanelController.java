@@ -108,7 +108,8 @@ public class MainPanelController extends AppCompatActivity implements Navigation
             startActivity(intent);
         }
         else if (id == R.id.rateTheAppTab) {
-
+            Intent intent = new Intent(getApplicationContext() , RatingController.class);
+            startActivity(intent);
         }
         else if (id == R.id.logOutTab) {
             onBackPressed();
