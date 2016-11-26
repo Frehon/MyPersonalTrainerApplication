@@ -109,39 +109,40 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
                 return true;
             }
             private void onGroupLongClick(final int groupPosition) {
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.add_product_to_meal_list_view, null);
-                final EditText productNameEdtiText  = (EditText) promptsView
-                        .findViewById(R.id.productNameEdtiText);
-                final EditText productAmountEdtiText = (EditText) promptsView
-                        .findViewById(R.id.productAmountEdtiText);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-                alertDialogBuilder.setView(promptsView);
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("Dodaj",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        try{
-                                            int productWeight = Integer.parseInt(productAmountEdtiText.getText().toString());
-                                            String productName = productNameEdtiText.getText().toString();
-                                            FindProductTask task = new FindProductTask(productName , groupPosition , productWeight);
-                                            task.execute((Void) null);
+                if(groupPosition != 5) {
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.add_product_to_meal_list_view, null);
+                    final EditText productNameEdtiText = (EditText) promptsView
+                            .findViewById(R.id.productNameEdtiText);
+                    final EditText productAmountEdtiText = (EditText) promptsView
+                            .findViewById(R.id.productAmountEdtiText);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+                    alertDialogBuilder.setView(promptsView);
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("Dodaj",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            try {
+                                                int productWeight = Integer.parseInt(productAmountEdtiText.getText().toString());
+                                                String productName = productNameEdtiText.getText().toString();
+                                                FindProductTask task = new FindProductTask(productName, groupPosition, productWeight);
+                                                task.execute((Void) null);
+                                            } catch (Exception e) {
+                                                Toast.makeText(context, "Proszę wprowadzić wagę w gramach.", Toast.LENGTH_LONG).show();
+                                            }
                                         }
-                                        catch(Exception e){
-                                            Toast.makeText(context,"Proszę wprowadzić wagę w gramach." , Toast.LENGTH_LONG).show();
+                                    })
+                            .setNegativeButton("Anuluj",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
                                         }
-                                    }
-                                })
-                        .setNegativeButton("Anuluj",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }
 
             private void onChildLongClick(int groupPosition, int childPosition) {
@@ -161,6 +162,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
             mealsList.add("Obiad");
             mealsList.add("Podwieczorek");
             mealsList.add("Kolacja");
+            mealsList.add("Statystyki");
         }
         List<String> breakfestItems = new ArrayList<String>();
         breakfestItems.add(0,"Brak Produktów.");
@@ -176,6 +178,8 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
         List<String> supperItems = new ArrayList<String>();
         supperItems.add(0,"Brak Produktów.");
+
+        List<String> statistics = new ArrayList<>();
 
         if(userMealsByDate.size() > 0){
             for(Meal m : userMealsByDate){
@@ -222,11 +226,13 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
             SaveNewMealsTask task = new SaveNewMealsTask();
             task.execute((Void) null);
         }
+        statistics.addAll(MealUtil.prepareStatistics(userMealsByDate , userCaloriesAmount , userProteinAmount , userCarbsAmount , userFatAmount));
         mealItemsHashMap.put(mealsList.get(0), breakfestItems);
         mealItemsHashMap.put(mealsList.get(1), lunchItems);
         mealItemsHashMap.put(mealsList.get(2), dinnerItems);
         mealItemsHashMap.put(mealsList.get(3),teaItems);
         mealItemsHashMap.put(mealsList.get(4),supperItems);
+        mealItemsHashMap.put(mealsList.get(5),statistics);
     }
 
     private void saveNewProduct() {
