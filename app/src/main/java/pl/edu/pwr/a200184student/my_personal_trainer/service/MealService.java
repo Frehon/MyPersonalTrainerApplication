@@ -59,4 +59,21 @@ public class MealService {
             return null;
         }
     }
+
+    public static Meal deleteMealItem(Long mealId, Long productId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.23:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
+        Call<Meal> call = endpoint.deleteMealItem(mealId , productId);
+        try{
+            Meal mealAfterUpdate = call.execute().body();
+            return mealAfterUpdate;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

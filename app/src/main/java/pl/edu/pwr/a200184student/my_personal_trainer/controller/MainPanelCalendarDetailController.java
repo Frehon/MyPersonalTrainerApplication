@@ -146,7 +146,9 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
             private void onChildLongClick(int groupPosition, int childPosition) {
                 if(childPosition != 0){
-
+                    Product productToDelete = userMealsByDate.get(groupPosition).getProducts().get(childPosition - 1);
+                    DeleteProductTask task = new DeleteProductTask(userMealsByDate.get(groupPosition).getId() , productToDelete.getId() , groupPosition);
+                    task.execute((Void) null);
                 }
             }
         });
@@ -391,6 +393,34 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         protected void onPostExecute(List<Meal> newMeals){
             if(newMeals == null){
                 Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class DeleteProductTask extends AsyncTask<Void , Void , Meal>{
+
+        private Long mealId;
+        private Long productId;
+        private int mealPositionOnList;
+
+        public DeleteProductTask(Long mealId , Long productId , int mealPositionOnList){
+            this.mealId = mealId;
+            this.productId = productId;
+            this.mealPositionOnList = mealPositionOnList;
+        }
+
+        @Override
+        protected Meal doInBackground(Void... params) {
+            return MealService.deleteMealItem(mealId , productId);
+        }
+        protected void onPostExecute(Meal mealWithoutItem){
+            if(mealWithoutItem == null){
+                Toast.makeText(context,"Wystąpił problem z połączniem" , Toast.LENGTH_LONG).show();
+            }
+            else{
+                userMealsByDate.set(mealPositionOnList, mealWithoutItem);
+                prepareListAdapter();
+                prepareListData();
             }
         }
     }

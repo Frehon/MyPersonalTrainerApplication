@@ -5,6 +5,7 @@ import java.util.List;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Meal;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -20,4 +21,7 @@ public interface MealEndpoint {
 
     @PUT("api/meal/{meal_id}/{product_id}/{product_weight}")
     Call<Meal> updateMeal(@Path("meal_id") Long mealId , @Path("product_id") Long productId , @Path("product_weight") int productWeight );
+
+    @DELETE("api/meal/{meal_id}/{product_id}")
+    Call<Meal> deleteMealItem(@Path("meal_id") Long mealId , @Path("product_id") Long productId);
 }
