@@ -57,8 +57,16 @@
             android:name=".controller.MainPanelCalendarDetailController"
             android:label="Posiłki"
             android:screenOrientation="portrait" />
-        <activity android:name=".controller.RatingController"
-            android:label="Oceń Aplikację"></activity>
+        <activity
+            android:name=".controller.RatingController"
+            android:label="Oceń Aplikację"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controller.AddTrainingController"
+            android:label="Dodaj Trening"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controller.TrainingHistoryController"
+            android:label="Historia Treningów"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

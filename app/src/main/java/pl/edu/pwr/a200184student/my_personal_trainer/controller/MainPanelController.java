@@ -59,7 +59,6 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         prepareListeners();
         prepareEditDietTypeSpinner();
         collectAndShowLoggedUserData();
-
     }
 
     @Override
@@ -94,10 +93,12 @@ public class MainPanelController extends AppCompatActivity implements Navigation
             startActivity(intent);
         }
         else if (id == R.id.addNewTrainingTab) {
-
+            Intent intent = new Intent(MainPanelController.this , AddTrainingController.class);
+            startActivity(intent);
         }
         else if (id == R.id.trainingHistoryTab) {
-
+            Intent intent = new Intent(MainPanelController.this , TrainingHistoryController.class);
+            startActivity(intent);
         }
         else if (id == R.id.settingsTab) {
             Intent intent = new Intent(MainPanelController.this, MainPanelSettingsController.class);

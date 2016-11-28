@@ -30,24 +30,24 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <Button
         android:text="Wyślij Opinie"
         android:textSize="28dp"
         android:textColor="#233296"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/sendOpinionButton"
         android:layout_below="@+id/commentEditText"
         android:layout_alignParentStart="true"
-        android:id="@+id/sendOpinionButton"
         android:layout_alignParentEnd="true" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="22dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp" />
 
 </RelativeLayout>
