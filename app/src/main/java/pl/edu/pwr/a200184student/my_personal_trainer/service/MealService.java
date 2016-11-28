@@ -11,9 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MealService {
 
+    private static final String BaseURL = "http://192.168.1.73:8080/";
+
     public static List<Meal> getMealsByDateByUserId(Long userId , String selectedDate) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
@@ -29,7 +31,7 @@ public class MealService {
 
     public static List<Meal> saveMeals(List<Meal> newMeals , Long userId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
@@ -45,7 +47,7 @@ public class MealService {
 
     public static Meal updateMeal(Long mealId , Long productId , int productWeight) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MealEndpoint endpoint = retrofit.create(MealEndpoint.class);
@@ -62,7 +64,7 @@ public class MealService {
 
     public static Meal deleteMealItem(Long mealId, Long productId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MealEndpoint endpoint = retrofit.create(MealEndpoint.class);

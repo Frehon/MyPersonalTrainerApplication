@@ -13,12 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UserService{
 
     private static User loggingUser;
+    private static final String BaseURL = "http://192.168.1.73:8080/";
 
 
     public static User log_in(String mEmail, final String mPassword){
         loggingUser = new User();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
@@ -38,7 +39,7 @@ public class UserService{
 
     public static User getUserByEmail(String email) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
@@ -54,7 +55,7 @@ public class UserService{
 
     public static User getUserById(Long id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
@@ -70,7 +71,7 @@ public class UserService{
 
     public static User createNewUser(User newUser){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
@@ -86,7 +87,7 @@ public class UserService{
 
     public static User updateUser(Long id, User userToUpdate) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);
@@ -102,7 +103,7 @@ public class UserService{
 
     public static void deleteUser(Long id) throws Exception{
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserEndpoint endpoint = retrofit.create(UserEndpoint.class);

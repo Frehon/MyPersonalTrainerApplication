@@ -11,9 +11,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductService {
 
+    private static final String BaseURL = "http://192.168.1.73:8080/";
+
+
     public static Product findProduct(String productName) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductEndpoint endpoint = retrofit.create(ProductEndpoint.class);
@@ -29,7 +32,7 @@ public class ProductService {
 
     public static Product saveNewProduct(Product newProduct) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.23:8080/")
+                .baseUrl(BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductEndpoint endpoint = retrofit.create(ProductEndpoint.class);

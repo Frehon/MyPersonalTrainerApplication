@@ -9,7 +9,8 @@ import android.view.View;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
-public class OnStartController extends AppCompatActivity {
+public class OnStartController extends AppCompatActivity{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
