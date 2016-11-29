@@ -5,4 +5,4 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.MapsActivity" />
+    tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.InteractiveTrainingController" />

@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".controller.AddTrainingController"
-    android:background="@drawable/sport_background">
+    android:background="@drawable/drewno4">
 
         <ListView
             android:id="@+id/list"

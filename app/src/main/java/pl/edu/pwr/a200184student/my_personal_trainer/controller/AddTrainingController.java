@@ -1,9 +1,14 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -12,6 +17,7 @@ import pl.edu.pwr.a200184student.my_personal_trainer.Adapters.TrainingListAdapte
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
 public class AddTrainingController extends Activity {
+    private Context context = this;
     ListView list;
     String[] trainings = {
             "Bieganie",
@@ -54,9 +60,34 @@ public class AddTrainingController extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(AddTrainingController.this, "You Clicked at " + trainings[+position], Toast.LENGTH_SHORT).show();
-                // dodanie treningu do bazy.
-
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.add_new_training_view, null);
+                final EditText addNewTrainingEditText = (EditText) promptsView
+                        .findViewById(R.id.addTrainingDurationEditText);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+                alertDialogBuilder.setView(promptsView);
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Zatwierdź",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                       try{
+                                         int duration = Integer.parseInt(addNewTrainingEditText.getText().toString());
+                                       }
+                                       catch (Exception e){
+                                           Toast.makeText(getApplicationContext(), "Proszę wprowadzić długość treningu." , Toast.LENGTH_LONG).show();
+                                       }
+                                    }
+                                })
+                        .setNegativeButton("Anuluj",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }

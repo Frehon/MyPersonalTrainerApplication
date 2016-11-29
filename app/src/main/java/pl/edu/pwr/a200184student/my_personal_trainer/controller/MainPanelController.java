@@ -100,6 +100,10 @@ public class MainPanelController extends AppCompatActivity implements Navigation
             Intent intent = new Intent(MainPanelController.this , TrainingHistoryController.class);
             startActivity(intent);
         }
+        else if(id == R.id.addNewInteractiveTrainingTab){
+            Intent intent = new Intent(MainPanelController.this , InteractiveTrainingController.class);
+            startActivity(intent);
+        }
         else if (id == R.id.settingsTab) {
             Intent intent = new Intent(MainPanelController.this, MainPanelSettingsController.class);
             intent.putExtra("UserId" , currentLoggedUser.getId());

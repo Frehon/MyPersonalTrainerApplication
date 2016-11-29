@@ -90,7 +90,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".controller.MapsActivity"
+            android:name=".controller.InteractiveTrainingController"
             android:label="@string/title_activity_maps"></activity>
     </application>
 
