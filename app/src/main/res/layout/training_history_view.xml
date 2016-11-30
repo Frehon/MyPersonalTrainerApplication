@@ -8,6 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/drewno"
     tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.TrainingHistoryController">
 
+    <ListView
+        android:id="@+id/TrainingHistoryListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

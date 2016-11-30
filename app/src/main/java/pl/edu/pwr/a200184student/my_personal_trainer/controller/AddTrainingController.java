@@ -31,12 +31,12 @@ public class AddTrainingController extends Activity {
             "Bieganie",
             "Trekking",
             "Jazda na rowerze",
-            "Pływanie",
-            "Trening na siłowni",
+            "Plywanie",
+            "Trening na silowni",
             "Jazda Konna",
             "Jazda na nartach",
-            "Gra w Piłkę Nożną",
-            "Gra w Koszykówkę",
+            "Gra w Pilkę Nozną",
+            "Gra w Koszykowkę",
             "Gra w Tenisa",
             "Sporty Walki",
     };
@@ -130,7 +130,7 @@ public class AddTrainingController extends Activity {
                 Toast.makeText(getApplicationContext(), "Wystąpił problem z połączeniem.", Toast.LENGTH_LONG).show();
             }
             else{
-                Toast.makeText(getApplicationContext(), "Dodano Trening. Wszystkie treningi znajdziesz w zakładce " + "Historia Treningów", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Dodano Trening. Wszystkie treningi znajdziesz w zakładce Historia Treningów", Toast.LENGTH_LONG).show();
             }
         }
     }

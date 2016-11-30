@@ -2,6 +2,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.TrainingEndpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Training;
@@ -23,6 +24,21 @@ public class TrainingService {
         try {
             Training training = call.execute().body();
             return training;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<Training> getUserTrainings(Long userId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        TrainingEndpoint endpoint = retrofit.create(TrainingEndpoint.class);
+        Call<List<Training>> call = endpoint.getUserTrainings(userId);
+        try {
+            return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
