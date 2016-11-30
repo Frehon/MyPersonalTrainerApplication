@@ -42,7 +42,6 @@ public class TrainingHistoryController extends AppCompatActivity {
     }
 
     private void prepareList() {
-        Collections.reverse(userTrainings);
         String [] items = TrainingUtil.prepareTrainingsList(userTrainings);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_2, android.R.id.text1, items);
@@ -53,7 +52,10 @@ public class TrainingHistoryController extends AppCompatActivity {
         TrainingHistoryListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // delete i index of userTrainings;
+                DeleteTraining task = new DeleteTraining(userTrainings.get(i).getId());
+                userTrainings.remove(i);
+                task.execute((Void) null);
+                prepareList();
                 return false;
             }
         });
@@ -83,8 +85,31 @@ public class TrainingHistoryController extends AppCompatActivity {
             }
             else{
                 userTrainings = trainings;
+                Collections.reverse(userTrainings);
                 prepareList();
                 setListListener();
+            }
+        }
+    }
+
+    private class DeleteTraining extends AsyncTask<Void , Void , Boolean>{
+
+        private Long trainingId;
+
+        public DeleteTraining(Long trainingToDeleteId){
+            this.trainingId = trainingToDeleteId;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return TrainingService.deleteTraining(trainingId);
+        }
+        protected void onPostExecute(Boolean result){
+            if(!result){
+                Toast.makeText(getApplicationContext(), "Wystąpił problem z połączeniem", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Trening usunięty.", Toast.LENGTH_LONG).show();
             }
         }
     }

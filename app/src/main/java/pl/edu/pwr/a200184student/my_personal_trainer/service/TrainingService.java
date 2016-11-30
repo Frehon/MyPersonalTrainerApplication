@@ -3,7 +3,6 @@ package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
 import java.io.IOException;
 import java.util.List;
-
 import pl.edu.pwr.a200184student.my_personal_trainer.endpoints.TrainingEndpoint;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Training;
 import retrofit2.Call;
@@ -42,6 +41,22 @@ public class TrainingService {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static boolean deleteTraining(Long trainingId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        TrainingEndpoint endpoint = retrofit.create(TrainingEndpoint.class);
+        Call<Void> call = endpoint.deleteTraining(trainingId);
+        try {
+            call.execute();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
