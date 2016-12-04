@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import pl.edu.pwr.a200184student.my_personal_trainer.Adapters.ExpandableListViewAdapter;
+import pl.edu.pwr.a200184student.my_personal_trainer.adapters_listeners.ExpandableListViewAdapter;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Meal;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Product;

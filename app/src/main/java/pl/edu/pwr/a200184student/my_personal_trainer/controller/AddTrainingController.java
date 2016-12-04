@@ -18,7 +18,7 @@ import android.app.Activity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import pl.edu.pwr.a200184student.my_personal_trainer.Adapters.TrainingListAdapter;
+import pl.edu.pwr.a200184student.my_personal_trainer.adapters_listeners.TrainingListAdapter;
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.Training;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.TrainingService;

@@ -1,52 +1,53 @@
 package pl.edu.pwr.a200184student.my_personal_trainer.controller;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.widget.Chronometer;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.adapters_listeners.GpsListener;
 
-public class InteractiveTrainingController extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks , GoogleApiClient.OnConnectionFailedListener , LocationListener{
 
-    private GoogleMap mMap;
+public class InteractiveTrainingController extends FragmentActivity{
+
     private Button startTrainingButton;
-    private GoogleApiClient mGoogleApiClient;
-    private Location myLastLocation;
-    private LatLng myCoordinates;
-    private MarkerOptions markerOptions;
-    private Marker myLocalizationMarker;
+    private LocationManager locationManager;
+    private Chronometer timer;
+    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        startTrainingButton = (Button) findViewById(R.id.start_tracking);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        initialize();
+    }
+
+    private void initialize() {
+        startTrainingButton = (Button)findViewById(R.id.startTrainingButton);
         startTrainingButton.setText("Rozpocznij Trening");
+        timer = (Chronometer)findViewById(R.id.timer);
+        GpsListener listener = new GpsListener(getApplication());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET}, 10);
+            }
+        }
+        else {
+            int refreshTimeInMillis = 2;
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    refreshTimeInMillis, 0, listener);
+        }
         setButtonOnClickListener();
     }
 
@@ -54,83 +55,22 @@ public class InteractiveTrainingController extends FragmentActivity implements O
         startTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (startTrainingButton.getText().equals("Rozpocznij Trening")) {
-                    startTrainingButton.setText("Zakończ Trening");
-                } else {
-                    startTrainingButton.setText("Rozpocznij Trening");
-                }
+               if(startTrainingButton.getText().equals("Rozpocznij Trening")){
+                   startTrainingButton.setText("Zakończ Trening");
+                   time = 0;
+                   timer.setBase(SystemClock.elapsedRealtime());
+                   timer.start();
+
+               }
+               else{
+                   startTrainingButton.setText("Rozpocznij Trening");
+                   time = SystemClock.elapsedRealtime() - timer.getBase();
+                   timer.stop();
+                   Log.d("time" , String.valueOf(time/1000));
+                   time = 0;
+               }
             }
         });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        buildGoogleApiClient();
-        mGoogleApiClient.connect();
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // permission required.
-            return;
-        }
-        myLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if(myLastLocation != null){
-            myCoordinates = new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude());
-            markerOptions = new MarkerOptions();
-            markerOptions.position(myCoordinates);
-            markerOptions.title("Moja początkowa Lokalizacja");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-            myLocalizationMarker = mMap.addMarker(markerOptions);
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(myCoordinates).zoom(14).build();
-
-            mMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (myLocalizationMarker != null) {
-            myLocalizationMarker.remove();
-        }
-        myLastLocation = location;
-        myCoordinates = new LatLng(myLastLocation.getLatitude() , myLastLocation.getLongitude());
-        markerOptions.position(myCoordinates);
-        markerOptions.title("Aktualna Lokalizacja");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        myLocalizationMarker = mMap.addMarker(markerOptions);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(myCoordinates).zoom(14).build();
-        mMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"Connection Failed",Toast.LENGTH_SHORT).show();
-    }
 }

@@ -1,26 +1,105 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/drewno4">
+
+    <TextView
+        android:text="Czas : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerTextView"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="201dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/speedValueTextView" />
+    <TextView
+        android:text="Prędkość : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/speedTextView"
+        android:textSize="50sp"
+        android:layout_below="@+id/timer"
+        android:layout_alignParentStart="true" />
+
+    <Chronometer
+        android:layout_width="418dp"
+        android:layout_height="72dp"
+        android:id="@+id/timer"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/timerTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/timerTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/speedTextView"
+        android:id="@+id/speedValueTextView"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/speedTextView"
+        android:layout_below="@+id/timer"
+        android:textSize="50sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:text="Dystans : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distanceTextView"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/speedTextView"
+        android:textSize="50sp"
+        android:layout_toStartOf="@+id/speedValueTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distanceValueTextView"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/speedTextView"
+        android:layout_below="@+id/speedTextView"
+        android:textSize="50sp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/startTrainingButton"
+        android:textSize="40px"
+        android:textStyle="bold"
+        android:layout_above="@+id/timer"
+        android:layout_alignParentStart="true" />
+
     <fragment
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_gravity="center"
-        tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.InteractiveTrainingController" />
+        tools:context="pl.edu.pwr.a200184student.my_personal_trainer.controller.InteractiveTrainingController"
+        android:layout_height="570dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/startTrainingButton" />
+
     <Button
-        android:id="@+id/start_tracking"
-        android:layout_width="match_parent"
+        android:text="Zapisz Trening"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#FFFFFF"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:gravity="center"/>
-</FrameLayout>
+        android:id="@+id/saveTrainingButton"
+        android:textSize="30sp"
+        android:layout_below="@+id/distanceTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
