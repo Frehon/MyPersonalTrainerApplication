@@ -31,7 +31,7 @@ public class MealUtil {
                 allFat += meal.getProductsWeight().get(product.getProductName()) * product.getFatAmount()/100;
             }
         }
-        statistics.add("Ogólna Ilość Kalorii : " + allCalories + "g / " + userCaloriesAmount + "g (" + (allCalories * 100/userCaloriesAmount) + "%)");
+        statistics.add("Ogólna Ilość Kalorii : " + allCalories + "kcal / " + userCaloriesAmount + "kcal (" + (allCalories * 100/userCaloriesAmount) + "%)");
         statistics.add("Białko : " + allProteins + "g / " + userProteinAmount + "g (" +  (allProteins * 100/userProteinAmount) + "%)");
         statistics.add("Węglowodany : " + allCarbs + "g / " + userProteinAmount + "g (" + (allCarbs * 100/userCarbsAmount) + "%)");
         statistics.add("Tłuszcze : " + allFat + "g / " + userProteinAmount + "g (" + (allFat * 100/userFatAmount) + "%)");
