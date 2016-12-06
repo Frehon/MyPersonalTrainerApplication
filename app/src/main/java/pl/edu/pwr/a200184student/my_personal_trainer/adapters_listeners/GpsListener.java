@@ -7,6 +7,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+
 import java.util.List;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.model.GpsEvent;
@@ -24,8 +26,9 @@ public class GpsListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d("location" , "location changed to " + location.getLatitude() + " " + location.getLongitude());
         GpsEvent newEvent = new GpsEvent(location.getLatitude() , location.getLongitude() , location.getAccuracy() , location.getTime());
-        service.addEvent(newEvent);
+        this.service.addEvent(newEvent);
     }
 
     @Override
