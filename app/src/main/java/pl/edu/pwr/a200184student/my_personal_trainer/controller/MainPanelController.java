@@ -104,6 +104,7 @@ public class MainPanelController extends AppCompatActivity implements Navigation
         }
         else if(id == R.id.addNewInteractiveTrainingTab){
             Intent intent = new Intent(MainPanelController.this , InteractiveTrainingController.class);
+            intent.putExtra("UserId" , currentLoggedUser.getId());
             startActivity(intent);
         }
         else if (id == R.id.settingsTab) {

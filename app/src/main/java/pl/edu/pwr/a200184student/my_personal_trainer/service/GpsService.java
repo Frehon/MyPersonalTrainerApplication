@@ -55,7 +55,7 @@ public class GpsService implements LocationListener{
         polylines.add(map.addPolyline(new PolylineOptions().width(8).color(Color.BLUE).addAll(coordinates)));
         map.moveCamera(CameraUpdateFactory.newLatLng(coordinates.get(coordinates.size() - 1)));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates.get(coordinates.size() - 1), 17.0f));
-        DecimalFormat df = new DecimalFormat("#.####");
+        DecimalFormat df = new DecimalFormat("#.##");
         if(coordinates.size() > 1){
             distance += InterActiveTrainingService.getDistanceInKm(coordinates.get(coordinates.size() - 2) , coordinates.get(coordinates.size() - 1));
         }

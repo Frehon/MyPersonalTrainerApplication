@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -27,12 +28,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pl.edu.pwr.a200184student.my_personal_trainer.R;
+import pl.edu.pwr.a200184student.my_personal_trainer.model.Training;
 import pl.edu.pwr.a200184student.my_personal_trainer.service.GpsService;
 import pl.edu.pwr.a200184student.my_personal_trainer.model.GpsEvent;
+import pl.edu.pwr.a200184student.my_personal_trainer.service.TrainingService;
 
 
 public class InteractiveTrainingController extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -51,6 +58,8 @@ public class InteractiveTrainingController extends FragmentActivity implements O
     private List<LatLng> coordinates;
     private Marker startMarker;
     private Marker endMarker;
+    private String dateTimeNow;
+    private Long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,10 @@ public class InteractiveTrainingController extends FragmentActivity implements O
         coordinates = new ArrayList<>();
         startTrainingButton.setText("Rozpocznij Trening");
         timer = (Chronometer) findViewById(R.id.timer);
+        userId = getIntent().getLongExtra("UserId" , 0);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        dateTimeNow = dateFormat.format(date);
         setButtonOnClickListener();
     }
 
@@ -141,8 +154,10 @@ public class InteractiveTrainingController extends FragmentActivity implements O
                    timer.stop();
                    events = service.getEvents();
                    locationManager.removeUpdates(service);
-                   startMarker = map.addMarker(new MarkerOptions().title("Punkt Startowy").position(new LatLng(events.get(0).getLatitude() , events.get(0).getLongitude())));
-                   endMarker = map.addMarker(new MarkerOptions().title("Punkt Końcowy").position(new LatLng(events.get(events.size() - 1).getLatitude() , events.get(events.size() - 1).getLongitude())));
+                   if(events.size() > 1){
+                       startMarker = map.addMarker(new MarkerOptions().title("Punkt Startowy").position(new LatLng(events.get(0).getLatitude() , events.get(0).getLongitude())));
+                       endMarker = map.addMarker(new MarkerOptions().title("Punkt Końcowy").position(new LatLng(events.get(events.size() - 1).getLatitude() , events.get(events.size() - 1).getLongitude())));
+                   }
                }
             }
         });
@@ -150,7 +165,9 @@ public class InteractiveTrainingController extends FragmentActivity implements O
         saveTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // save training.
+                Training newTraining = new Training("Bieganie" , (int)(time/1000/60), dateTimeNow , userId);
+                CreateInteractiveTraining task = new CreateInteractiveTraining(newTraining);
+                task.execute((Void) null);
             }
         });
     }
@@ -160,5 +177,33 @@ public class InteractiveTrainingController extends FragmentActivity implements O
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    private class CreateInteractiveTraining extends AsyncTask<Void , Void , Training> {
+
+        private Training newTraining;
+
+        public CreateInteractiveTraining(Training training){
+            newTraining = training;
+        }
+
+        @Override
+        protected Training doInBackground(Void... voids) {
+            return TrainingService.createNewTraining(newTraining);
+        }
+        protected void onPostExecute(Training newTraining){
+            if(newTraining == null){
+                Toast.makeText(getApplicationContext(), "Wystąpił problem z połączeniem.", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Dodano Trening. Wszystkie treningi znajdziesz w zakładce Historia Treningów", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

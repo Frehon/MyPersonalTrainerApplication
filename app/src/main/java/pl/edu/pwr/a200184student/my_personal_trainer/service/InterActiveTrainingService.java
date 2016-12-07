@@ -2,9 +2,7 @@ package pl.edu.pwr.a200184student.my_personal_trainer.service;
 
 
 import android.util.Log;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +11,7 @@ import pl.edu.pwr.a200184student.my_personal_trainer.model.GpsEvent;
 public class InterActiveTrainingService {
 
     private List<GpsEvent> events;
+    private static final double HOUR_FACTOR = 3600000.00;
 
     public InterActiveTrainingService() {
         events = new ArrayList<>();
@@ -42,7 +41,7 @@ public class InterActiveTrainingService {
     }
 
     public static double getCurrentTrainingTime(long startTime) {
-       double currentTime = (System.currentTimeMillis() - startTime)/1000/60;
+        double currentTime = System.currentTimeMillis()/HOUR_FACTOR - startTime/HOUR_FACTOR;
         Log.d("time" , String.valueOf(currentTime));
         if(Double.isNaN(currentTime) || Double.isInfinite(currentTime)){
             return 0.0;
