@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,10 +34,10 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
     private Context context = this;
     private Intent intent;
-    ExpandableListViewAdapter mealsListAdapter;
-    ExpandableListView mealsExpandableList;
-    List<String> mealsList;
-    HashMap<String, List<String>> mealItemsHashMap;
+    private ExpandableListViewAdapter mealsListAdapter;
+    private ExpandableListView mealsExpandableList;
+    private List<String> mealsList;
+    private HashMap<String, List<String>> mealItemsHashMap;
 
     private Long userId;
     private int userCaloriesAmount;
@@ -61,7 +62,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        prepareListAdapter();
+        setOnItemLongClickListener();
     }
 
     private void initializeFields() {
@@ -156,7 +157,7 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
 
     private void prepareListData() {
         if(mealsList.size() == 0){
-            mealsList.add("Śniadanie");
+            mealsList.add("Sniadanie");
             mealsList.add("Lunch");
             mealsList.add("Obiad");
             mealsList.add("Podwieczorek");
@@ -176,48 +177,34 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         teaItems.add(0,"Brak Produktów.");
 
         List<String> supperItems = new ArrayList<String>();
-        supperItems.add(0,"Brak Produktów.");
+        supperItems.add(0,"Brak Produktów");
 
         List<String> statistics = new ArrayList<>();
 
         if(userMealsByDate.size() > 0){
-            for(Meal m : userMealsByDate){
-                switch (m.getMealName()){
-                    case "Śniadanie" :
-                        if(m.getProducts().size() != 0) {
-                            breakfestItems.addAll(MealUtil.addProductsToMeal(m));
-                            breakfestItems.set(0, "Produkty : ");
-                        }
-                        break;
-                    case "Lunch" :
-                        if(m.getProducts().size() != 0) {
-                            lunchItems.addAll(MealUtil.addProductsToMeal(m));
-                            lunchItems.set(0, "Produkty : ");
-                        }
-                        break;
-                    case "Obiad" :
-                        if(m.getProducts().size() != 0) {
-                            dinnerItems.addAll(MealUtil.addProductsToMeal(m));
-                            dinnerItems.set(0, "Produkty : ");
-                        }
-                        break;
-                    case "Podwieczorek" :
-                        if(m.getProducts().size() != 0) {
-                            teaItems.addAll(MealUtil.addProductsToMeal(m));
-                            teaItems.set(0, "Produkty : ");
-                        }
-                        break;
-                    case "Kolacja" :
-                        if(m.getProducts().size() != 0) {
-                            supperItems.addAll(MealUtil.addProductsToMeal(m));
-                            supperItems.set(0, "Produkty : ");
-                        }
-                        break;
-                }
+            if(userMealsByDate.get(0).getProducts().size() != 0) {
+                breakfestItems.addAll(MealUtil.addProductsToMeal(userMealsByDate.get(0)));
+                breakfestItems.set(0, "Produkty : ");
+            }
+            if(userMealsByDate.get(1).getProducts().size() != 0) {
+                lunchItems.addAll(MealUtil.addProductsToMeal(userMealsByDate.get(1)));
+                lunchItems.set(0, "Produkty : ");
+            }
+            if(userMealsByDate.get(2).getProducts().size() != 0) {
+                dinnerItems.addAll(MealUtil.addProductsToMeal(userMealsByDate.get(2)));
+                dinnerItems.set(0, "Produkty : ");
+            }
+            if(userMealsByDate.get(3).getProducts().size() != 0) {
+                teaItems.addAll(MealUtil.addProductsToMeal(userMealsByDate.get(3)));
+                teaItems.set(0, "Produkty : ");
+            }
+            if(userMealsByDate.get(4).getProducts().size() != 0) {
+                supperItems.addAll(MealUtil.addProductsToMeal(userMealsByDate.get(4)));
+                supperItems.set(0, "Produkty : ");
             }
         }
         else{
-            userMealsByDate.add(new Meal("Śniadanie" , selectedDate ));
+            userMealsByDate.add(new Meal("Sniadanie" , selectedDate ));
             userMealsByDate.add(new Meal("Lunch" , selectedDate ));
             userMealsByDate.add(new Meal("Obiad" , selectedDate ));
             userMealsByDate.add(new Meal("Podwieczorek" , selectedDate ));
@@ -288,15 +275,28 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
         else {
             userMealsByDate.get(mealPosition).getProductsWeight().put(selectedProduct.getProductName() ,userMealsByDate.get(mealPosition).getProductsWeight().get(selectedProduct.getProductName()) + productWeight);
         }
-        prepareListAdapter();
         prepareListData();
+        mealsListAdapter.notifyDataSetChanged();
         UpdateMeal task = new UpdateMeal(userMealsByDate.get(mealPosition).getId() , selectedProduct.getId() , productWeight);
         task.execute((Void) null);
     }
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("onrestart","onRestart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("ondestroy","onDestroy");
+        userMealsByDate = null;
+        super.onDestroy();
     }
 
     private class GetUserMealsByDate extends AsyncTask<Object, Object, List<Meal>> {
@@ -311,8 +311,9 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
             }
             else{
                 userMealsByDate = meals;
-                setOnItemLongClickListener();
+                Log.d("userMeals" , String.valueOf(userMealsByDate.size()));
                 prepareListData();
+                prepareListAdapter();
             }
         }
     }
@@ -424,8 +425,8 @@ public class MainPanelCalendarDetailController extends AppCompatActivity {
             }
             else{
                 userMealsByDate.set(mealPositionOnList, mealWithoutItem);
-                prepareListAdapter();
                 prepareListData();
+                mealsListAdapter.notifyDataSetChanged();
             }
         }
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Meal {
     @SerializedName("id")
-    private Long Id;
+    Long Id;
     private String mealName;
     private String date;
     private List<Product> products;

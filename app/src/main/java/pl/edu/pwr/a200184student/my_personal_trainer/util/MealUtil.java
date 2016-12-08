@@ -33,8 +33,8 @@ public class MealUtil {
         }
         statistics.add("Ogólna Ilość Kalorii : " + allCalories + "kcal / " + userCaloriesAmount + "kcal (" + (allCalories * 100/userCaloriesAmount) + "%)");
         statistics.add("Białko : " + allProteins + "g / " + userProteinAmount + "g (" +  (allProteins * 100/userProteinAmount) + "%)");
-        statistics.add("Węglowodany : " + allCarbs + "g / " + userProteinAmount + "g (" + (allCarbs * 100/userCarbsAmount) + "%)");
-        statistics.add("Tłuszcze : " + allFat + "g / " + userProteinAmount + "g (" + (allFat * 100/userFatAmount) + "%)");
+        statistics.add("Węglowodany : " + allCarbs + "g / " + userCarbsAmount + "g (" + (allCarbs * 100/userCarbsAmount) + "%)");
+        statistics.add("Tłuszcze : " + allFat + "g / " + userFatAmount + "g (" + (allFat * 100/userFatAmount) + "%)");
         return statistics;
     }
 }

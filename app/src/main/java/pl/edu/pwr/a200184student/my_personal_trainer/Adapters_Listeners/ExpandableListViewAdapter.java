@@ -15,20 +15,20 @@ import pl.edu.pwr.a200184student.my_personal_trainer.R;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private List<String> meals;
-    private HashMap<String, List<String>> mealItems;
+    private Context _context;
+    private List<String> _listDataHeader;
+    private HashMap<String, List<String>> _listDataChild;
 
     public ExpandableListViewAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
-        this.context = context;
-        this.meals = listDataHeader;
-        this.mealItems = listChildData;
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.mealItems.get(this.meals.get(groupPosition))
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -40,32 +40,36 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
+
         final String childText = (String) getChild(groupPosition, childPosition);
+
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) this.context
+            LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.child_expandable_view, null);
+            convertView = infalInflater.inflate(R.layout.child_expandable_view, null);
         }
+
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.mealItemTextView);
+
         txtListChild.setText(childText);
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.mealItems.get(this.meals.get(groupPosition))
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.meals.get(groupPosition);
+        return this._listDataHeader.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.meals.size();
+        return this._listDataHeader.size();
     }
 
     @Override
@@ -78,14 +82,16 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) this.context
+            LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.parent_expandable_view, null);
+            convertView = infalInflater.inflate(R.layout.parent_expandable_view, null);
         }
-        TextView mealTextView = (TextView) convertView
+
+        TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.mealTextView);
-        mealTextView.setTypeface(null, Typeface.BOLD);
-        mealTextView.setText(headerTitle);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
+
         return convertView;
     }
 
