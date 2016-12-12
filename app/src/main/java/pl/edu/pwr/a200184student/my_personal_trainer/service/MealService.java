@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MealService {
 
-    private static final String BaseURL = "http://192.168.1.73:8080/";
+    private static final String BaseURL = "http://172.16.94.33:8080/";
 
     public static List<Meal> getMealsByDateByUserId(Long userId , String selectedDate) {
         Retrofit retrofit = new Retrofit.Builder()
